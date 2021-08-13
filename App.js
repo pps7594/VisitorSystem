@@ -1,13 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { Provider } from "react-redux";
 import { StyleSheet, Text, View } from 'react-native';
+import { MobileNavi } from './src/navigation/DrawerNavigation';
+
+import store from './src/redux/store';
+
+const isAuth = true;
+const role = "LAB";
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <MobileNavi 
+        isAuth = {isAuth}
+        role = {role}
+      />
+    </Provider>  
   );
 }
 
@@ -18,4 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  spacer:{
+    marginTop:20
+  }
 });
