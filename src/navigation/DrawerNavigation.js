@@ -16,7 +16,7 @@ import {guardDashboard,guardDeliveryService,guardEmergencyService,guardCheckIn,g
 
 import SignInScreen from '../screen/SignInScreen';
 
-import { labCount } from './lab';
+import { labCount,labPhoto, labScan, labShow } from './lab';
 
 
 const Drawer = createDrawerNavigator();
@@ -126,7 +126,9 @@ const MobileNavi = ({isAuth,role}) => {
                         drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
                     }}          
                 />
-                
+                <Drawer.Screen name="Lab - Expo Photo" component={labPhoto} />
+                <Drawer.Screen name="Lab - Show Photo" component={labShow} />
+                <Drawer.Screen name="Lab - Scan" component={labScan} />
             </Drawer.Navigator>
             }
         </NavigationContainer>
