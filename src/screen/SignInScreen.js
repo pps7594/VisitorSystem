@@ -1,12 +1,111 @@
-import React from 'react'
-import { View, Text, Button} from 'react-native'
+import React, { useState, useContext } from 'react';
+import {Image,View, StyleSheet} from 'react-native';
+import {Text,Input} from 'react-native-elements';
 
-const SignInScreen = () => {
-    return (
-        <View>
-            <Text>SignInScreen</Text>
-        </View>
-    )
+//import NavLink from '../components/NavLink';
+import Spacer from '../components/Spacer';
+import MyText from '../components/MyText';
+import {MyButton} from '../components/MyButton';
+import colors from '../config/colors';
+
+
+//import context
+//import {Context as AuthContext} from '../context/authContext';
+
+const SignInScreen = ({navigation}) => {
+    //const {data,signin,resetmsg} = useContext(AuthContext);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const errorMessage = "Error";
+    
+    return <View style={styles.container}>
+                <Image 
+                    style={styles.background}
+                    source={require("../assets/home.png")}/>
+                
+                <View style={styles.logoContainer}>
+                <Image 
+                    style={styles.logo}
+                    source={require("../assets/logo.png")}/>
+                <MyText title="JMJ HILLS" h1P/>
+                </View>
+                
+                <View style={styles.formContainer}>
+                <MyText title="Login" h1P/>
+                <Spacer />
+                <Input
+                    label="User ID"
+                    value={email}
+                    onChangeText={setEmail}
+                
+                    //Property config
+                    autoCapitalize="none"
+                    autoCorrect = {false} />
+                <Input
+                    label="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                
+                    //Property config
+                    autoCapitalize="none"
+                    autoCorrect = {false}
+                    //password masking (ex.***)
+                    secureTextEntry />
+                {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+                <MyButton title="SIGN IN" email={email} password={password} h3/> 
+                </View>
+
+                </View>
+
 };
 
-export default SignInScreen;
+SignInScreen.navigationOptions =() => {
+    return{
+        headerShown:false,
+    };
+};
+
+ const styles = StyleSheet.create({
+    container:{
+        paddingBottom:15,
+        flex:1,
+        alignItems: "center",
+    },
+
+    background:{
+        resizeMode:"cover",
+        width:"100%",
+        height:"40%",
+        opacity:0.3,       
+    },
+    logo:{
+        width:100,
+        height:100,
+    },
+
+    logoContainer:{
+        position:"absolute",
+        top:"10%",
+        alignItems: "center",
+
+    },
+    formContainer:{
+        backgroundColor: colors.boxbackground,
+        position:"absolute",
+        top:"35%",
+        width:"100%",
+        height:"80%",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        alignItems: "center",
+        padding:15,
+    },
+    errorMessage:{
+        fontSize:16,
+        color:colors.error,
+        marginBottom:15
+    },
+    
+ });
+
+ export default SignInScreen;

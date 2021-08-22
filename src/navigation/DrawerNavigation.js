@@ -47,10 +47,10 @@ function SignInStack({navigation}){
 const MobileNavi = ({isAuth,role}) => {
     return(
         <NavigationContainer>
-            {!isAuth && 
+            {isAuth && role == 't' &&
                 <SignInStack/>
             }
-            {isAuth && (role == 'A' || role == 'H') && 
+            {isAuth && (role == 'A' || role == 'H') &&
             <Drawer.Navigator 
                 drawerContentOptions={{
                     activeTintColor: '#e91e63',
