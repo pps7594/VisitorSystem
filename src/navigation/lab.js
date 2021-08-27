@@ -6,6 +6,8 @@ import CountScreen from '../screen/lab/CountScreen';
 import PhotoScreen from '../screen/lab/PhotoScreen';
 import DisplayPhotoScreen from '../screen/lab/DisplayPhotoScreen';
 import ScanScreen from '../screen/lab/ScanScreen';
+import RequestScreen from '../screen/lab/RequestScreen';
+import RegisterScreen from '../screen/lab/RegisterScreen';
 
 const Stack = createStackNavigator();
 
@@ -97,5 +99,48 @@ function labScan({ navigation }){
         </Stack.Navigator>
     ) 
 }
-
-export {labCount,labPhoto,labShow,labScan}
+function labRequest({ navigation }){
+    return (
+        <Stack.Navigator
+        screenOptions={{
+            headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+            ),
+            headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+            },
+        }}>
+        <Stack.Screen
+            name="Request"
+            component={RequestScreen}
+        />
+        </Stack.Navigator>
+    ) 
+}
+function labRegister({ navigation }){
+    return (
+        <Stack.Navigator
+        screenOptions={{
+            headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+            ),
+            headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+            },
+        }}>
+        <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+        />
+        </Stack.Navigator>
+    ) 
+}
+export {labCount,labPhoto,labShow,labScan,labRequest,labRegister}

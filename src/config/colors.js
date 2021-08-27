@@ -1,6 +1,4 @@
 export default {
-
-
     mainColor: "#2662F0",
     background: "EEF4FB",
     black: "#000000",

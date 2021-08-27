@@ -16,7 +16,7 @@ import {guardDashboard,guardDeliveryService,guardEmergencyService,guardCheckIn,g
 
 import SignInScreen from '../screen/SignInScreen';
 
-import { labCount,labPhoto, labScan, labShow } from './lab';
+import { labCount,labPhoto, labScan, labShow,labRequest ,labRegister } from './lab';
 
 
 const Drawer = createDrawerNavigator();
@@ -47,7 +47,7 @@ function SignInStack({navigation}){
 const MobileNavi = ({isAuth,role}) => {
     return(
         <NavigationContainer>
-            {isAuth && role == 't' &&
+            {!isAuth  &&
                 <SignInStack/>
             }
             {isAuth && (role == 'A' || role == 'H') &&
@@ -129,6 +129,8 @@ const MobileNavi = ({isAuth,role}) => {
                 <Drawer.Screen name="Lab - Expo Photo" component={labPhoto} />
                 <Drawer.Screen name="Lab - Show Photo" component={labShow} />
                 <Drawer.Screen name="Lab - Scan" component={labScan} />
+                <Drawer.Screen name="Lab - Request" component={labRequest} />
+                <Drawer.Screen name="Lab - Register" component={labRegister} />
             </Drawer.Navigator>
             }
         </NavigationContainer>

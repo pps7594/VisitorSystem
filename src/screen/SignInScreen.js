@@ -85,12 +85,12 @@ SignInScreen.navigationOptions =() => {
 
     logoContainer:{
         position:"absolute",
-        top:"10%",
+        top:"8%",
         alignItems: "center",
 
     },
     formContainer:{
-        backgroundColor: colors.boxbackground,
+        backgroundColor: colors.white,
         position:"absolute",
         top:"35%",
         width:"100%",
@@ -102,7 +102,7 @@ SignInScreen.navigationOptions =() => {
     },
     errorMessage:{
         fontSize:16,
-        color:colors.error,
+        color:colors.rejected,
         marginBottom:15
     },
     

@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     },
     underlined:{
         textDecorationLine:"underline",
-        textDecorationColor:colors.mainColor,
+        textDecorationColor:colors.mainColor,  //only available in IOS if not have to use 'color:' to change both the text and line color
     },
 
 })

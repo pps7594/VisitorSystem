@@ -8,13 +8,6 @@ import MyText from './MyText';
 import {IOIcon} from './MyIcon';
 import adjust from '../config/adjust';
 
-const BaseInput = ({ style, children, label }) => (
-    <View style={[styles.baseInput, style]}>
-      
-      {children}
-    </View>
-  );
-  
   const SearchInput = ({ label,defaultv, value, onChange,style,iconName }) => (
     <View style={styles.container}>
     <MyText title={label}  h4P/>
@@ -26,8 +19,6 @@ const BaseInput = ({ style, children, label }) => (
     <IOIcon nocontainer iconName="search" style={styles.icon}search/>
   </View>  
 );
-
-
 
 const MyTextInput = ({label, placeholder, value, onChangeText,style,...rest}) => (
   <View>
@@ -51,7 +42,7 @@ const MyPicker = ({label, value, onChange,items,style,...rest}) => (
     selectedValue={value} 
     onValueChange={onChange} 
     useNativeAndroidPickerStyle={false}
-    style={{padding:0}}
+    style={{padding:20}}
     >
       {items.map(item => (
         <Picker.Item key={item.value} label={item.label} value={item.value} />
