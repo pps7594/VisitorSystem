@@ -28,7 +28,7 @@ function adminDashboard({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Dashboard"
+            name="AdminDashboard"
             component={DashboardScreen}
         />
         </Stack.Navigator>
@@ -50,7 +50,7 @@ function adminRequestApproval({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Request Approval"
+            name="AdminRequestApproval"
             component={RequestApprovalScreen}
         />
         </Stack.Navigator>
@@ -72,7 +72,7 @@ function adminVisitRequest({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Visit Request List"
+            name="AdminVisitRequestList"
             component={VisitRequestScreen}
         />
         </Stack.Navigator>
@@ -94,7 +94,7 @@ function adminReport({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Report"
+            name="AdminReport"
             component={ReportScreen}
         />
         </Stack.Navigator>
@@ -116,11 +116,11 @@ function adminProfile({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Profile"
+            name="AdminProfile"
             component={ProfileScreen}
         />
         <Stack.Screen
-            name="Edit Profile"
+            name="AdminEditProfile"
             component={ProfileEditScreen}
         />
         </Stack.Navigator>
@@ -142,7 +142,7 @@ function adminSystemSetting({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="System Setting"
+            name="AdminSystemSetting"
             component={DefaultSettingScreen}
         />
         </Stack.Navigator>

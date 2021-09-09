@@ -5,13 +5,13 @@ import colors from '../config/colors';
 import MyText from './MyText';
 import { FAIcon,IOIcon } from './MyIcon';
 
-const MyButton = ({title,func,email,password,buttonstyle,textstyle,h3,h4,...rest}) => {
+// Heh??? why userID and password IN A GENERAL BUTTON, OR it is purposely to be specific?
+const MyButton = ({title,func,userID,password,callback,buttonstyle,textstyle,h3,h4,...rest}) => {
     return <TouchableOpacity
-        onPress={func}
+        onPress={() => func({userID,password,callback})}
         style={[styles.button,buttonstyle]} {...rest}>
         {h3 ?<MyText title={title} h3P style={[styles.text,textstyle]}/> : null}
         {h4 ?<MyText title={title} h4P style={[styles.text,textstyle]}/> : null}
-        
     </TouchableOpacity> 
 };
 

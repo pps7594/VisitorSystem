@@ -1,16 +1,28 @@
+//import library
 import React, { useState, useEffect, useContext } from 'react';
-import {StyleSheet, View, ScrollView, FlatList} from 'react-native';
+import {StyleSheet, View, ScrollView, FlatList, Text} from 'react-native';
+import { useDispatch, useSelector } from "react-redux";
 
 //import component
 import Spacer from '../../components/Spacer';
 import MyText from '../../components/MyText';
 import {MyCard,MyCardList} from '../../components/MyCard';
-
 import space from '../../config/space';
+
+//import function
+import adminFunction from '../../functions/adminFunction';
 
 const DashboardScreen = ({navigation}) => {
 
+    const {adminDashboard} = adminFunction();
     const [currentDate, setCurrentDate] = useState('');
+    const admindashboardobj = useSelector((state) => state.admindashboardSlice.admindashboardobj); 
+
+    // Helper Function
+    const errCallback = ({msg}) => {
+        // Some refinement should be done? Like header of this alert should not only be "alert"?
+        alert(msg)
+    }
 
     useEffect(() => {
         var week = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
@@ -22,22 +34,23 @@ const DashboardScreen = ({navigation}) => {
         setCurrentDate(
             day+ ', ' + month + ' ' + date 
         );
+        // Trigger the API call every time we navigate to this screen, as a Event listener
+        navigation.addListener('focus', () => adminDashboard({errCallback}));
     }, []);
     
-    return <View style={styles.container}>
+    return <>       
+            <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                 <Spacer/>
                 <MyText title={currentDate}  h4P style={styles.date}/>
-                <MyCard iconName="clipboard-list" title="Visitor Visited Today" number="45" button="View Report"/>
+                <MyCard iconName="clipboard-list" title="Visitor Visited Today" number={admindashboardobj.todayVisitorCount} button="View Report"/>
                 <Spacer/>
-                <MyCard iconName="user-check" title="Pending Request" number="2" button="View Request"/>
+                <MyCard iconName="user-check" title="Pending Request" number={admindashboardobj.pendingVisitorCount} button="View Request"/>
                 <Spacer/>
-                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor" time={`8.30 \n a.m.`} id="#VR-233" details="MR JM . House No 0001"/>
-                <Spacer/>
-                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor" time={`8.30 \n a.m.`} id="#VR-233" details="MR JM . House No 0001"/>
-                
+                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor"  details={admindashboardobj.visitRequestList}/>
                 </ScrollView>
             </View>
+        </>
 
 };
 

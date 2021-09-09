@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import {Image,View, StyleSheet} from 'react-native';
 import {Text,Input} from 'react-native-elements';
+import { useDispatch, useSelector } from "react-redux";
 
 //import NavLink from '../components/NavLink';
 import Spacer from '../components/Spacer';
@@ -9,14 +10,16 @@ import {MyButton} from '../components/MyButton';
 import colors from '../config/colors';
 
 
-//import context
+//import function
+import signinFunction from '../functions/signinFunction';
 //import {Context as AuthContext} from '../context/authContext';
 
 const SignInScreen = ({navigation}) => {
     //const {data,signin,resetmsg} = useContext(AuthContext);
-    const [email, setEmail] = useState('');
+    const [userID, setUserID] = useState('');
     const [password, setPassword] = useState('');
-    const errorMessage = "Error";
+    const errorMsg = useSelector((state) => state.credential.errorMsg);
+    const [signin] = signinFunction();
     
     return <View style={styles.container}>
                 <Image 
@@ -35,8 +38,8 @@ const SignInScreen = ({navigation}) => {
                 <Spacer />
                 <Input
                     label="User ID"
-                    value={email}
-                    onChangeText={setEmail}
+                    value={userID}
+                    onChangeText={setUserID}
                 
                     //Property config
                     autoCapitalize="none"
@@ -51,8 +54,10 @@ const SignInScreen = ({navigation}) => {
                     autoCorrect = {false}
                     //password masking (ex.***)
                     secureTextEntry />
-                {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-                <MyButton title="SIGN IN" email={email} password={password} h3/> 
+                {errorMsg ? <Text style={styles.errorMessage}>{errorMsg}</Text> : null}
+                <MyButton title="SIGN IN" userID={userID} password={password} callback={({path}) => {
+                    navigation.navigate(path)
+                }} func={signin} h3/> 
                 </View>
 
                 </View>

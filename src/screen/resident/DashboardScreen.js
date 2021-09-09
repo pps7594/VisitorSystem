@@ -28,9 +28,9 @@ const DashboardScreen = ({navigation}) => {
                 <Spacer/>
                 <MyText title={currentDate}  h4P style={styles.date}/>
                 <MyCard iconName="clipboard-list" title="Visitor Visited Today" number="45" button="View Report"/>
-                <Spacer/>
+                {/* <Spacer/>
                 <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor" time={`10.30 \n a.m.`} id="#VR-233" details="MR JM . House No 0001"/>
-                <Spacer/>
+                <Spacer/> */}
                 <MyCard iconName="user-plus" title="Add Request" button="Register Visitor"/>
                 
                 </ScrollView>

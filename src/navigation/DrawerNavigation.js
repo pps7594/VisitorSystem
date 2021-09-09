@@ -1,3 +1,4 @@
+//import library
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,7 +10,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { SimpleLineIcons } from '@expo/vector-icons'; 
+import { useDispatch, useSelector } from "react-redux";
 
+//import component
 import { adminDashboard,adminRequestApproval,adminVisitRequest,adminReport,adminProfile,adminSystemSetting } from './admin';
 import {residentDashboard,residentRegisterVisitor,residentVisitRequest,residentReport,residentProfile} from './resident';
 import {guardDashboard,guardDeliveryService,guardEmergencyService,guardCheckIn,guardCheckOut} from './guard';
@@ -17,7 +20,6 @@ import {guardDashboard,guardDeliveryService,guardEmergencyService,guardCheckIn,g
 import SignInScreen from '../screen/SignInScreen';
 
 import { labCount,labPhoto, labScan, labShow,labRequest ,labRegister } from './lab';
-
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -35,84 +37,100 @@ function CustomDrawerContent(props) {
   );
 }
 
-function SignInStack({navigation}){
-    console.log(navigation)
+function MobileStack({navigation}){
     return (
         <Stack.Navigator>
             <Stack.Screen name="SignIn" component={SignInScreen}/>
+            <Stack.Screen name="Admin" component={AdminDrawer} options={{ headerShown: false }}/>
+            <Stack.Screen name="Resident" component={ResidentDrawer} options={{ headerShown: false }}/>
+            <Stack.Screen name="Guard" component={GuardDrawer} options={{ headerShown: false }}/>
         </Stack.Navigator>
     )
 }
 
-const MobileNavi = ({isAuth,role}) => {
+function AdminDrawer({navigation}){
+    const credential = useSelector((state) => state.credential.userWithAddress);
+    return (
+        <Drawer.Navigator 
+            drawerContentOptions={{
+                activeTintColor: '#e91e63',
+                itemStyle: { marginVertical: 5 },
+            }}
+            // Here should have some props for us to design the header for the navi bar
+            drawerContent={props => <CustomDrawerContent {...props} />}>
+            <Drawer.Screen 
+                name="Admin Dashboard" 
+                component={adminDashboard} 
+                options={{
+                    drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
+                }}          
+            />
+            <Drawer.Screen name="Request Approval" component={adminRequestApproval} />
+            <Drawer.Screen name="Visit Request List" component={adminVisitRequest} />
+            <Drawer.Screen name="Report" component={adminReport} />
+            <Drawer.Screen name="Profile" component={adminProfile} />
+            <Drawer.Screen name="System Setting" component={adminSystemSetting} />            
+        </Drawer.Navigator>
+    ) 
+}
+
+function ResidentDrawer({navigation}){
+    return (
+        <Drawer.Navigator 
+            drawerContentOptions={{
+                activeTintColor: '#e91e63',
+                itemStyle: { marginVertical: 5 },
+            }}
+            drawerContent={props => <CustomDrawerContent {...props} />}>
+            <Drawer.Screen 
+                name="My Dashboard" 
+                component={residentDashboard} 
+                options={{
+                    drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
+                }}          
+            />
+            <Drawer.Screen name="Request Visitor" component={residentRegisterVisitor} />
+            <Drawer.Screen name="Visit Request List" component={residentVisitRequest} />
+            <Drawer.Screen name="Report" component={residentReport} />
+            <Drawer.Screen name="Profile" component={residentProfile} />
+        </Drawer.Navigator>
+    )
+}
+
+function GuardDrawer({navigation}){
+    return (
+        <Drawer.Navigator 
+            drawerContentOptions={{
+                activeTintColor: '#e91e63',
+                itemStyle: { marginVertical: 5 },
+            }}
+            drawerContent={props => <CustomDrawerContent {...props} />}>
+            <Drawer.Screen 
+                name="My Dashboard" 
+                component={guardDashboard} 
+                options={{
+                    drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
+                }}          
+            />
+            <Drawer.Screen name="Register Delivery Service" component={guardDeliveryService} />
+            <Drawer.Screen name="Register Emergency" component={guardEmergencyService} />
+            <Drawer.Screen name="Current Visitor List" component={guardCheckOut} />
+            <Drawer.Screen name="Visitor Check-in" component={guardCheckIn} />
+            <Drawer.Screen name="Visitor Check-out" component={guardCheckOut} />
+        </Drawer.Navigator>
+    )
+}
+
+// Sample Navigation to switch lab and prod
+const isLab = false;
+
+const MobileNavi = () => {
     return(
         <NavigationContainer>
-            {!isAuth  &&
-                <SignInStack/>
+            {!isLab  &&
+                <MobileStack/>
             }
-            {isAuth && (role == 'A' || role == 'H') &&
-            <Drawer.Navigator 
-                drawerContentOptions={{
-                    activeTintColor: '#e91e63',
-                    itemStyle: { marginVertical: 5 },
-                }}
-                drawerContent={props => <CustomDrawerContent {...props} />}>
-                <Drawer.Screen 
-                    name="My Dashboard" 
-                    component={adminDashboard} 
-                    options={{
-                        drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
-                    }}          
-                />
-                <Drawer.Screen name="Request Approval" component={adminRequestApproval} />
-                <Drawer.Screen name="Visit Request List" component={adminVisitRequest} />
-                <Drawer.Screen name="Report" component={adminReport} />
-                <Drawer.Screen name="Profile" component={adminProfile} />
-                <Drawer.Screen name="System Setting" component={adminSystemSetting} />            
-            </Drawer.Navigator>
-            }
-            {isAuth && role == 'R' && 
-            <Drawer.Navigator 
-                drawerContentOptions={{
-                    activeTintColor: '#e91e63',
-                    itemStyle: { marginVertical: 5 },
-                }}
-                drawerContent={props => <CustomDrawerContent {...props} />}>
-                <Drawer.Screen 
-                    name="My Dashboard" 
-                    component={residentDashboard} 
-                    options={{
-                        drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
-                    }}          
-                />
-                <Drawer.Screen name="Request Visitor" component={residentRegisterVisitor} />
-                <Drawer.Screen name="Visit Request List" component={residentVisitRequest} />
-                <Drawer.Screen name="Report" component={residentReport} />
-                <Drawer.Screen name="Profile" component={residentProfile} />
-            </Drawer.Navigator>
-            }
-            {isAuth && role == 'G' && 
-            <Drawer.Navigator 
-                drawerContentOptions={{
-                    activeTintColor: '#e91e63',
-                    itemStyle: { marginVertical: 5 },
-                }}
-                drawerContent={props => <CustomDrawerContent {...props} />}>
-                <Drawer.Screen 
-                    name="My Dashboard" 
-                    component={guardDashboard} 
-                    options={{
-                        drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'social-dropbox'} />
-                    }}          
-                />
-                <Drawer.Screen name="Register Delivery Service" component={guardDeliveryService} />
-                <Drawer.Screen name="Register Emergency" component={guardEmergencyService} />
-                <Drawer.Screen name="Current Visitor List" component={guardCheckOut} />
-                <Drawer.Screen name="Visitor Check-in" component={guardCheckIn} />
-                <Drawer.Screen name="Visitor Check-out" component={guardCheckOut} />
-            </Drawer.Navigator>
-            }
-            {isAuth && role == 'LAB' && 
+            {isLab && 
             <Drawer.Navigator 
                 drawerContentOptions={{
                     activeTintColor: '#e91e63',

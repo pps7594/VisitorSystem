@@ -7,6 +7,7 @@ import Spacer from './Spacer';
 import {MyButton} from './MyButton';
 import {FAIcon,MCIcon,IOIcon} from './MyIcon';
 import MyText from './MyText';
+import { FlatList } from 'react-native-gesture-handler';
 
 const MyCard = ({iconName,title,number,button}) => {
     return <View style={styles.cardContainer}>
@@ -32,18 +33,31 @@ const MyCardList = ({iconName,title,button,style,time,id,details}) => {
                     <Spacer />
                     <MyText title={title} pP/>
                     <Spacer />
-                    
                 </View>
                 <Spacer />
-                <View style={styles.rect}>
-                <MyText title={time} pP3 style={{padding:5}}/>
-                <View style={styles.rectRound}>
-                <MyText title={id} pP main/>
-                <MyText title={details} pR2/>
-                </View>  
-                </View>
-                <Spacer />
-                <Spacer />
+                { 
+                    details ? 
+                    details.map((item) => {
+                        const datetime = new Date (Date.parse(item.visitRequestObj.expectedArriveDateTime));
+                        var ampm = datetime.getHours() >= 12 ? '\n P.M.' : '\n A.M.';
+                        const time = datetime.toTimeString().substring(0,5) + ' ' + ampm;
+
+                        const nameWithAddress = item.visitRequestObj.address.split(";")
+                        return (
+                        <View key={item.visitRequestObj.visitRequestId}>
+                            <View style={styles.rect}>
+                                <MyText title={time} pP3 style={{padding:5}}/>
+                                <View style={styles.rectRound}>
+                                    <MyText title={"#VR-" + item.visitRequestObj.visitRequestId} pP main/>
+                                    <MyText title={nameWithAddress[0] + " " + nameWithAddress[1]} pR2/>
+                                </View>  
+                            </View>
+                            <Spacer />
+                            <Spacer />
+                        </View>
+                        )
+                    }) : null
+                }
                 <MyButton title={button} h4/> 
             </View>
 };

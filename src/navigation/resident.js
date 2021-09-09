@@ -27,7 +27,7 @@ function residentDashboard({navigation}){
             },
         }}>
         <Stack.Screen
-            name="Dashboard"
+            name="ResidentDashboard"
             component={DashboardScreen}
         />
         </Stack.Navigator>
@@ -49,7 +49,7 @@ function residentRegisterVisitor({navigation}){
             },
         }}>
         <Stack.Screen
-            name="Register Visitor"
+            name="ResidentRegisterVisitor"
             component={RegisterVisitorScreen}
         />
         </Stack.Navigator>
@@ -71,7 +71,7 @@ function residentVisitRequest({navigation}){
             },
         }}>
         <Stack.Screen
-            name="Visit Request List"
+            name="ResidentVisitRequestList"
             component={VisitRequestScreen}
         />
         </Stack.Navigator>
@@ -93,7 +93,7 @@ function residentReport({navigation}){
             },
         }}>
         <Stack.Screen
-            name="Report"
+            name="ResidentReport"
             component={ReportScreen}
         />
         </Stack.Navigator>
@@ -115,11 +115,11 @@ function residentProfile({navigation}){
             },
         }}>
         <Stack.Screen
-            name="Profile"
+            name="ResidentProfile"
             component={ProfileScreen}
         />
         <Stack.Screen
-            name="Edit Profile"
+            name="ResidentEditProfile"
             component={ProfileEditScreen}
         />
         </Stack.Navigator>
