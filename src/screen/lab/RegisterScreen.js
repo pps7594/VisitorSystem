@@ -7,11 +7,12 @@ import Spacer from '../../components/Spacer';
 import MyText from '../../components/MyText';
 import {MyTextInput,MyPicker, MyCheckBox} from '../../components/MyTextInput';
 import {AddButton, FilterButton, VisitorButton} from '../../components/MyButton';
-import {MCIcon} from '../../components/MyIcon';
+import MyIcon from '../../components/MyIcon';
 import MyDateTimePicker from '../../components/MyDateTimePicker';
 
 
 import colors from '../../config/colors';
+import space from '../../config/space';
 
 const RegisterScreen = ({navigation}) => {
 
@@ -28,11 +29,11 @@ const RegisterScreen = ({navigation}) => {
         { label: 'Heavy Vehicle', value: 'heavyvehicle' },
       ];
     
-    visitorB = () => { setVisitor(true); setResidential(false);}
+    var visitorB = () => { setVisitor(true); setResidential(false);}
 
-    residentialB = () => { setResidential(true); setVisitor(false);}
+    var residentialB = () => { setResidential(true); setVisitor(false);}
 
-    onPress = () => {null}
+    var onPress = () => {null}
 
 
     
@@ -74,7 +75,7 @@ const RegisterScreen = ({navigation}) => {
                 <View style={styles.left}></View>
                 <MyText title="Create New Visitor" h3P/>
                 <View style={styles.right}>
-                <MCIcon nocontainer iconName="delete-forever" deletet />
+                <MyIcon MC nocontainer iconName="delete-forever" deletet />
                 </View>
             </View>
                 <View style={styles.space} />
@@ -132,7 +133,7 @@ const RegisterScreen = ({navigation}) => {
 
     container:{
         flex:1,
-        padding:10,
+        padding:space.screenpadding,
     },
     cardContainer:{
         backgroundColor: colors.white,

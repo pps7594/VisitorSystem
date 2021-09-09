@@ -5,13 +5,13 @@ import colors from '../config/colors';
 import space from '../config/space';
 import Spacer from './Spacer';
 import {MyButton} from './MyButton';
-import {FAIcon,MCIcon,IOIcon} from './MyIcon';
+import MyIcon from './MyIcon';
 import MyText from './MyText';
 
 const MyCard = ({iconName,title,number,button}) => {
     return <View style={styles.cardContainer}>
                 <View style={styles.row}>
-                    <FAIcon iconName={iconName} dashboard/>
+                    <MyIcon FA iconName={iconName} dashboard/>
                     <Spacer />
                     <MyText title={title} pP/>
                     <Spacer />
@@ -28,7 +28,7 @@ const MyCard = ({iconName,title,number,button}) => {
 const MyCardList = ({iconName,title,button,style,time,id,details}) => {
     return <View style={[styles.cardContainer,style]}>
                 <View style={styles.row}>
-                    <FAIcon iconName={iconName} dashboard/>
+                    <MyIcon FA iconName={iconName} dashboard/>
                     <Spacer />
                     <MyText title={title} pP/>
                     <Spacer />
@@ -52,9 +52,9 @@ const GuardCard = ({FA,MC,IO,iconName,title,navigation,style,...rest}) => {
     return <TouchableOpacity
             onPress={() =>  onPressCallback({navigation})}
             style={[styles.gcardContainer,style]} {...rest}>
-                {FA ?<FAIcon iconName={iconName} dashboard/> : null}
-                {MC ?<MCIcon iconName={iconName} dashboard/> : null}
-                {IO ?<IOIcon iconName={iconName} dashboard/> : null}
+                {FA ?<MyIcon FA iconName={iconName} dashboard/> : null}
+                {MC ?<MyIcon MC iconName={iconName} dashboard/> : null}
+                {IO ?<MyIcon ION iconName={iconName} dashboard/> : null}
                 <MyText title={title} pP style={styles.text}/>
             </TouchableOpacity>  
 };
@@ -63,15 +63,15 @@ const styles = StyleSheet.create({
     cardContainer:{
         backgroundColor: colors.white,
         width:"100%",
-        borderRadius: 10,
-        padding:space.screenpadding,
+        borderRadius: space.cardborderradius,
+        padding:space.cardpadding,
         
     },
     gcardContainer:{
         backgroundColor: colors.white,
         width:"45%",
-        borderRadius: 10,
-        padding:space.screenpadding,
+        borderRadius: space.cardborderradius,
+        padding:space.cardpadding,
         alignItems: "center",
     },
     text:{
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius:5,
         borderBottomLeftRadius:5,
         flex: 1,
-        padding:space.screenpadding,
+        padding:space.cardpadding,
 
     },
 })

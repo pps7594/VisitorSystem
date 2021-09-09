@@ -8,17 +8,33 @@ import colors from '../config/colors';
 import MyText from './MyText';
 //import {FAIcon,MCIcon,IONIcon} from './MyIconLibrary'
 
-const FAIcon = ({nocontainer,square,visitor,iconName,title,dashboard,dashboard1,search,icontype,icontype1,deletet,type1,type2,type3,type4,type5,viewstyle,style}) => {
+const MyIcon = ({FA,MC,ION,nocontainer,square,visitor,iconName,title,dashboard,dashboard1,search,icontype,icontype1,deletet,type1,type2,type3,type4,type5,viewstyle,style}) => {
     if(nocontainer)
     return <View>
-        <FontAwesome5 name={iconName}  style={[
+        {FA ?<FontAwesome5 name={iconName}  style={[
         dashboard && styles.dashboard,
         dashboard1 && styles.dashboard1,
         search && styles.search,
         icontype && styles.icontype,
         icontype1 && styles.icontype1,
         deletet && styles.deletet,
-        style]}/>
+        style]}/> :null}
+        {MC ?<MaterialCommunityIcons name={iconName}  style={[
+        dashboard && styles.dashboard,
+        dashboard1 && styles.dashboard1,
+        search && styles.search,
+        icontype && styles.icontype,
+        icontype1 && styles.icontype1,
+        deletet && styles.deletet,
+        style]}/> :null}
+        {ION ?<Ionicons name={iconName}  style={[
+        dashboard && styles.dashboard,
+        dashboard1 && styles.dashboard1,
+        search && styles.search,
+        icontype && styles.icontype,
+        icontype1 && styles.icontype1,
+        deletet && styles.deletet,
+        style]}/> :null}
     </View>
     else if(square)
     return <View style={[
@@ -30,15 +46,30 @@ const FAIcon = ({nocontainer,square,visitor,iconName,title,dashboard,dashboard1,
         type5 && styles.type5,
         viewstyle
     ]}>
-        <FontAwesome5 name={iconName}  style={[
+        {FA ?<FontAwesome5 name={iconName}  style={[
         dashboard && styles.dashboard,
         dashboard1 && styles.dashboard1,
         search && styles.search,
         icontype && styles.icontype,
         icontype1 && styles.icontype1,
         deletet && styles.deletet,
-        style]}/>
-        
+        style]}/>:null}
+        {MC ?<MaterialCommunityIcons name={iconName}  style={[
+        dashboard && styles.dashboard,
+        dashboard1 && styles.dashboard1,
+        search && styles.search,
+        icontype && styles.icontype,
+        icontype1 && styles.icontype1,
+        deletet && styles.deletet,
+        style]}/>:null}
+        {ION ?<Ionicons name={iconName}  style={[
+        dashboard && styles.dashboard,
+        dashboard1 && styles.dashboard1,
+        search && styles.search,
+        icontype && styles.icontype,
+        icontype1 && styles.icontype1,
+        deletet && styles.deletet,
+        style]}/>:null}
     </View>
     else
     return <View style={[
@@ -51,7 +82,29 @@ const FAIcon = ({nocontainer,square,visitor,iconName,title,dashboard,dashboard1,
         visitor && styles.visitorContainer,
         viewstyle
     ]}>
-        {iconName ?<FontAwesome5 name={iconName}  style={[
+        {FA ?<FontAwesome5 name={iconName}  style={[
+        dashboard && styles.dashboard,
+        dashboard1 && styles.dashboard1,
+        search && styles.search,
+        icontype && styles.icontype,
+        icontype1 && styles.icontype1,
+        deletet && styles.deletet,
+        style]}/>:null}
+        {title ?<MyText title={title} h3P style={[
+            styles.visitorText,
+            style]}/>:null}
+        {MC ?<MaterialCommunityIcons name={iconName}  style={[
+        dashboard && styles.dashboard,
+        dashboard1 && styles.dashboard1,
+        search && styles.search,
+        icontype && styles.icontype,
+        icontype1 && styles.icontype1,
+        deletet && styles.deletet,
+        style]}/>:null}
+        {title ?<MyText title={title} h3P style={[
+            styles.visitorText,
+            style]}/>:null}
+        {ION ?<Ionicons name={iconName}  style={[
         dashboard && styles.dashboard,
         dashboard1 && styles.dashboard1,
         search && styles.search,
@@ -245,4 +298,4 @@ const styles = StyleSheet.create({
 
 })
 
-export {FAIcon,MCIcon, IOIcon};
+export default MyIcon;

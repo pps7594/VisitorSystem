@@ -7,6 +7,8 @@ import MyFilter from '../../components/MyFilter';
 import VisitorTypeCard from '../../components/VisitorTypeCard';
 import RequestApprovalCard from '../../components/RequestApprovalCard';
 
+import space from '../../config/space';
+
 const RequestScreen = ({navigation}) => {
 
     const [currentDate, setCurrentDate] = useState('');
@@ -30,7 +32,7 @@ const RequestScreen = ({navigation}) => {
     return <View style={styles.container}>
                 <MyFilter input={input} setInput={setInput}/>
                 <Spacer/>
-                <VisitorTypeCard two
+                <VisitorTypeCard
                     iconName1="user-check"
                     title1="Visitor"
                     iconName2="user-check"
@@ -71,7 +73,7 @@ const RequestScreen = ({navigation}) => {
     },
     container:{
         flex:1,
-        padding:10,
+        padding:space.screenpadding,
     },
     
     

@@ -5,7 +5,7 @@ import Checkbox from 'expo-checkbox';
 
 import colors from '../config/colors';
 import MyText from './MyText';
-import {IOIcon} from './MyIcon';
+import MyIcon from './MyIcon';
 import adjust from '../config/adjust';
 
   const SearchInput = ({ label,defaultv, value, onChange,style,iconName }) => (
@@ -16,7 +16,7 @@ import adjust from '../config/adjust';
     value={value} 
     onChangeText={onChange} 
     style={[styles.searchinput,style]}/>
-    <IOIcon nocontainer iconName="search" style={styles.icon}search/>
+    <MyIcon ION nocontainer iconName="search" style={styles.icon}search/>
   </View>  
 );
 

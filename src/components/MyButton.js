@@ -3,7 +3,7 @@ import {StyleSheet,TouchableOpacity,View} from 'react-native';
 
 import colors from '../config/colors';
 import MyText from './MyText';
-import { FAIcon,IOIcon } from './MyIcon';
+import MyIcon from './MyIcon';
 
 const MyButton = ({title,func,email,password,buttonstyle,textstyle,h3,h4,...rest}) => {
     return <TouchableOpacity
@@ -51,7 +51,7 @@ const Info = ({title,buttonstyle,iconName,textstyle,text,...rest}) => {
         styles.info,
         buttonstyle]} {...rest}>
         {text ?<MyText title={title} pP2 style={[styles.activetext,textstyle]}/> : null}
-       <IOIcon nocontainer dashboard1 iconName={iconName} style={[styles.activetext,{}]}/>
+       <MyIcon ION nocontainer dashboard1 iconName={iconName} style={[styles.activetext,{}]}/>
     </View>   
 };
 
@@ -79,7 +79,7 @@ const AddButton = ({title,func,buttonstyle,textstyle,text,icon,...rest}) => {
         styles.add,
         buttonstyle]} {...rest}>
         {text ?<MyText title={title} pP2 style={[styles.activetext,textstyle]}/> : null}
-       {icon ?<IOIcon nocontainer dashboard1 iconName="add-circle-outline" style={[styles.activetext,{}]}/> :null}
+       {icon ?<MyIcon ION nocontainer dashboard1 iconName="add-circle-outline" style={[styles.activetext,{}]}/> :null}
     </TouchableOpacity>   
 };
 
@@ -91,7 +91,7 @@ const ApprovalButton = ({title,approve,reject,func,buttonstyle,iconName,textstyl
         approve && styles.approve,
         reject && styles.reject,
         buttonstyle]} {...rest}>
-       {iconName ?<FAIcon nocontainer dashboard1 iconName={iconName} style={[styles.icon,{}]}/> :null}
+       {iconName ?<MyIcon FA nocontainer dashboard1 iconName={iconName} style={[styles.icon,{}]}/> :null}
     </TouchableOpacity>   
 };
 

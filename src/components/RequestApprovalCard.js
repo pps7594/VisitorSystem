@@ -5,7 +5,7 @@ import colors from '../config/colors';
 import space from '../config/space';
 import MyText from './MyText';
 import Spacer from './Spacer';
-import {FAIcon,MCIcon,IOIcon} from './MyIcon';
+import MyIcon from './MyIcon';
 import {Details,Info,ApprovalButton} from './MyButton';
 
 const RequestApprovalCard = ({iconName,id,details,address,walkin,approve,reject,pending,imageSource,arriveDate,arriveTime,departDate,departTime}) => {
@@ -15,12 +15,12 @@ const RequestApprovalCard = ({iconName,id,details,address,walkin,approve,reject,
 
     return <View style={styles.cardContainer}>
                 <View style={styles.row}>
-                    <FAIcon  iconName={iconName} icontype type1/>
+                    <MyIcon FA  iconName={iconName} icontype type1/>
                     <View style={styles.space} />
                     <View style={styles.col}>
-                    <MyText title={id} pPmain/>
+                    <MyText title={id} pP main/>
                     <MyText title={details} pR2/>
-                    <MyText title={address} pRtext grey/>
+                    <MyText title={address} pR3 grey/>
                     </View>
                     <View style={styles.left}>
                         {walkin?<View><Details walkin title="Walk-in Visitor" pRtext grey/>
@@ -47,7 +47,7 @@ const RequestApprovalCard = ({iconName,id,details,address,walkin,approve,reject,
                 </View>
                 <View style={styles.space} />
                 <View style={styles.rowCenter}>
-                    <MCIcon nocontainer iconName="clock-time-eight-outline" icontype1 type1/>
+                    <MyIcon MC nocontainer iconName="clock-time-eight-outline" icontype1 type1/>
                     <MyText title="Scheduled" pP3/>
                     <View style={styles.left}></View>
                     <View style={styles.col}>
@@ -71,7 +71,7 @@ const RequestApprovalCard = ({iconName,id,details,address,walkin,approve,reject,
 
                 {isExpand ?<View>
                 <View style={styles.row}>
-                    <FAIcon title="V" visitor dashboard1/>
+                    <MyIcon FA title="V" visitor dashboard1/>
                     <Spacer />
                     <View style={styles.col}>
                         <MyText title="Khong Jun Ming" pR2/>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     cardContainer:{
         backgroundColor: colors.white,
         width:"100%",
-        borderRadius: 10,
+        borderRadius: space.cardborderradius,
         padding:space.screenpadding,
     },
     row:{
