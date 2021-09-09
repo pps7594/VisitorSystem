@@ -5,17 +5,10 @@ import { MobileNavi } from './src/navigation/DrawerNavigation';
 
 import store from './src/redux/store';
 
-const isAuth = true;
-const role = "LAB";
-
-
 export default function App() {
   return (
     <Provider store={store}>
-      <MobileNavi 
-        isAuth = {isAuth}
-        role = {role}
-      />
+      <MobileNavi  />
     </Provider>  
   );
 }

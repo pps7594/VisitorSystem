@@ -28,7 +28,7 @@ function guardDashboard({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Dashboard"
+            name="GuardDashboard"
             component={DashboardScreen}
         />
         </Stack.Navigator>
@@ -50,7 +50,7 @@ function guardDeliveryService({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Delivery Service"
+            name="GuardDeliveryService"
             component={DeliveryServiceScreen}
         />
         </Stack.Navigator>
@@ -72,7 +72,7 @@ function guardEmergencyService({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Emergency Service"
+            name="GuardEmergencyService"
             component={EmergencyServiceScreen}
         />
         </Stack.Navigator>
@@ -94,7 +94,7 @@ function guardCheckOut({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="Current Visitor List"
+            name="GuardCurrentVisitorList"
             component={CurrentVisitorScreen}
         />
         </Stack.Navigator>
@@ -116,11 +116,11 @@ function guardCheckIn({ navigation }){
             },
         }}>
         <Stack.Screen
-            name="QR Scanner"
+            name="GuardQRScanner"
             component={CheckInQRScreen}
         />
         <Stack.Screen
-            name="Check In"
+            name="GuardCheckIn"
             component={CheckInScreen}
         />
         </Stack.Navigator>
