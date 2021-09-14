@@ -4,17 +4,17 @@ import {StyleSheet,View} from 'react-native';
 import Spacer from './Spacer';
 import {FilterButton} from './MyButton';
 import {SearchInput} from './MyTextInput';
+import {MyContainer} from './MyCard';
 
-const MyFilter = ({style,input,setInput}) => {
-    
-    return <View style={style}>
-        <View style={styles.row}>
-            <FilterButton title="All" h4 active/>
-            <FilterButton title="Today" h4 />
-            <FilterButton title="Month" h4 />
-            <FilterButton title="Week" h4 />
-        </View>
-            <Spacer />
+const MyFilter = ({input,setInput}) => {
+    return <View>
+            <MyContainer conRow spacebetween>
+                <FilterButton title="All" h4 active/>
+                <FilterButton title="Today" h4 />
+                <FilterButton title="Month" h4 />
+                <FilterButton title="Week" h4 />
+            </MyContainer>
+            <Spacer spacer/>
             <SearchInput 
                 iconName="search"
                 defaultv="Search"
@@ -23,14 +23,5 @@ const MyFilter = ({style,input,setInput}) => {
             />
             </View>
 };
-
-
-
-const styles = StyleSheet.create({
-    row:{
-        flexDirection:"row",
-        justifyContent:"space-between"
-    }
-})
 
 export default MyFilter;

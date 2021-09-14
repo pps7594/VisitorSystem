@@ -12,10 +12,8 @@ import colors from '../config/colors';
 
 //import function
 import signinFunction from '../functions/signinFunction';
-//import {Context as AuthContext} from '../context/authContext';
 
 const SignInScreen = ({navigation}) => {
-    //const {data,signin,resetmsg} = useContext(AuthContext);
     const [userID, setUserID] = useState('');
     const [password, setPassword] = useState('');
     const errorMsg = useSelector((state) => state.credential.errorMsg);

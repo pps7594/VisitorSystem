@@ -6,7 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 
 import colors from '../config/colors';
 import MyText from './MyText';
-//import {FAIcon,MCIcon,IONIcon} from './MyIconLibrary'
 
 const MyIcon = ({FA,MC,ION,nocontainer,square,visitor,iconName,title,dashboard,dashboard1,search,icontype,icontype1,deletet,type1,type2,type3,type4,type5,viewstyle,style}) => {
     if(nocontainer)
@@ -117,110 +116,6 @@ const MyIcon = ({FA,MC,ION,nocontainer,square,visitor,iconName,title,dashboard,d
             style]}/>:null}
     </View>
 
-};
-
-const MCIcon = ({nocontainer,square,circle,iconName,dashboard,dashboard1,search,icontype,icontype1,deletet,type1,type2,type3,type4,type5,viewstyle,style}) => {
-    if(nocontainer)
-    return <View>
-        <MaterialCommunityIcons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>
-    </View>
-    else if(square)
-    return <View style={[
-        styles.squareContainer,
-        type1 && styles.type1,
-        type2 && styles.type2,
-        type3 && styles.type3,
-        type4 && styles.type4,
-        type5 && styles.type5,
-        viewstyle
-    ]}>
-        <MaterialCommunityIcons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>
-    </View>
-    else
-    return <View style={[
-        styles.iconContainer,
-        type1 && styles.type1,
-        type2 && styles.type2,
-        type3 && styles.type3,
-        type4 && styles.type4,
-        type5 && styles.type5,
-        viewstyle
-    ]}>
-        <MaterialCommunityIcons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>
-    </View>
-};
-
-const IOIcon = ({nocontainer,square,circle,iconName,dashboard,dashboard1,search,icontype,icontype1,deletet,type1,type2,type3,type4,type5,viewstyle,style}) =>{
-    if(nocontainer)
-    return <View>
-        <Ionicons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>
-    </View>
-    else if(square)
-    return <View style={[
-        styles.squareContainer,
-        type1 && styles.type1,
-        type2 && styles.type2,
-        type3 && styles.type3,
-        type4 && styles.type4,
-        type5 && styles.type5,
-        viewstyle
-    ]}>
-        <Ionicons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>
-    </View>
-    else
-    return <View style={[
-        styles.iconContainer,
-        type1 && styles.type1,
-        type2 && styles.type2,
-        type3 && styles.type3,
-        type4 && styles.type4,
-        type5 && styles.type5,
-        viewstyle
-    ]}>
-        <Ionicons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>
-    </View>
 };
 
 

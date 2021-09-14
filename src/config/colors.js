@@ -6,7 +6,7 @@ export default {
     grey: "#9E9E9E",
     iconBackground: "#4B709A",
     cardList: "#AFC6DE",
-    reportList:"D1E9FF",
+    reportList:"#D1E9FF",
     //static color
     type1:"#ABCDBB",
     type2:"#FECB4D",

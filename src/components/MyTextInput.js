@@ -4,38 +4,42 @@ import { Picker } from '@react-native-picker/picker';
 import Checkbox from 'expo-checkbox';
 
 import colors from '../config/colors';
-import MyText from './MyText';
-import MyIcon from './MyIcon';
 import adjust from '../config/adjust';
 
-  const SearchInput = ({ label,defaultv, value, onChange,style,iconName }) => (
-    <View style={styles.container}>
+import MyText from './MyText';
+import MyIcon from './MyIcon';
+import { MyContainer } from './MyCard';
+
+const SearchInput = ({ label,defaultv, value, onChange,style}) => (
+  <MyContainer conRow search>
     <MyText title={label}  h4P/>
     <TextInput 
     placeholder={defaultv} 
     value={value} 
     onChangeText={onChange} 
     style={[styles.searchinput,style]}/>
-    <MyIcon ION nocontainer iconName="search" style={styles.icon}search/>
-  </View>  
+    <MyContainer conRow flexend> 
+    <MyIcon ION nocontainer iconName="search" search/>
+    </MyContainer>
+  </MyContainer>  
 );
 
 const MyTextInput = ({label, placeholder, value, onChangeText,style,...rest}) => (
-  <View>
+  <>
     {label ?<MyText title={label} inputlabelP/> :null}
     <TextInput  
       placeholder={placeholder}
       value={value} 
       onChangeText={onChangeText} 
       style={[styles.textinput,style]}
-      {...rest}>
-      
+      {...rest}
+    >
     </TextInput>
-  </View>
+  </>
 );
 
 const MyPicker = ({label, value, onChange,items,style,...rest}) => (
-  <View>
+  <>
     <MyText title={label} inputlabelP/>
     <View style={styles.textinput}>
     <Picker 
@@ -43,18 +47,18 @@ const MyPicker = ({label, value, onChange,items,style,...rest}) => (
     onValueChange={onChange} 
     useNativeAndroidPickerStyle={false}
     style={{padding:20}}
+    {...rest}
     >
       {items.map(item => (
         <Picker.Item key={item.value} label={item.label} value={item.value} />
       ))}
     </Picker>
     </View>
-  </View>
+  </>
 );
 
 const MyCheckBox = ({label, value, onValueChange,style,...rest}) => (
-  <View style={styles.checkcontainer}>
-    
+  <MyContainer conRow>
     <Checkbox
           style={style}
           value={value}
@@ -63,22 +67,11 @@ const MyCheckBox = ({label, value, onValueChange,style,...rest}) => (
           {...rest}
     />
     <MyText title={label} inputlabelP/>
-  </View>
+  </MyContainer>
 );
 
 const styles = StyleSheet.create({
-    container:{
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderColor:colors.grey,
-      borderWidth:1,
-      borderRadius:10,
-      paddingLeft:10,
-    },
-    checkcontainer:{
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
+
     textinput:{
       borderColor:colors.mainColor,
       borderWidth:1,
@@ -92,10 +85,10 @@ const styles = StyleSheet.create({
       justifyContent:"flex-start",
       fontSize:adjust(16), 
     },
-    icon:{
-      flexDirection: 'row',
-      justifyContent:"flex-end",
-    },
+    row:{
+      flexDirection:"row",
+      alignItems:"center"
+    }
 })
 
 export {SearchInput,MyTextInput,MyPicker,MyCheckBox};

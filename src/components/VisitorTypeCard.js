@@ -1,71 +1,89 @@
 import React from 'react';
 import {StyleSheet,TouchableOpacity,View} from 'react-native';
 
-import colors from '../config/colors';
 import MyText from './MyText';
+import Spacer from './Spacer';
 import MyIcon from './MyIcon';
-import space from '../config/space';
+import { MyContainer } from './MyCard';
 
-const VisitorTypeCard = ({iconName1,title1,iconName2,title2,iconName3,title3,iconName4,title4,iconName5,title5,}) => {
-  
-            return<View style={styles.cardContainer}>
-                <View style={styles.row}>
-                    {iconName1 ?<View style={styles.rowOnly}><MyIcon FA square iconName={iconName1} icontype1 type1/>
-                    <View style={styles.space} />
-                    <MyText title={title1} pP3/>
-                    <View style={styles.space} />
-                    </View>:null}
-                    {iconName2 ?<View style={styles.rowOnly}><MyIcon FA square iconName={iconName2} icontype1 type2/>
-                    <View style={styles.space} />
-                    <MyText title={title2} pP3/>
-                    <View style={styles.space} />
-                    </View>:null}
-                    {iconName3 ?<View style={styles.rowOnly}><MyIcon FA square iconName={iconName3} icontype1 type3/>
-                    <View style={styles.space} />
-                    <MyText title={title3} pP3/>
-                    <View style={styles.space} />
-                    </View>:null}
-                    {iconName4 ?<View style={styles.rowOnly}><MyIcon FA square iconName={iconName4} icontype1 type4/>
-                    <View style={styles.space} />
-                    <MyText title={title4} pP3/>
-                    <View style={styles.space} />
-                    </View>:null}
-                    {iconName5 ?<View style={styles.rowOnly}><MyIcon FA square iconName={iconName5} icontype1 type5/>
-                    <View style={styles.space} />
-                    <MyText title={title5} pP3/>
-                    </View>:null}
-                </View>
-            </View>
+const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
 
-        
+            return<MyContainer cardcontainer row>
+                {col ?<MyContainer conRow visitor spacearound>
+                    {title1 ?<MyContainer conCol>
+                        <MyIcon ION square iconName="car-sharp" icontype1 type1/>
+                        <Spacer space/>
+                        <MyText title={title1} pP3/>
+                    </MyContainer>
+                    :null}
+                    {title2 ?<MyContainer conCol>
+                        <MyIcon ION square iconName="construct-sharp" icontype1 type1/>
+                        <Spacer space/>
+                        <MyText title={title2} pP3/>
+                    </MyContainer>
+                    :null}
+                    {title3 ?<MyContainer conColMyCardContainer conCol>
+                        <MyIcon MC square iconName="truck-delivery" icontype1 type1/>
+                        <Spacer space/>
+                        <MyText title={title3} pP3/>
+                    </MyContainer>
+                    :null}
+                    {title4 ?<MyContainer conCol>
+                        <MyIcon FA square iconName="ambulance" icontype1 type1/>
+                        <Spacer space/>
+                        <MyText title={title4} pP3/>
+                    </MyContainer>
+                    :null}
+                    {title5 ?<MyContainer conCol>
+                        <MyIcon FA square iconName="bus-alt" icontype1 type1/>
+                        <Spacer space/>
+                        <MyText title={title5} pP3/>
+                    </MyContainer>
+                    :null}
+                </MyContainer>
+                :<MyContainer conRow visitor spacearound>
+                    {title1 ?
+                    <MyContainer conRow>                       
+                        <MyIcon ION square iconName="car-sharp" icontype1 type1/>
+                        <Spacer height/>
+                        <MyText title={title1} pP3/>
+                        <Spacer height/>
+                    </MyContainer>
+                    :null}
+                    {title2 ?
+                    <MyContainer conRow>
+                        <MyIcon ION square iconName="construct-sharp" icontype1 type2/>
+                        <Spacer height/>
+                        <MyText title={title2} pP3/>
+                        <Spacer height/>
+                    </MyContainer>
+                    :null}
+                    {title3 ?
+                    <MyContainer conRow>
+                        <MyIcon MC square iconName="truck-delivery" icontype1 type3/>
+                        <Spacer height/>
+                        <MyText title={title3} pP3/>
+                        <Spacer height/>
+                    </MyContainer>
+                    :null}
+                    {title4 ?
+                    <MyContainer conRow>
+                        <MyIcon FA square iconName="ambulance" icontype1 type4/>
+                        <Spacer height/>
+                        <MyText title={title4} pP3/>
+                        <Spacer height/>
+                    </MyContainer>
+                    :null}
+                    {title5 ?
+                    <MyContainer conRow>
+                        <MyIcon FA square iconName="bus-alt" icontype1 type5/>
+                        <Spacer height/>
+                        <MyText title={title5} pP3/>
+                    </MyContainer>
+                    :null}
+                </MyContainer>}
+            </MyContainer>
+
 };
-
-const styles = StyleSheet.create({
-    cardContainer:{
-        backgroundColor: colors.white,
-        width:"100%",
-        borderRadius: 10,
-        padding:space.cardpadding,
-        flexDirection: "row",
-    },
-    row:{
-        flex:1,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems:"center",
-        justifyContent:"space-between"
-    },
-    rowOnly:{
-        flexDirection: "row",
-        alignItems:"center",
-    },
-    left:{
-        marginLeft: "auto",
-    },
-    space: {
-        width: 5,
-        height: 35,
-    },
-})
 
 export default VisitorTypeCard;

@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, ScrollView, FlatList} from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { View, StyleSheet, ScrollView} from 'react-native';
 
 //import component
 import Spacer from '../../components/Spacer';
 import MyText from '../../components/MyText';
-import {MyCard,MyCardList} from '../../components/MyCard';
-import space from '../../config/space';
+import {MyContainer,MyCard,MyCardList} from '../../components/MyCard';
 
 const DashboardScreen = ({navigation}) => {
 
@@ -23,28 +22,24 @@ const DashboardScreen = ({navigation}) => {
         );
     }, []);
     
-    return <View style={styles.container}>
+    return <MyContainer screencontainer>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                <Spacer/>
+                <Spacer spacer/>
                 <MyText title={currentDate}  h4P style={styles.date}/>
                 <MyCard iconName="clipboard-list" title="Visitor Visited Today" number="45" button="View Report"/>
-                {/* <Spacer/>
-                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor" time={`10.30 \n a.m.`} id="#VR-233" details="MR JM . House No 0001"/>
+                <Spacer spacer/>
+                {/* <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor" time={`10.30 \n a.m.`} id="#VR-233" details="MR JM . House No 0001"/>
                 <Spacer/> */}
                 <MyCard iconName="user-plus" title="Add Request" button="Register Visitor"/>
-                
+
                 </ScrollView>
-            </View>
+            </MyContainer>
 };
 
  const styles = StyleSheet.create({
     date:{
         alignSelf: "flex-start",
-    },
-    container:{
-        flex:1,
-        padding:space.screenpadding,
-    },
+    }
  });
 
  export default DashboardScreen;

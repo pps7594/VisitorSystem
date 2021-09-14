@@ -32,7 +32,7 @@ const FilterButton = ({title,func,buttonstyle,textstyle,h3,h4,active,...rest}) =
     </TouchableOpacity>
 };
 
-const Details = ({title,walkin,approve,reject,pending,buttonstyle,textstyle,pRtext,...rest}) => {
+const Details = ({title,walkin,approve,reject,pending,buttonstyle,textstyle,pR3,...rest}) => {
     return <View
         style={[
         styles.details,
@@ -41,7 +41,7 @@ const Details = ({title,walkin,approve,reject,pending,buttonstyle,textstyle,pRte
         reject && styles.reject,
         pending && styles.pending,
         buttonstyle]} {...rest}>
-        {pRtext ?<MyText title={title} pRtext style={[styles.activetext,textstyle]}/> : null}     
+        {pR3 ?<MyText title={title} pR3 style={[styles.activetext,textstyle]}/> : null}     
     </View>   
 };
 

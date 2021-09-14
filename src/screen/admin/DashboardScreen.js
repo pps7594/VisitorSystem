@@ -1,13 +1,12 @@
 //import library
-import React, { useState, useEffect, useContext } from 'react';
-import {StyleSheet, View, ScrollView, FlatList, Text} from 'react-native';
+import React, { useState, useEffect} from 'react';
+import {StyleSheet,ScrollView} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 
 //import component
 import Spacer from '../../components/Spacer';
 import MyText from '../../components/MyText';
-import {MyCard,MyCardList} from '../../components/MyCard';
-import space from '../../config/space';
+import {MyContainer,MyCard,MyCardList} from '../../components/MyCard';
 
 //import function
 import adminFunction from '../../functions/adminFunction';
@@ -38,32 +37,23 @@ const DashboardScreen = ({navigation}) => {
         navigation.addListener('focus', () => adminDashboard({errCallback}));
     }, []);
     
-    return <>       
-            <View style={styles.container}>
+    return <MyContainer screencontainer>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                <Spacer/>
+                <Spacer spacer/>
                 <MyText title={currentDate}  h4P style={styles.date}/>
                 <MyCard iconName="clipboard-list" title="Visitor Visited Today" number={admindashboardobj.todayVisitorCount} button="View Report"/>
-                <Spacer/>
+                <Spacer spacer/>
                 <MyCard iconName="user-check" title="Pending Request" number={admindashboardobj.pendingVisitorCount} button="View Request"/>
-                <Spacer/>
+                <Spacer spacer/>
                 <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor"  details={admindashboardobj.visitRequestList}/>
                 </ScrollView>
-            </View>
-        </>
-
+            </MyContainer>
 };
 
  const styles = StyleSheet.create({
     date:{
         alignSelf: "flex-start",
-    },
-    container:{
-        flex:1,
-        padding:space.screenpadding,
-    },
-    
-    
+    }
  });
 
  export default DashboardScreen;

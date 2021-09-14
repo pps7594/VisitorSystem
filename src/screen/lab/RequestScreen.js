@@ -1,52 +1,35 @@
-import React, { useState, useEffect, useContext } from 'react';;
-import {View, StyleSheet, ScrollView, FlatList} from 'react-native';
+import React, { useState, useEffect} from 'react';;
+import {StyleSheet, ScrollView} from 'react-native';
+
+//import function
+import adminFunction from '../../functions/adminFunction';
 
 //import component
 import Spacer from '../../components/Spacer';
 import MyFilter from '../../components/MyFilter';
 import VisitorTypeCard from '../../components/VisitorTypeCard';
 import RequestApprovalCard from '../../components/RequestApprovalCard';
-
-import space from '../../config/space';
+import { MyContainer } from '../../components/MyCard';
 
 const RequestScreen = ({navigation}) => {
 
-    const [currentDate, setCurrentDate] = useState('');
+    const [input, setInput] = useState('');
+    var image = require("../../assets/qrcode.png");
 
-    useEffect(() => {
-        var week = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-        var mon = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-        var day  = week[new Date().getDay()];
-        var date = new Date().getDate(); //Current Date
-        var month = mon[new Date().getMonth()]; //Current Month
-        var year = new Date().getFullYear(); //Current Year
-        setCurrentDate(
-            day+ ', ' + month + ' ' + date 
-        );
-    }, []);
-    
-
-
-      const [input, setInput] = useState('');
-      var image = require("../../assets/qrcode.png");
-    return <View style={styles.container}>
+    return <MyContainer screencontainer>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <MyFilter input={input} setInput={setInput}/>
-                <Spacer/>
+                <Spacer spacer/>
                 <VisitorTypeCard
-                    iconName1="user-check"
                     title1="Visitor"
-                    iconName2="user-check"
                     title2="Residential Usage"
-                    iconName3="user-check"
                     title3="Delivery"
-                    iconName4="user-check"
                     title4="Emergency Service"
-                    iconName5="user-check"
                     title5="Long-Term Service"
                 />
-                <Spacer/>
+                <Spacer spacer/>
                 <RequestApprovalCard 
-                    iconName="user-check" 
+                    visitorType="1"
                     id="#VR-233" 
                     details="Mohamed Shafyul" 
                     address="1, Jalan Abc 1/1"
@@ -59,24 +42,38 @@ const RequestScreen = ({navigation}) => {
                     arriveTime="08:29 AM"
                     departDate="Nov 1st, 2020"
                     departTime="08:29 AM"
+                    visitorList={ [
+                        {
+                          "peopleCount": 2,
+                          "vehicleTypeNotes": "hihi",
+                          "visitRequestCarID": 1000000157,
+                          "visitRequestID": "10121",
+                          "visitorName": "secondcar",
+                          "visitorPlateNum": "C11",
+                          "visitorTel": "0123456",
+                          "visitorVehicleType": "ABC",
+                        },
+                        {
+                          "peopleCount": 1,
+                          "vehicleTypeNotes": "",
+                          "visitRequestCarID": 1000000158,
+                          "visitRequestID": "10121",
+                          "visitorName": "T",
+                          "visitorPlateNum": "A123",
+                          "visitorTel": "019191991",
+                          "visitorVehicleType": "AAA",
+                        },
+                      ]
+                  }
                 />
-                <Spacer/>
-        </View>
-
+            </ScrollView>
+        </MyContainer>
 };
-
-
 
  const styles = StyleSheet.create({
     date:{
         alignSelf: "flex-start",
-    },
-    container:{
-        flex:1,
-        padding:space.screenpadding,
-    },
-    
-    
+    }
  });
 
  export default RequestScreen;

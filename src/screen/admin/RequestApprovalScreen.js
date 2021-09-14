@@ -1,8 +1,16 @@
-import React, { useEffect } from 'react'
-import { View, Text, Button} from 'react-native'
+import React, { useState, useEffect} from 'react';;
+import {StyleSheet, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
+
 //import function
 import adminFunction from '../../functions/adminFunction';
+
+//import component
+import Spacer from '../../components/Spacer';
+import MyFilter from '../../components/MyFilter';
+import VisitorTypeCard from '../../components/VisitorTypeCard';
+import RequestApprovalCard from '../../components/RequestApprovalCard';
+import { MyContainer } from '../../components/MyCard';
 
 const RequestApprovalScreen = ({navigation}) => {
 
@@ -20,43 +28,81 @@ const RequestApprovalScreen = ({navigation}) => {
         navigation.addListener('focus', () => adminRequestApproval({errCallback}));
     }, []);
 
+    const [input, setInput] = useState('');
+    var image = require("../../assets/qrcode.png");
+
     return (
-        <View>
+        <>
             { 
                 requestApprovalArray ? 
                 requestApprovalArray.map((item) => {
-                    const expectedArriveDateTime = new Date (Date.parse(item.visitRequestObj.expectedArriveDateTime));
-                    // var expectedArriveDateTimeAMPM = expectedArriveDateTime.getHours() >= 12 ? '\n P.M.' : '\n A.M.';
-                    // const expectedArriveTime = expectedArriveDateTime.to + ' ' + expectedArriveDateTimeAMPM;
-
-                    const expectedLeavingDateTime = new Date (Date.parse(item.visitRequestObj.expectedLeavingDateTime));
-                    // var expectedLeavingDateTimeAMPM = expectedLeavingDateTime.getHours() >= 12 ? '\n P.M.' : '\n A.M.';
-                    // const expectedLeavingTime = expectedLeavingDateTime.toTimeString().substring(0,5) + ' ' + expectedLeavingDateTimeAMPM;
-
+                    const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
+                    const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
                     const nameWithAddress = item.visitRequestObj.address.split(";")
-                    return (
-                    <View key={item.visitRequestObj.visitRequestId}>
-                        <Text>{"#VR-" + item.visitRequestObj.visitRequestId}</Text>
-                        <Text>{"Name:" + nameWithAddress[0]}</Text>
-                        <Text>{"Address:" + nameWithAddress[1]}</Text>
-                        {/* Date Time format need change */}
-                        <Text>{"Expected Arrive Time: Some format may need to change: " + expectedArriveDateTime}</Text>
-                        <Text>{"Expected Leaving Time: Some format may need to change: " + expectedLeavingDateTime}</Text>
 
-                        {/* If statement for tagging */}
-                        <Text>{"Walkin Visitor: " + item.visitRequestObj.walkInVisitor}</Text>
-
-                        {/* The Pending tag need to appear? If yes find it here*/}
-                        <Text>{"Status: " + item.visitRequestObj.status}</Text>
-
-                        <Text>{"AdditionalNotes: "  + item.visitRequestObj.additionalNotes}</Text>
-                    </View>
-                    )
-                }) : null
+                    return <MyContainer screencontainer  key={item.visitRequestObj.visitRequestId}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <MyFilter input={input} setInput={setInput}/>
+                        <Spacer spacer/>
+                        <VisitorTypeCard
+                            title1="Visitor"
+                            title2="Residential Usage"
+                            title3="Delivery"
+                            title4="Emergency Service"
+                            title5="Long-Term Service"
+                        />
+                        <Spacer spacer/>
+                        <RequestApprovalCard 
+                            visitorType={item.visitRequestObj.visitorType}
+                            id={"#VR-" + item.visitRequestObj.visitRequestId}
+                            details={item.visitRequestObj.userID}
+                            address={item.visitRequestObj.address}
+                            walkin={item.visitRequestObj.walkInVisitor}
+                            arriveDate={arrivedatetime[0]}
+                            arriveTime={arrivedatetime[1]}
+                            departDate={leavingdatetime[0]}
+                            departTime={leavingdatetime[1]}
+                            visitorList={item.visitRequestCarList}
+                            additionalNotes={item.visitRequestObj.additionalNotes}
+                        />
+                    </ScrollView>
+                    </MyContainer>
+                    
+                    
+                }): null
             }
-            <Text>AdminRequestApprovalScreen</Text>
-        </View>
+        </>
     )
 };
+
+
+const newdatetime = (params) => {
+    const datetime = new Date (Date.parse(params));
+    var ampm = datetime.getHours() >= 12 ? 'P.M.' : 'A.M.';
+    const time = datetime.toTimeString().substring(0,5) + ' ' + ampm;
+                        
+    var mon = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+    const month = mon[datetime.getMonth()];
+    const year = datetime.getFullYear();
+    const day = datetime.getDate()-1;
+    const lastnum = day.toString().substring(-1);
+    var suffix ='';
+    if(lastnum==1){
+        suffix = 'st'
+    }
+    else if(lastnum==2){
+        suffix = 'nd'
+    }
+    else if(lastnum==3){
+        suffix = 'rd'
+    }
+    else if(lastnum==0 || lastnum>=4){
+        suffix = 'th'
+    }
+    const date = month + ' '+ day + suffix + ', ' + year
+
+    return [date,time]     
+ }
+
 
 export default RequestApprovalScreen;

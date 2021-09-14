@@ -2,155 +2,133 @@ import React,{useState} from 'react';
 import {StyleSheet,TouchableOpacity,View,Image,ScrollView,FlatList,Text} from 'react-native';
 
 import colors from '../config/colors';
-import space from '../config/space';
 import MyText from './MyText';
 import Spacer from './Spacer';
 import MyIcon from './MyIcon';
 import {Details,Info,ApprovalButton} from './MyButton';
+import { MyContainer } from './MyCard';
 
-const RequestApprovalCard = ({iconName,id,details,address,walkin,approve,reject,pending,imageSource,arriveDate,arriveTime,departDate,departTime}) => {
+const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reject,pending,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isExpand, setIsExpand] = useState(false);
     
 
-    return <View style={styles.cardContainer}>
-                <View style={styles.row}>
-                    <MyIcon FA  iconName={iconName} icontype type1/>
-                    <View style={styles.space} />
-                    <View style={styles.col}>
+    return <MyContainer cardcontainer>
+                <MyContainer conRow alignstart>
+                    {visitorType==1 ?<MyIcon ION iconName="car-sharp" icontype type1/> :null}
+                    {visitorType==2 ?<MyIcon ION iconName="construct-sharp" icontype type1/> :null}
+                    {visitorType==3 ?<MyIcon MC iconName="truck-delivery" icontype type1/> :null}
+                    {visitorType==4 ?<MyIcon FA iconName="ambulance" icontype type1/> :null}
+                    {visitorType==5 ?<MyIcon FA iconName="bus-alt" icontype type1/> :null}
+                    <Spacer space/>
+                    <MyContainer conCol alignstart>
                     <MyText title={id} pP main/>
                     <MyText title={details} pR2/>
                     <MyText title={address} pR3 grey/>
-                    </View>
-                    <View style={styles.left}>
-                        {walkin?<View><Details walkin title="Walk-in Visitor" pRtext grey/>
-                        <View style={styles.space} /></View>:null}
-                        {approve?<View><Details approve title="Approved" pRtext grey/>
-                        <View style={styles.space} /></View>:null}
-                        {reject?<View><Details reject title="Rejected" pRtext grey/>
-                        <View style={styles.space} /></View>:null}
-                        {pending?<View><Details pending title="Pending" pRtext grey/>
-                        <View style={styles.space} /></View>:null}
-                        <TouchableOpacity onPress={() => setIsOpen(true)}>
+                    </MyContainer>
+                    <MyContainer conLeft>
+                        {walkin?<View><Details walkin title="Walk-in Visitor" pR3 grey/>
+                        <Spacer space/></View>:null}
+                        {approve?<View><Details approve title="Approved" pR3 grey/>
+                        <Spacer space/></View>:null}
+                        {reject?<View><Details reject title="Rejected" pR3 grey/>
+                        <Spacer space/></View>:null}
+                        {pending?<View><Details pending title="Pending" pR3 grey/>
+                        <Spacer space/></View>:null}
+                        {imageSource ?<TouchableOpacity onPress={() => setIsOpen(true)}>
                         <Image 
                             style={styles.qr}
                             source={imageSource}/>
-                        </TouchableOpacity>
-                        {isOpen && (
+                        </TouchableOpacity> :null}
+                        {imageSource && isOpen && (
                             <TouchableOpacity onPress={() => setIsOpen(false)} style={styles.modal}>
                                 <Image 
                                     style={styles.qrmodal}
                                     source={imageSource}/>
                             </TouchableOpacity>
                         )}
-                    </View>
-                </View>
-                <View style={styles.space} />
-                <View style={styles.rowCenter}>
+                        
+                    </MyContainer>
+                </MyContainer>
+                <Spacer space/>
+
+                <MyContainer conRow>
                     <MyIcon MC nocontainer iconName="clock-time-eight-outline" icontype1 type1/>
                     <MyText title="Scheduled" pP3/>
-                    <View style={styles.left}></View>
-                    <View style={styles.col}>
+                    <MyContainer conLeft>
                         <MyText title={arriveDate} pP2/>
                         <MyText title={arriveTime} pP3 grey/>
-                    </View>
-                    <View style={styles.space} />
-                    <View style={{backgroundColor:"black",width:1,height:"100%"}} />
-                    <View style={styles.space} />
-                    <View style={styles.col}>
+                    </MyContainer>
+                    <Spacer space/>
+                    <View style={{backgroundColor:colors.black,width:1,height:"100%"}} />
+                    <Spacer space/>
+                    <MyContainer conCol>
                         <MyText title={departDate} pP2/>
                         <MyText title={departTime} pP3 grey/>
-                    </View>
-                </View>
-                <View style={styles.space} />
-                <TouchableOpacity onPress={() => setIsExpand(isExpand ?false:true)}>
-                {isExpand ?<Info title="Visitor Information" iconName="chevron-up-circle-outline" text />
-                :<Info title="Visitor Information" iconName="chevron-down-circle-outline" text />}
-                </TouchableOpacity>
-                <Spacer />
+                    </MyContainer>
+                </MyContainer>
+                <Spacer space/>
 
-                {isExpand ?<View>
-                <View style={styles.row}>
-                    <MyIcon FA title="V" visitor dashboard1/>
-                    <Spacer />
-                    <View style={styles.col}>
-                        <MyText title="Khong Jun Ming" pR2/>
-                        <MyText title="0123456789" pRtext grey/>
-                    </View>
-                    <View style={styles.left}>
-                    <View style={styles.colCenter}>
-                        <MyText title="2" num/>
-                        <MyText title="peoples" pRtext grey/>
-                    </View>
-                    </View>
-                </View>
-                <View style={styles.rowCenter}>
-                    <View style={styles.colCenter}>
-                        <MyText title="Vehicle Type" pP3 grey/>
-                        <MyText title="Other" pP3/>
-                    </View>
-                    <Spacer />
-                    <View style={styles.colCenter}>
-                        <MyText title="Plate Number" pP3 grey/>
-                        <MyText title="ABC 1234" pP3/>
-                    </View>
-                </View>
-                <Spacer />
-                <View style={styles.row}>
-                    <MyText title="Remarks" pP3 grey/>
-                    <Spacer />
-                    <MyText title="Crane and Truck" pP3/>
-                </View>
-                <Spacer />
-                <View style={styles.line}/>
-                <Spacer />
-                </View>:null}
-                <MyText title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus tempor arcu eget sodales. Nullam eros magna, semper a felis eget, consequat sagittis lectus. Aenean a magna quis nibh bibendum ultricies. " pRtext />
-                <Spacer />
-                <View style={styles.rowCenter}>
-                    <ApprovalButton iconName="check-circle" approve />
-                    <Spacer /><Spacer /><Spacer /><Spacer /><Spacer /><Spacer />
-                    <ApprovalButton iconName="times-circle" reject />
-                </View>
-                
-                
+                <TouchableOpacity onPress={() => setIsExpand(isExpand ?false:true)}>
+                {isExpand ?<Info title="Visitor Information  " iconName="chevron-up-circle-outline" text />
+                :<Info title="Visitor Information  " iconName="chevron-down-circle-outline" text />}
+                </TouchableOpacity>
+                <Spacer spacer/>
+
+                {visitorList && isExpand ? visitorList.map((item) => {
                     
+
+                return ( <MyContainer cardcontainer key={item.visitRequestCarID}>
+                <MyContainer conRow >
+                    <MyIcon title="V" visitor dashboard1/>
+                    <Spacer spacer/>
+                    <MyContainer conCol alignstart>
+                        <MyText title={item.visitorName} pR2/>
+                        <MyText title={item.visitorTel} pRtext grey/>
+                    </MyContainer>
+                    <MyContainer conLeft>
+                    <MyContainer conCol>
+                        <MyText title={item.peopleCount} num/>
+                        <MyText title="Peoples" pR3 grey/>
+                    </MyContainer>
+                    </MyContainer>
+                </MyContainer>
+                <Spacer spacer/>
+                <MyContainer conRow>
+                    <MyContainer conCol>
+                        <MyText title="Vehicle Type" pP3 grey/>
+                        <MyText title={item.visitorVehicleType} pP3/>
+                    </MyContainer>
+                    <Spacer spacer/>
+                    <MyContainer conCol>
+                        <MyText title="Plate Number" pP3 grey/>
+                        <MyText title={item.visitorPlateNum} pP3/>
+                    </MyContainer>
+                </MyContainer>
+                {item.vehicleTypeNotes?
+                <MyContainer conRow flexstart>
+                    <Spacer spacer/>
+                    <MyText title="Remarks" pP3 grey/>
+                    <Spacer spacer/>
+                    <MyText title={item.vehicleTypeNotes} pP3/>
+                </MyContainer>:null}
+                <Spacer spacer/>
+                <View style={{backgroundColor:colors.grey,width:"100%",height:1}} />
+                <Spacer spacer/>
+                </MyContainer>)
+                }):null}
+                <MyText title={additionalNotes} pR3/>
                 
-                
-                
-            </View>
+                <MyContainer conRow>
+                    <ApprovalButton iconName="check-circle" approve />
+                    <Spacer m50/>
+                    <ApprovalButton iconName="times-circle" reject />
+                </MyContainer>             
+            </MyContainer>
 };
 
+
 const styles = StyleSheet.create({
-    cardContainer:{
-        backgroundColor: colors.white,
-        width:"100%",
-        borderRadius: space.cardborderradius,
-        padding:space.screenpadding,
-    },
-    row:{
-        flexDirection: "row",
-        alignItems:"flex-start",
-    },
-    rowCenter:{
-        flexDirection: "row",
-        alignItems:"center",
-        justifyContent:"center"
-    },
-    left:{
-        marginLeft:"auto"
-    },
-    space: {
-        width: 5,
-        height: 5,
-    },
-    col:{
-        flexDirection:"column",
-    },
-    colCenter:{
-        flexDirection:"column",
-        alignItems:"center",
-    },
     qr:{
         width:50,
         height:50,
@@ -164,10 +142,6 @@ const styles = StyleSheet.create({
     qrmodal:{
         width:150,
         height:150,
-    },
-    line:{
-        borderBottomColor: colors.grey,
-        borderBottomWidth: 1,
     },
 })
 

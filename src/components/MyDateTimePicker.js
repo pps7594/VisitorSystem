@@ -33,7 +33,7 @@ var day = today.getDate()
 // returns the year (four digits)
 var year = today.getFullYear()
 
-  return <View>
+  return <>
     <MyText title={label}  inputlabelP/>
     <AddButton title="Select DateTime Picker" func={showDatePicker} buttonstyle={{borderRadius:2}} text/>
       <DateTimePickerModal
@@ -44,7 +44,7 @@ var year = today.getFullYear()
         onCancel={hideDatePicker}
         style={{backgroundColor:"purple"}}
       />
-    </View>
+    </>
  
 };
 
