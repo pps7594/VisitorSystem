@@ -62,7 +62,7 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                     <Spacer space/>
                     <View style={{backgroundColor:colors.black,width:1,height:"100%"}} />
                     <Spacer space/>
-                    <MyContainer conCol>
+                    <MyContainer conCol alignstart>
                         <MyText title={departDate} pP2/>
                         <MyText title={departTime} pP3 grey/>
                     </MyContainer>
