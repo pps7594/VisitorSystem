@@ -23,8 +23,7 @@ export default () => {
     const adminRequestApproval = async ({errCallback}) => {
         try{
             const response = await getRequestApprovalFulltime();
-            console.log("ABC");
-            console.log(response.data)
+            console.log(response.data.visitRequestCarList);
             dispatch(storeRequestApprovalArray(response.data))
         } catch (err) {
             // Had to change to some sort of alert

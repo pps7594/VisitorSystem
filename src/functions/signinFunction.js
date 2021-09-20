@@ -14,8 +14,8 @@ export default () => {
             if(errorMsg){
                 dispatch(removeErrorMsg())
             }
+            const ID = userID.substring(1);
 
-            const ID = userID.substring(1)
 
             // Clear the JWT first everytime sign in
             if(AsyncStorage.getItem('token')){
@@ -26,19 +26,26 @@ export default () => {
             await AsyncStorage.setItem('token',response.data.jwt);
 
             const response2 = await getUserObj(ID);
-            dispatch(storeUserObj(response2.data))
-
             const role = response2.data.userObj.userRole;
-            if(role === 'A' || role === 'H'){
-                callback({path : "Admin"});
-            }
-            else if (role === 'R'){
-                callback({path : "Resident"});
-            }
-            else if (role === 'G'){
-                callback({path : "Guard"});
-            }
+
+            // Only allow if the role is similar to input role
+            if(userID.substring(0,1) == role){
+                dispatch(storeUserObj(response2.data))
             
+                if(role === 'A' || role === 'H'){
+                    callback({path : "Admin"});
+                }
+                else if (role === 'R'){
+                    callback({path : "Resident"});
+                }
+                else if (role === 'G'){
+                    callback({path : "Guard"});
+                }
+            }
+            else {
+                // Just throw error with a variable, this error message not so useful for now
+                throw "Invalid Credential"
+            }
         } catch (err) {
             dispatch(storeErrorMsg("Invalid Credential, Please Try Again"))
         }   
