@@ -9,16 +9,17 @@ import {MyButton,Details} from './MyButton';
 import MyIcon from './MyIcon';
 import MyText from './MyText';
 
-const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,search,visitor, conCol, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style}) => {
+const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,search,visitor, conCol, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style,...rest}) => {
     return <>
-                {screencontainer ?<View style={[styles.screenContainer,style]}>
+                {screencontainer ?<View style={[styles.screenContainer,style]} {...rest}>
                     {children}
                 </View> :null}
                 {cardcontainer ?<View style={[
                     styles.cardContainer,
                     row && styles.row,
                     borderRadius5 && styles.borderRadius5,
-                    style]}>
+                    style]}
+                    {...rest}>
                     {children}
                 </View> :null}
                 {conRow? <View style={[
@@ -31,28 +32,32 @@ const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, 
                     alignstart && styles.alignstart, //request approval card
                     search && styles.search,
                     visitor && styles.visitor,
-                    style]}>
+                    style]}
+                    {...rest}>
                     {children}
                 </View>:null}
                 {conCol? <View style={[styles.col,
                     alignstart && styles.alignstart, //request approval card
-                    style]}>
+                    style]}
+                    {...rest}>
                     {children}
                 </View>:null}
-                {conLeft? <View style={[styles.left,style]}>
+                {conLeft? <View style={[styles.left,style]}{...rest}>
                     {children}
                 </View>:null}
                 {conRect? <View style={[
                     styles.rect,
                     bordercardList && styles.bordercardList,
-                    style]}>
+                    style]}
+                    {...rest}>
                     {children}
                 </View>:null}
                 {conRectRound? <View style={[
                     styles.rectRound,
                     bgcardList && styles.bgcardList,
                     bgreportList && styles.bgreportList,
-                    style]}>
+                    style]}
+                    {...rest}>
                     {children}
                 </View>:null}               
             </>
@@ -73,34 +78,6 @@ const MyCard = ({iconName,title,number,button}) => {
                 <MyButton title={button} h4/> 
             </MyContainer>
 };
-
-const newdatetime = (params) => {
-    const datetime = new Date (Date.parse(params));
-    var ampm = datetime.getHours() >= 12 ? '\n P.M.' : '\n A.M.';
-    const time = datetime.toTimeString().substring(0,5) + ' ' + ampm;
-                        
-    var mon = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-    const month = mon[datetime.getMonth()];
-    const year = datetime.getFullYear();
-    const day = datetime.getDate()-1;
-    const lastnum = day.toString().substring(-1);
-    var suffix ='';
-    if(lastnum==1){
-        suffix = 'st'
-    }
-    else if(lastnum==2){
-        suffix = 'nd'
-    }
-    else if(lastnum==3){
-        suffix = 'rd'
-    }
-    else if(lastnum==0 || lastnum>=4){
-        suffix = 'th'
-    }
-    const date = month + ' '+ day + suffix + ', ' + year
-
-    return [time,date]     
- }
 
 const MyCardList = ({iconName,title,button,details}) => {
     return <MyContainer cardcontainer>

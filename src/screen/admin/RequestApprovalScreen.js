@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';;
-import {StyleSheet, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 
 //import function
@@ -33,14 +33,7 @@ const RequestApprovalScreen = ({navigation}) => {
 
     return (
         <>
-            { 
-                requestApprovalArray ? 
-                requestApprovalArray.map((item) => {
-                    const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
-                    const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
-                    const nameWithAddress = item.visitRequestObj.address.split(";")
-
-                    return <MyContainer screencontainer  key={item.visitRequestObj.visitRequestId}>
+                <MyContainer screencontainer  >
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <MyFilter input={input} setInput={setInput}/>
                         <Spacer spacer/>
@@ -52,11 +45,19 @@ const RequestApprovalScreen = ({navigation}) => {
                             title5="Long-Term Service"
                         />
                         <Spacer spacer/>
+            { 
+                requestApprovalArray ? 
+                requestApprovalArray.map((item) => {
+                    const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
+                    const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
+                    const nameWithAddress = item.visitRequestObj.address.split(";")
+
+                    return <View key={item.visitRequestObj.visitRequestId}>
                         <RequestApprovalCard 
                             visitorType={item.visitRequestObj.visitorType}
                             id={"#VR-" + item.visitRequestObj.visitRequestId}
-                            details={item.visitRequestObj.userID}
-                            address={item.visitRequestObj.address}
+                            details={nameWithAddress[0]}
+                            address={nameWithAddress[1]}
                             walkin={item.visitRequestObj.walkInVisitor}
                             arriveDate={arrivedatetime[0]}
                             arriveTime={arrivedatetime[1]}
@@ -65,12 +66,15 @@ const RequestApprovalScreen = ({navigation}) => {
                             visitorList={item.visitRequestCarList}
                             additionalNotes={item.visitRequestObj.additionalNotes}
                         />
-                    </ScrollView>
-                    </MyContainer>
+                        <Spacer spacer/>
+                    </View>
                     
                     
                 }): null
             }
+                    
+                    </ScrollView>
+                </MyContainer>
         </>
     )
 };
