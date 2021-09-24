@@ -5,10 +5,9 @@ import colors from '../config/colors';
 import MyText from './MyText';
 import MyIcon from './MyIcon';
 
-// Heh??? why userID and password IN A GENERAL BUTTON, OR it is purposely to be specific?
-const MyButton = ({title,func,userID,password,callback,buttonstyle,textstyle,h3,h4,...rest}) => {
+const MyButton = ({title,func,buttonstyle,textstyle,h3,h4,...rest}) => {
     return <TouchableOpacity
-        onPress={() => func({userID,password,callback})}
+        onPress={func}
         style={[styles.button,buttonstyle]} {...rest}>
         {h3 ?<MyText title={title} h3P style={[styles.text,textstyle]}/> : null}
         {h4 ?<MyText title={title} h4P style={[styles.text,textstyle]}/> : null}

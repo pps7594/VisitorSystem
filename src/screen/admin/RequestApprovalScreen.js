@@ -35,7 +35,7 @@ const RequestApprovalScreen = ({navigation}) => {
         <>
                 <MyContainer screencontainer  >
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <MyFilter input={input} setInput={setInput}/>
+                        <MyFilter sourceFunc= {({timeframe}) => adminRequestApproval({errCallback,timeframe})} input={input} setInput={setInput}/>
                         <Spacer spacer/>
                         <VisitorTypeCard
                             title1="Visitor"
@@ -71,8 +71,7 @@ const RequestApprovalScreen = ({navigation}) => {
                     
                     
                 }): null
-            }
-                    
+            }                
                     </ScrollView>
                 </MyContainer>
         </>
