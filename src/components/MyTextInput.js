@@ -58,7 +58,7 @@ const MyPicker = ({label, value, onChange,items,style,...rest}) => (
 );
 
 const MyCheckBox = ({label, value, onValueChange,style,...rest}) => (
-  <MyContainer conRow>
+  <MyContainer conRow flexstart>
     <Checkbox
           style={style}
           value={value}

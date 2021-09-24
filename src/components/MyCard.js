@@ -9,7 +9,7 @@ import {MyButton,Details} from './MyButton';
 import MyIcon from './MyIcon';
 import MyText from './MyText';
 
-const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,search,visitor, conCol, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style,...rest}) => {
+const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,alignstretch,search,visitor, conCol, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style,...rest}) => {
     return <>
                 {screencontainer ?<View style={[styles.screenContainer,style]} {...rest}>
                     {children}
@@ -30,6 +30,7 @@ const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, 
                     flexstart && styles.flexstart,
                     flexend && styles.flexend,
                     alignstart && styles.alignstart, //request approval card
+                    alignstretch && styles.alignstretch,
                     search && styles.search,
                     visitor && styles.visitor,
                     style]}
@@ -66,7 +67,7 @@ const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, 
 const MyCard = ({iconName,title,number,button}) => {
     return <MyContainer cardcontainer>
                 <MyContainer conRow>
-                    <MyIcon FA iconName={iconName} dashboard/>
+                    <MyIcon FA icon iconName={iconName} white padding10 fontSize25/>
                     <Spacer spacer/>
                     <MyText title={title} pP/>
                     <Spacer spacer/>
@@ -82,7 +83,7 @@ const MyCard = ({iconName,title,number,button}) => {
 const MyCardList = ({iconName,title,button,details}) => {
     return <MyContainer cardcontainer>
                 <MyContainer conRow flexstart>
-                    <MyIcon FA iconName={iconName} dashboard/>
+                    <MyIcon FA icon iconName={iconName} white padding10 fontSize25/>
                     <Spacer spacer/>
                     <MyText title={title} pP/>
                     <Spacer spacer/>
@@ -122,7 +123,7 @@ const MyList = ({id,visitor,address,iconType,iconName,carplate,active,inactive,a
         </View>
         <MyContainer conRectRound bgreportList>
             <MyContainer conRow >
-                <MyIcon FA square iconName={iconName} icontype1 type1/>
+                <MyIcon FA square iconName={iconName} black padding5 fontSize15 type1/>
                 <Spacer space10/>
                 <MyText title={carplate} pP3/>
                 <MyContainer conLeft>
@@ -135,7 +136,7 @@ const MyList = ({id,visitor,address,iconType,iconName,carplate,active,inactive,a
             <Spacer space10/>
             <MyContainer conRow>
                 <MyContainer conCol style={[{width:"18%"}]}>
-                <MyIcon MC nocontainer iconName="clock-time-eight-outline" icontype1/>
+                <MyIcon MC iconName="clock-time-eight-outline" black padding5 fontSize15/>
                 <MyText title="Actual"  pP3/>
                 </MyContainer>
                 <MyContainer conLeft style={[{width:"35%"}]}>
@@ -159,9 +160,9 @@ const GuardCard = ({FA,MC,IO,iconName,title,navigation,style,...rest}) => {
     return <TouchableOpacity
             onPress={() =>  onPressCallback({navigation})}
             style={[styles.gcardContainer,style]} {...rest}>
-                {FA ?<MyIcon FA iconName={iconName} dashboard/> : null}
-                {MC ?<MyIcon MC iconName={iconName} dashboard/> : null}
-                {IO ?<MyIcon ION iconName={iconName} dashboard/> : null}
+                {FA ?<MyIcon FA icon iconName={iconName} white padding10 fontSize25/> : null}
+                {MC ?<MyIcon MC icon iconName={iconName} white padding10 fontSize30/> : null}
+                {IO ?<MyIcon ION icon iconName={iconName} white padding10 fontSize25/> : null}
                 <MyText title={title} pP style={styles.text}/>
             </TouchableOpacity>  
 };
@@ -204,6 +205,9 @@ const styles = StyleSheet.create({
     },
     alignstart:{
         alignItems:"flex-start",
+    },
+    alignstretch:{
+        alignItems:"stretch",
     },
     search:{
         borderColor:colors.grey,

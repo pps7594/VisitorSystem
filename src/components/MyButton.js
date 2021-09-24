@@ -10,8 +10,8 @@ const MyButton = ({title,func,userID,password,callback,buttonstyle,textstyle,h3,
     return <TouchableOpacity
         onPress={() => func({userID,password,callback})}
         style={[styles.button,buttonstyle]} {...rest}>
-        {h3 ?<MyText title={title} h3P style={[styles.text,textstyle]}/> : null}
-        {h4 ?<MyText title={title} h4P style={[styles.text,textstyle]}/> : null}
+        {h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
+        {h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}
     </TouchableOpacity> 
 };
 
@@ -20,38 +20,32 @@ const FilterButton = ({title,func,buttonstyle,textstyle,h3,h4,active,...rest}) =
     return <TouchableOpacity
         onPress={func}
         style={[styles.activebutton,buttonstyle]} {...rest}>
-        {h3 ?<MyText title={title} h3P style={[styles.activetext,textstyle]}/> : null}
-        {h4 ?<MyText title={title} h4P style={[styles.activetext,textstyle]}/> : null}       
+        {h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
+        {h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}       
     </TouchableOpacity>
     else 
     return<TouchableOpacity
     onPress={func}
     style={[styles.button1,buttonstyle]} {...rest}>
-    {h3 ?<MyText title={title} h3P style={[styles.text1,textstyle]}/> : null}
-    {h4 ?<MyText title={title} h4P style={[styles.text1,textstyle]}/> : null}       
+    {h3 ?<MyText title={title} h3P main style={[styles.text1,textstyle]}/> : null}
+    {h4 ?<MyText title={title} h4P main style={[styles.text1,textstyle]}/> : null}       
     </TouchableOpacity>
 };
 
-const Details = ({title,walkin,approve,reject,pending,buttonstyle,textstyle,pR3,...rest}) => {
+const Details = ({details,info,walkin,approve,reject,pending,inactive,buttonstyle,title,text,textstyle,iconName,...rest}) => {
     return <View
         style={[
-        styles.details,
+        details && styles.details,
+        info && styles.info,
         walkin && styles.walkin,
         approve && styles.approve,
         reject && styles.reject,
         pending && styles.pending,
+        inactive && styles.inactive,
         buttonstyle]} {...rest}>
-        {pR3 ?<MyText title={title} pR3 style={[styles.activetext,textstyle]}/> : null}     
-    </View>   
-};
-
-const Info = ({title,buttonstyle,iconName,textstyle,text,...rest}) => {
-    return <View
-        style={[
-        styles.info,
-        buttonstyle]} {...rest}>
-        {text ?<MyText title={title} pP2 style={[styles.activetext,textstyle]}/> : null}
-       <MyIcon ION nocontainer dashboard1 iconName={iconName} style={[styles.activetext,{}]}/>
+        {title ?<MyText title={title} pR3 white style={[textstyle]}/> : null}  
+        {text ?<MyText title={text} pP2 white style={[textstyle]}/> : null} 
+        {iconName ?<MyIcon ION white fontSize20 iconName={iconName} /> : null}  
     </View>   
 };
 
@@ -60,26 +54,26 @@ const VisitorButton = ({title,func,buttonstyle,textstyle,h3,h4,active,...rest}) 
     return <TouchableOpacity
         onPress={func}
         style={[styles.activebutton,buttonstyle]} {...rest} >
-        {h3 ?<MyText title={title} h3P style={[styles.activetext,textstyle]}/> : null}
-        {h4 ?<MyText title={title} h4P style={[styles.activetext,textstyle]}/> : null}       
+        {h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
+        {h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}       
     </TouchableOpacity>
     else 
     return<TouchableOpacity
     onPress={func}
     style={[styles.button1,buttonstyle]} {...rest}>
-    {h3 ?<MyText title={title} h3P style={[styles.text1,textstyle]}/> : null}
-    {h4 ?<MyText title={title} h4P style={[styles.text1,textstyle]}/> : null}       
+    {h3 ?<MyText title={title} h3P main style={[textstyle]}/> : null}
+    {h4 ?<MyText title={title} h4P main style={[textstyle]}/> : null}       
     </TouchableOpacity>
 };
 
-const AddButton = ({title,func,buttonstyle,textstyle,text,icon,...rest}) => {
+const AddButton = ({title,func,buttonstyle,textstyle,icon,...rest}) => {
     return <TouchableOpacity
         onPress={func}
         style={[
         styles.add,
         buttonstyle]} {...rest}>
-        {text ?<MyText title={title} pP2 style={[styles.activetext,textstyle]}/> : null}
-       {icon ?<MyIcon ION nocontainer dashboard1 iconName="add-circle-outline" style={[styles.activetext,{}]}/> :null}
+        {title ?<MyText title={title} pP2 white style={[textstyle]}/> : null}
+       {icon ?<MyIcon ION white fontSize20 iconName="add-circle-outline" /> :null}
     </TouchableOpacity>   
 };
 
@@ -91,7 +85,7 @@ const ApprovalButton = ({title,approve,reject,func,buttonstyle,iconName,textstyl
         approve && styles.approve,
         reject && styles.reject,
         buttonstyle]} {...rest}>
-       {iconName ?<MyIcon FA nocontainer dashboard1 iconName={iconName} style={[styles.icon,{}]}/> :null}
+       {iconName ?<MyIcon FA white fontSize45 iconName={iconName} /> :null}
     </TouchableOpacity>   
 };
 
@@ -142,9 +136,8 @@ const styles = StyleSheet.create({
     pending:{
         backgroundColor:colors.pending,
     },
-    text:{
-        color:colors.white,
-        
+    inactive:{
+        backgroundColor:colors.inactive,
     },
     button1:{
         width:"23%",
@@ -156,10 +149,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius:10,
     },
-    text1:{
-        color:colors.mainColor,
-        
-    },
     activebutton:{
         width:"23%",
         height:35,
@@ -170,10 +159,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius:10,
     },
-    activetext:{
-        color:colors.white,
-        
-    },
     approval:{
         width:50,
         height:50,
@@ -181,10 +166,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    icon:{
-        color: colors.white,
-        fontSize:45,
-    },
 })
 
-export {MyButton,FilterButton,Details,Info,VisitorButton,AddButton,ApprovalButton};
+export {MyButton,FilterButton,Details,VisitorButton,AddButton,ApprovalButton};

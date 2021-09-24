@@ -17,5 +17,5 @@ export default {
     approve:"#45BF43",
     rejected:"#EC2828",
     pending:"#F17105",
-    
+    inactive:"#BBBBBB",
 }

@@ -11,9 +11,6 @@ import MyIcon from '../../components/MyIcon';
 import MyDateTimePicker from '../../components/MyDateTimePicker';
 import { MyContainer } from '../../components/MyCard';
 
-import colors from '../../config/colors';
-import space from '../../config/space';
-
 const RegisterScreen = ({navigation}) => {
 
     const [Visitor, setVisitor] = useState(false);
@@ -74,7 +71,7 @@ const RegisterScreen = ({navigation}) => {
                     <MyContainer conRow flex flexstart/>
                     <MyText title="Create New Visitor" h3P/>
                     <MyContainer conRow flex flexend>
-                    <MyIcon MC nocontainer iconName="delete-forever" deletet />
+                    <MyIcon MC iconName="delete-forever" black fontSize30 />
                     </MyContainer>
                 </MyContainer>
                 <Spacer space/>

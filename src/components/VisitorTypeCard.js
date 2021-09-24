@@ -11,31 +11,31 @@ const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
             return<MyContainer cardcontainer row>
                 {col ?<MyContainer conRow visitor spacearound>
                     {title1 ?<MyContainer conCol>
-                        <MyIcon ION square iconName="car-sharp" icontype1 type1/>
+                        <MyIcon ION square iconName="car-sharp" black padding5 fontSize15 type1/>
                         <Spacer space/>
                         <MyText title={title1} pP3/>
                     </MyContainer>
                     :null}
                     {title2 ?<MyContainer conCol>
-                        <MyIcon ION square iconName="construct-sharp" icontype1 type1/>
+                        <MyIcon ION square iconName="construct-sharp" black padding5 fontSize15 type2/>
                         <Spacer space/>
                         <MyText title={title2} pP3/>
                     </MyContainer>
                     :null}
                     {title3 ?<MyContainer conColMyCardContainer conCol>
-                        <MyIcon MC square iconName="truck-delivery" icontype1 type1/>
+                        <MyIcon MC square iconName="truck-delivery" black padding5 fontSize15 type3/>
                         <Spacer space/>
                         <MyText title={title3} pP3/>
                     </MyContainer>
                     :null}
                     {title4 ?<MyContainer conCol>
-                        <MyIcon FA square iconName="ambulance" icontype1 type1/>
+                        <MyIcon FA square iconName="ambulance" black padding5 fontSize15 type4/>
                         <Spacer space/>
                         <MyText title={title4} pP3/>
                     </MyContainer>
                     :null}
                     {title5 ?<MyContainer conCol>
-                        <MyIcon FA square iconName="bus-alt" icontype1 type1/>
+                        <MyIcon FA square iconName="bus-alt" black padding5 fontSize15 type5/>
                         <Spacer space/>
                         <MyText title={title5} pP3/>
                     </MyContainer>
@@ -44,7 +44,7 @@ const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
                 :<MyContainer conRow visitor spacearound>
                     {title1 ?
                     <MyContainer conRow>                       
-                        <MyIcon ION square iconName="car-sharp" icontype1 type1/>
+                        <MyIcon ION square iconName="car-sharp" black padding5 fontSize15 type1/>
                         <Spacer height/>
                         <MyText title={title1} pP3/>
                         <Spacer height/>
@@ -52,7 +52,7 @@ const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
                     :null}
                     {title2 ?
                     <MyContainer conRow>
-                        <MyIcon ION square iconName="construct-sharp" icontype1 type2/>
+                        <MyIcon ION square iconName="construct-sharp" black padding5 fontSize15 type2/>
                         <Spacer height/>
                         <MyText title={title2} pP3/>
                         <Spacer height/>
@@ -60,7 +60,7 @@ const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
                     :null}
                     {title3 ?
                     <MyContainer conRow>
-                        <MyIcon MC square iconName="truck-delivery" icontype1 type3/>
+                        <MyIcon MC square iconName="truck-delivery" black padding5 fontSize15 type3/>
                         <Spacer height/>
                         <MyText title={title3} pP3/>
                         <Spacer height/>
@@ -68,7 +68,7 @@ const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
                     :null}
                     {title4 ?
                     <MyContainer conRow>
-                        <MyIcon FA square iconName="ambulance" icontype1 type4/>
+                        <MyIcon FA square iconName="ambulance" black padding5 fontSize15 type4/>
                         <Spacer height/>
                         <MyText title={title4} pP3/>
                         <Spacer height/>
@@ -76,7 +76,7 @@ const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
                     :null}
                     {title5 ?
                     <MyContainer conRow>
-                        <MyIcon FA square iconName="bus-alt" icontype1 type5/>
+                        <MyIcon FA square iconName="bus-alt" black padding5 fontSize15 type5/>
                         <Spacer height/>
                         <MyText title={title5} pP3/>
                     </MyContainer>

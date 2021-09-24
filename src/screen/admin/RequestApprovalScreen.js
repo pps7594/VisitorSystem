@@ -40,9 +40,6 @@ const RequestApprovalScreen = ({navigation}) => {
                         <VisitorTypeCard
                             title1="Visitor"
                             title2="Residential Usage"
-                            title3="Delivery"
-                            title4="Emergency Service"
-                            title5="Long-Term Service"
                         />
                         <Spacer spacer/>
             { 
