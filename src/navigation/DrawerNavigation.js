@@ -18,28 +18,32 @@ import {residentDashboard,residentRegisterVisitor,residentVisitRequest,residentR
 import {guardDashboard,guardDeliveryService,guardEmergencyService,guardCheckIn,guardCheckOut} from './guard';
 
 import SignInScreen from '../screen/SignInScreen';
+import EntryScreen from '../screen/EntryScreen';
+import ExitScreen from '../screen/ExitScreen';
 
 import { labCount,labPhoto, labScan, labShow,labRequest ,labRegister } from './lab';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 function CustomDrawerContent(props) {
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem 
-        icon={({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'logout'} /> }
-        style={styles.spacer} 
-        label="Logout" 
-      />
-    </DrawerContentScrollView>
-  );
+    return (
+        <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+        {/* <DrawerItem 
+                icon={({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'logout'} /> }
+                style={styles.spacer} 
+                label="Logout" 
+            />     */}
+        </DrawerContentScrollView>
+    );
 }
 
-function MobileStack({navigation}){
+function MobileStack(){
     return (
         <Stack.Navigator>
+            <Stack.Screen name="Entry" options={{ headerShown: false }} component={EntryScreen} />
             <Stack.Screen name="SignIn" component={SignInScreen}/>
             <Stack.Screen name="Admin" component={AdminDrawer} options={{ headerShown: false }}/>
             <Stack.Screen name="Resident" component={ResidentDrawer} options={{ headerShown: false }}/>
@@ -57,7 +61,7 @@ function AdminDrawer({navigation}){
                 itemStyle: { marginVertical: 5 },
             }}
             // Here should have some props for us to design the header for the navi bar
-            drawerContent={props => <CustomDrawerContent {...props} />}>
+            drawerContent={props => <CustomDrawerContent {...props}/>}>
             <Drawer.Screen 
                 name="Admin Dashboard" 
                 component={adminDashboard} 
@@ -69,7 +73,14 @@ function AdminDrawer({navigation}){
             <Drawer.Screen name="Visit Request List" component={adminVisitRequest} />
             <Drawer.Screen name="Report" component={adminReport} />
             <Drawer.Screen name="Profile" component={adminProfile} />
-            <Drawer.Screen name="System Setting" component={adminSystemSetting} />            
+            <Drawer.Screen name="System Setting" component={adminSystemSetting} /> 
+            <Drawer.Screen 
+                name="Logout" 
+                component={ExitScreen} 
+                options={{
+                    drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'logout'} />
+                }}          
+            />   
         </Drawer.Navigator>
     ) 
 }
@@ -93,6 +104,13 @@ function ResidentDrawer({navigation}){
             <Drawer.Screen name="Visit Request List" component={residentVisitRequest} />
             <Drawer.Screen name="Report" component={residentReport} />
             <Drawer.Screen name="Profile" component={residentProfile} />
+            <Drawer.Screen 
+                name="Logout" 
+                component={ExitScreen} 
+                options={{
+                    drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'logout'} />
+                }}          
+            />  
         </Drawer.Navigator>
     )
 }
@@ -117,6 +135,13 @@ function GuardDrawer({navigation}){
             <Drawer.Screen name="Current Visitor List" component={guardCheckOut} />
             <Drawer.Screen name="Visitor Check-in" component={guardCheckIn} />
             <Drawer.Screen name="Visitor Check-out" component={guardCheckOut} />
+            <Drawer.Screen 
+                name="Logout" 
+                component={ExitScreen} 
+                options={{
+                    drawerIcon: ({ focused, color, size }) => <SimpleLineIcons color={color} size={size} name={'logout'} />
+                }}          
+            />  
         </Drawer.Navigator>
     )
 }

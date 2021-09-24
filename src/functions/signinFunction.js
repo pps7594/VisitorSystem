@@ -15,15 +15,18 @@ export default () => {
                 dispatch(removeErrorMsg())
             }
             const ID = userID.substring(1);
-
+            
 
             // Clear the JWT first everytime sign in
-            if(AsyncStorage.getItem('token')){
+            if(await AsyncStorage.getItem('token')){
                 AsyncStorage.removeItem('token');
             }
 
             const response = await getToken(ID,password);
+            
             await AsyncStorage.setItem('token',response.data.jwt);
+            await AsyncStorage.setItem('UID',userID);
+            await AsyncStorage.setItem('PW',password);
 
             const response2 = await getUserObj(ID);
             const role = response2.data.userObj.userRole;
@@ -47,8 +50,35 @@ export default () => {
                 throw "Invalid Credential"
             }
         } catch (err) {
+            console.log(err)
             dispatch(storeErrorMsg("Invalid Credential, Please Try Again"))
         }   
+    }
+
+    const checkSignature = async ({navigation}) => {
+        if(await AsyncStorage.getItem('UID') != null && await AsyncStorage.getItem('PW') != null){
+            // AsyncStorage.removeItem('UID')
+            // AsyncStorage.removeItem('PW')
+            // navigation.navigate("SignIn")
+            const UID = await AsyncStorage.getItem('UID');
+            const PW = await AsyncStorage.getItem('PW');
+            signin({
+                userID : UID,
+                password : PW,
+                callback: ({path}) => {
+                    navigation.navigate(path)
+                }
+            })
+        }
+        else {
+            navigation.navigate("SignIn")
+        }
+    }
+
+    const logoutFunc = async ({navigation}) => {
+        AsyncStorage.getAllKeys()
+        .then(keys => AsyncStorage.multiRemove(keys))
+        .then(() =>  navigation.navigate("Entry"));
     }
 
     // Helper Function
@@ -74,5 +104,5 @@ export default () => {
         })
     }
 
-    return [signin];
+    return {signin,checkSignature,logoutFunc};
 }

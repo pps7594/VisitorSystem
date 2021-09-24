@@ -16,7 +16,6 @@ const DashboardScreen = ({navigation}) => {
     const {adminDashboard} = adminFunction();
     const [currentDate, setCurrentDate] = useState('');
     const admindashboardobj = useSelector((state) => state.admindashboardSlice.admindashboardobj); 
-
     // Helper Function
     const errCallback = ({msg}) => {
         // Some refinement should be done? Like header of this alert should not only be "alert"?

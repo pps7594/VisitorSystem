@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Image,View, StyleSheet} from 'react-native';
 import {Text,Input} from 'react-native-elements';
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +17,12 @@ const SignInScreen = ({navigation}) => {
     const [userID, setUserID] = useState('');
     const [password, setPassword] = useState('');
     const errorMsg = useSelector((state) => state.credential.errorMsg);
-    const [signin] = signinFunction();
+    const {signin} = signinFunction();
     
+    const callback = ({path}) => {
+        navigation.navigate(path)
+    }
+
     return <View style={styles.container}>
                 <Image 
                     style={styles.background}
@@ -53,12 +57,10 @@ const SignInScreen = ({navigation}) => {
                     //password masking (ex.***)
                     secureTextEntry />
                 {errorMsg ? <Text style={styles.errorMessage}>{errorMsg}</Text> : null}
-                <MyButton title="SIGN IN" userID={userID} password={password} callback={({path}) => {
-                    navigation.navigate(path)
-                }} func={signin} h3/> 
+                <MyButton title="SIGN IN" func={() => signin({userID,password,callback})} h3/> 
                 </View>
 
-                </View>
+            </View>
 
 };
 

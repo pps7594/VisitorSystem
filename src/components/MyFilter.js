@@ -6,13 +6,14 @@ import {FilterButton} from './MyButton';
 import {SearchInput} from './MyTextInput';
 import {MyContainer} from './MyCard';
 
-const MyFilter = ({input,setInput}) => {
+const MyFilter = ({sourceFunc, input,setInput}) => {
+    //sourceFunc is the function from the screen (source)
     return <View>
             <MyContainer conRow spacebetween>
-                <FilterButton title="All" h4 active/>
-                <FilterButton title="Today" h4 />
-                <FilterButton title="Month" h4 />
-                <FilterButton title="Week" h4 />
+                <FilterButton title="All" h4 func={() => sourceFunc({timeframe : null})} active/>
+                <FilterButton title="Today" h4 func={() => sourceFunc({timeframe : "today"})}/>         
+                <FilterButton title="Week" h4 func={() => sourceFunc({timeframe : "week"})}/>
+                <FilterButton title="Month" h4 func={() => sourceFunc({timeframe : "month"})}/>
             </MyContainer>
             <Spacer spacer/>
             <SearchInput 
