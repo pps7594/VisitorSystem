@@ -9,7 +9,7 @@ import {MyButton,Details} from './MyButton';
 import MyIcon from './MyIcon';
 import MyText from './MyText';
 
-const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,alignstretch,search,visitor, conCol, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style,...rest}) => {
+const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,alignstretch,search,visitor, conCol,paddingleft, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style,...rest}) => {
     return <>
                 {screencontainer ?<View style={[styles.screenContainer,style]} {...rest}>
                     {children}
@@ -39,6 +39,8 @@ const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, 
                 </View>:null}
                 {conCol? <View style={[styles.col,
                     alignstart && styles.alignstart, //request approval card
+                    paddingleft && styles.paddingleft, //only admin profile
+                    flex && styles.flex,
                     style]}
                     {...rest}>
                     {children}
@@ -64,7 +66,7 @@ const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, 
             </>
 };
 
-const MyCard = ({iconName,title,number,button}) => {
+const MyCard = ({iconName,title,number,button,func}) => {
     return <MyContainer cardcontainer>
                 <MyContainer conRow>
                     <MyIcon FA icon iconName={iconName} white padding10 fontSize25/>
@@ -76,11 +78,11 @@ const MyCard = ({iconName,title,number,button}) => {
                     </MyContainer>
                 </MyContainer>
                 <Spacer m20/>
-                <MyButton title={button} h4/> 
+                <MyButton title={button} h4 func={func}/> 
             </MyContainer>
 };
 
-const MyCardList = ({iconName,title,button,details}) => {
+const MyCardList = ({iconName,title,button,details,func}) => {
     return <MyContainer cardcontainer>
                 <MyContainer conRow flexstart>
                     <MyIcon FA icon iconName={iconName} white padding10 fontSize25/>
@@ -110,11 +112,11 @@ const MyCardList = ({iconName,title,button,details}) => {
                     }) : null
                 }
                 <Spacer m20/>
-                <MyButton title={button} h4/> 
+                <MyButton title={button} h4 func={func}/> 
             </MyContainer>
 };
 
-const MyList = ({id,visitor,address,iconType,iconName,carplate,active,inactive,arriveDate,arriveTime,departDate,departTime}) => {
+const MyList = ({id,visitor,address,visitorType,carplate,status,arriveDate,arriveTime,departDate,departTime}) => {
     return <MyContainer conRect>
         <View style={[styles.colwidth]}>
             <MyText title={id} pP2 main/>
@@ -123,13 +125,17 @@ const MyList = ({id,visitor,address,iconType,iconName,carplate,active,inactive,a
         </View>
         <MyContainer conRectRound bgreportList>
             <MyContainer conRow >
-                <MyIcon FA square iconName={iconName} black padding5 fontSize15 type1/>
+                {visitorType==1 ?<MyIcon ION square iconName="car-sharp" black padding5 fontSize15 type1/> :null}
+                {visitorType==2 ?<MyIcon ION square iconName="construct-sharp" black padding5 fontSize15 type2/> :null}
+                {visitorType==3 ?<MyIcon MC square iconName="truck-delivery" black padding5 fontSize15 type3/> :null}
+                {visitorType==4 ?<MyIcon FA square iconName="ambulance" black padding5 fontSize15 type4/> :null}
+                {visitorType==5 ?<MyIcon FA square iconName="bus-alt" black padding5 fontSize15 type5/> :null}
                 <Spacer space10/>
                 <MyText title={carplate} pP3/>
                 <MyContainer conLeft>
-                    {active?<View><Details walkin title="Active" pR grey/>
+                    {status=="active"?<View><Details details walkin title="Active" pR grey/>
                     </View>:null}
-                    {inactive?<View><Details inactive title="Inactive" pR grey/>
+                    {status=="inactive"?<View><Details details inactive title="Inactive" pR grey/>
                     </View>:null}
                 </MyContainer>
             </MyContainer>
@@ -156,15 +162,96 @@ const MyList = ({id,visitor,address,iconType,iconName,carplate,active,inactive,a
     </MyContainer>
 };
 
-const GuardCard = ({FA,MC,IO,iconName,title,navigation,style,...rest}) => {
+const GuardCard = ({FA,MC,IO,iconName,title,func,style,...rest}) => {
     return <TouchableOpacity
-            onPress={() =>  onPressCallback({navigation})}
+            onPress={func}
             style={[styles.gcardContainer,style]} {...rest}>
                 {FA ?<MyIcon FA icon iconName={iconName} white padding10 fontSize25/> : null}
                 {MC ?<MyIcon MC icon iconName={iconName} white padding10 fontSize30/> : null}
                 {IO ?<MyIcon ION icon iconName={iconName} white padding10 fontSize25/> : null}
                 <MyText title={title} pP style={styles.text}/>
             </TouchableOpacity>  
+};
+
+
+const VisitorTypeCard = ({col,title1,title2,title3,title4,title5,}) => {
+
+    return<MyContainer cardcontainer row>
+        {col ?<MyContainer conRow visitor spacearound>
+            {title1 ?<MyContainer conCol>
+                <MyIcon ION square iconName="car-sharp" black padding5 fontSize15 type1/>
+                <Spacer space/>
+                <MyText title={title1} pP3/>
+            </MyContainer>
+            :null}
+            {title2 ?<MyContainer conCol>
+                <MyIcon ION square iconName="construct-sharp" black padding5 fontSize15 type2/>
+                <Spacer space/>
+                <MyText title={title2} pP3/>
+            </MyContainer>
+            :null}
+            {title3 ?<MyContainer conColMyCardContainer conCol>
+                <MyIcon MC square iconName="truck-delivery" black padding5 fontSize15 type3/>
+                <Spacer space/>
+                <MyText title={title3} pP3/>
+            </MyContainer>
+            :null}
+            {title4 ?<MyContainer conCol>
+                <MyIcon FA square iconName="ambulance" black padding5 fontSize15 type4/>
+                <Spacer space/>
+                <MyText title={title4} pP3/>
+            </MyContainer>
+            :null}
+            {title5 ?<MyContainer conCol>
+                <MyIcon FA square iconName="bus-alt" black padding5 fontSize15 type5/>
+                <Spacer space/>
+                <MyText title={title5} pP3/>
+            </MyContainer>
+            :null}
+        </MyContainer>
+        :<MyContainer conRow visitor spacearound>
+            {title1 ?
+            <MyContainer conRow>                       
+                <MyIcon ION square iconName="car-sharp" black padding5 fontSize15 type1/>
+                <Spacer height/>
+                <MyText title={title1} pP3/>
+                <Spacer height/>
+            </MyContainer>
+            :null}
+            {title2 ?
+            <MyContainer conRow>
+                <MyIcon ION square iconName="construct-sharp" black padding5 fontSize15 type2/>
+                <Spacer height/>
+                <MyText title={title2} pP3/>
+                <Spacer height/>
+            </MyContainer>
+            :null}
+            {title3 ?
+            <MyContainer conRow>
+                <MyIcon MC square iconName="truck-delivery" black padding5 fontSize15 type3/>
+                <Spacer height/>
+                <MyText title={title3} pP3/>
+                <Spacer height/>
+            </MyContainer>
+            :null}
+            {title4 ?
+            <MyContainer conRow>
+                <MyIcon FA square iconName="ambulance" black padding5 fontSize15 type4/>
+                <Spacer height/>
+                <MyText title={title4} pP3/>
+                <Spacer height/>
+            </MyContainer>
+            :null}
+            {title5 ?
+            <MyContainer conRow>
+                <MyIcon FA square iconName="bus-alt" black padding5 fontSize15 type5/>
+                <Spacer height/>
+                <MyText title={title5} pP3/>
+            </MyContainer>
+            :null}
+        </MyContainer>}
+    </MyContainer>
+
 };
 
 const styles = StyleSheet.create({
@@ -225,6 +312,9 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
     },
+    paddingleft:{
+        paddingLeft:"20%",
+    },
     colwidth:{
         paddingLeft:5,
         width:"25%",
@@ -272,4 +362,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export {MyContainer,MyCard,MyCardList,MyList,GuardCard};
+export {MyContainer,MyCard,MyCardList,MyList,GuardCard,VisitorTypeCard};

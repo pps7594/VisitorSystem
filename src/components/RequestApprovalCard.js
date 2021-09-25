@@ -9,7 +9,7 @@ import MyIcon from './MyIcon';
 import {Details,ApprovalButton} from './MyButton';
 import { MyContainer } from './MyCard';
 
-const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reject,pending,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList}) => {
+const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList,approval}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isExpand, setIsExpand] = useState(false);
     
@@ -30,11 +30,11 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                     <MyContainer conLeft>
                         {walkin?<View><Details details walkin title="Walk-in Visitor" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {approve?<View><Details details approve title="Approved" pR3 grey/>
+                        {status=="Approved"?<View><Details details approve title="Approved" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {reject?<View><Details details reject title="Rejected" pR3 grey/>
+                        {status=="Rejected"?<View><Details details reject title="Rejected" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {pending?<View><Details details pending title="Pending" pR3 grey/>
+                        {status=="Pending"||status=="NoResponse"?<View><Details details pending title="Pending" pR3 grey/>
                         <Spacer space/></View>:null}
                         {imageSource ?<TouchableOpacity onPress={() => setIsOpen(true)}>
                         <Image 
@@ -51,7 +51,7 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                         
                     </MyContainer>
                 </MyContainer>
-                <Spacer space/>
+                <Spacer spacer/>
 
                 <MyContainer conRow>
                     <MyIcon MC iconName="clock-time-eight-outline" black padding5 fontSize20/>
@@ -122,14 +122,15 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                 <Spacer space/>
                 <View style={{borderColor:colors.grey,width:"100%",borderWidth:1,borderRadius:space.cardlistborderradius,padding:space.cardpadding}}>
                 
-                <MyText title={additionalNotes} pR3/>
+                <MyText title={additionalNotes} pR2/>
                 </View>
 
-                <MyContainer conRow>
+                {approval ?<MyContainer conRow>
                     <ApprovalButton iconName="check-circle" approve />
                     <Spacer m50/>
                     <ApprovalButton iconName="times-circle" reject />
-                </MyContainer>             
+                </MyContainer>
+                :null}
             </MyContainer>
 };
 

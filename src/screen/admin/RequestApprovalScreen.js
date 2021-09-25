@@ -8,9 +8,8 @@ import adminFunction from '../../functions/adminFunction';
 //import component
 import Spacer from '../../components/Spacer';
 import MyFilter from '../../components/MyFilter';
-import VisitorTypeCard from '../../components/VisitorTypeCard';
 import RequestApprovalCard from '../../components/RequestApprovalCard';
-import { MyContainer } from '../../components/MyCard';
+import { MyContainer,VisitorTypeCard } from '../../components/MyCard';
 
 const RequestApprovalScreen = ({navigation}) => {
 
@@ -62,6 +61,7 @@ const RequestApprovalScreen = ({navigation}) => {
                             departTime={leavingdatetime[1]}
                             visitorList={item.visitRequestCarList}
                             additionalNotes={item.visitRequestObj.additionalNotes}
+                            approval
                         />
                         <Spacer spacer/>
                     </View>

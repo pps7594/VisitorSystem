@@ -19,7 +19,7 @@ const SearchInput = ({ label,defaultv, value, onChange,style}) => (
     onChangeText={onChange} 
     style={[styles.searchinput,style]}/>
     <MyContainer conRow flexend> 
-    <MyIcon ION nocontainer iconName="search" search/>
+    <MyIcon ION iconName="search" grey padding10 fontSize25/>
     </MyContainer>
   </MyContainer>  
 );
