@@ -6,7 +6,7 @@ import space from '../config/space';
 import MyText from './MyText';
 import Spacer from './Spacer';
 import MyIcon from './MyIcon';
-import {Details,ApprovalButton} from './MyButton';
+import {Details,MyButton} from './MyButton';
 import { MyContainer } from './MyCard';
 
 const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList,approval}) => {
@@ -126,9 +126,9 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                 </View>
 
                 {approval ?<MyContainer conRow>
-                    <ApprovalButton iconName="check-circle" approve />
+                    <MyButton iconName="check-circle" approve />
                     <Spacer m50/>
-                    <ApprovalButton iconName="times-circle" reject />
+                    <MyButton iconName="times-circle" reject />
                 </MyContainer>
                 :null}
             </MyContainer>

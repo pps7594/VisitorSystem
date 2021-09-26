@@ -78,7 +78,7 @@ const MyCard = ({iconName,title,number,button,func}) => {
                     </MyContainer>
                 </MyContainer>
                 <Spacer m20/>
-                <MyButton title={button} h4 func={func}/> 
+                <MyButton title={button} active h4 func={func}/> 
             </MyContainer>
 };
 
@@ -112,7 +112,7 @@ const MyCardList = ({iconName,title,button,details,func}) => {
                     }) : null
                 }
                 <Spacer m20/>
-                <MyButton title={button} h4 func={func}/> 
+                <MyButton title={button} active h4 func={func}/> 
             </MyContainer>
 };
 

@@ -15,7 +15,7 @@ const AdminProfileScreen = () => {
                     <Image 
                         style={{height:100,width:100}}
                         source={require("../../assets/logo.png")}/>
-                    <Spacer m20/>
+                    <Spacer spacer/>
                 </MyContainer>
                 <MyContainer conCol alignstart paddingleft>
                     <MyText title="User ID: " pP3 grey/>
@@ -31,7 +31,7 @@ const AdminProfileScreen = () => {
                     <MyText title="0123456789" pP2/>
                 </MyContainer>
             <Spacer m20/>
-                <MyButton title="Edit Profile" h4/>
+                <MyButton title="Edit Profile" active h4/>
             <Spacer m20/>
             </MyContainer>
         </MyContainer>

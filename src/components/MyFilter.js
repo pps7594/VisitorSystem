@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet,View} from 'react-native';
 
 import Spacer from './Spacer';
-import {FilterButton} from './MyButton';
+import {MyButton} from './MyButton';
 import {SearchInput} from './MyTextInput';
 import {MyContainer} from './MyCard';
 
@@ -10,10 +10,10 @@ const MyFilter = ({sourceFunc, input,setInput}) => {
     //sourceFunc is the function from the screen (source)
     return <View>
             <MyContainer conRow spacebetween>
-                <FilterButton title="All" h4 func={() => sourceFunc({timeframe : null})} active/>
-                <FilterButton title="Today" h4 func={() => sourceFunc({timeframe : "today"})}/>         
-                <FilterButton title="Week" h4 func={() => sourceFunc({timeframe : "week"})}/>
-                <FilterButton title="Month" h4 func={() => sourceFunc({timeframe : "month"})}/>
+                <MyButton title="All" height40 width23 border active h4 func={() => sourceFunc({timeframe : null})} />
+                <MyButton title="Today" height40 width23 border white inactive h4 func={() => sourceFunc({timeframe : "today"})}/>         
+                <MyButton title="Week" height40 width23 border white inactive h4 func={() => sourceFunc({timeframe : "week"})}/>
+                <MyButton title="Month" height40 width23 border white inactive h4 func={() => sourceFunc({timeframe : "month"})}/>
             </MyContainer>
             <Spacer spacer/>
             <SearchInput 

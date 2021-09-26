@@ -43,7 +43,7 @@ const ResidentProfileScreen = () => {
             <Spacer spacer/>
             </MyContainer>
             <Spacer spacer/>
-            <MyButton title="Edit Profile" h4/>
+            <MyButton title="Edit Profile" active h4/>
         </MyContainer>
     )
 };

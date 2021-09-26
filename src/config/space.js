@@ -4,4 +4,5 @@ export default {
     cardborderradius:10,
     cardlistborderradius:5,
     textborderradius:10,
+    buttonborderradius:10,
 }
