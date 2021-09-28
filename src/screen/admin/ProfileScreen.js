@@ -13,7 +13,7 @@ import {MyButton} from '../../components/MyButton';
 
 const ProfileScreen = ({navigation}) => {
     const {adminProfile} = adminFunction();
-    const userObj = useSelector((state) => state.credential.userWithAddress);
+    const userWithAddress = useSelector((state) => state.credential.userWithAddress);
 
     // Helper Function
     const errCallback = ({msg}) => {
