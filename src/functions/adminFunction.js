@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { storeAdminDashboardObj, storeRequestApprovalArray, storeVisitRequestArray, storeAdminReportArray, storeDefaultSetting, removeAdminDashboardObj } from "../redux/admindashboardslice";
-import { storeUserObj} from "../redux/credential";
+import { storeUserObj } from "../redux/credential";
 
 import conn from '../api/connection';
 import AsyncStorage from "@react-native-async-storage/async-storage";

@@ -15,7 +15,8 @@ const DashboardScreen = ({navigation}) => {
 
     const {residentDashboard} = residentFunction();
     const [currentDate, setCurrentDate] = useState('');
-    const residentDashboardObj = useSelector((state) => state.resident.residentdashboardobj); 
+    const residentDashboardObj = useSelector((state) => state.resident.residentdashboardobj);
+     
     // Helper Function
     const errCallback = ({msg}) => {
         // Some refinement should be done? Like header of this alert should not only be "alert"?
