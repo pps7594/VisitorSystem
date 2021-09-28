@@ -133,7 +133,7 @@ const MyList = ({id,visitor,address,visitorType,carplate,status,arriveDate,arriv
                 <Spacer space10/>
                 <MyText title={carplate} pP3/>
                 <MyContainer conLeft>
-                    {status=="active"?<View><Details details walkin title="Active" pR grey/>
+                    {status!="inactive"?<View><Details details walkin title="Active" pR grey/>
                     </View>:null}
                     {status=="inactive"?<View><Details details inactive title="Inactive" pR grey/>
                     </View>:null}
@@ -142,18 +142,18 @@ const MyList = ({id,visitor,address,visitorType,carplate,status,arriveDate,arriv
             <Spacer space10/>
             <MyContainer conRow>
                 <MyContainer conCol style={[{width:"18%"}]}>
-                <MyIcon MC iconName="clock-time-eight-outline" black padding5 fontSize15/>
+                <MyIcon MC iconName="clock-time-eight-outline" black padding5 fontSize20/>
                 <MyText title="Actual"  pP3/>
                 </MyContainer>
                 <MyContainer conLeft style={[{width:"35%"}]}>
-                    <MyContainer conCol colstart>
+                    <MyContainer conCol alignstart>
                     <MyText title={arriveDate} pP2/>
                     <MyText title={arriveTime} pP3 grey/>
                     </MyContainer>
                 </MyContainer>
                 <View style={{backgroundColor:colors.black,width:1,height:"100%"}} />
                 <Spacer space />
-                <MyContainer conCol colstart style={[{width:"35%"}]}>
+                <MyContainer conCol alignstart style={[{width:"35%"}]}>
                     <MyText title={departDate} pP2/>
                     <MyText title={departTime} pP3 grey/>
                 </MyContainer>
@@ -316,8 +316,8 @@ const styles = StyleSheet.create({
         paddingLeft:"20%",
     },
     colwidth:{
-        paddingLeft:5,
-        width:"25%",
+        padding:5,
+        width:"28%",
     },
     //conLeft
     left:{

@@ -20,7 +20,7 @@ export const admindashboardSlice = createSlice({
     storeRequestApprovalArray: (state,action) => {
       state.requestapprovalarray = action.payload
     },
-    removeRequestApprovalAray: (state) => {
+    removeRequestApprovalArray: (state) => {
       state.requestapprovalarray = {}
     },
     storeVisitRequestArray: (state,action) => {
