@@ -19,7 +19,7 @@ const SearchInput = ({ label,defaultv, value, onChange,style}) => (
     onChangeText={onChange} 
     style={[styles.searchinput,style]}/>
     <MyContainer conRow flexend> 
-    <MyIcon ION nocontainer iconName="search" search/>
+    <MyIcon ION iconName="search" grey padding10 fontSize25/>
     </MyContainer>
   </MyContainer>  
 );
@@ -58,7 +58,7 @@ const MyPicker = ({label, value, onChange,items,style,...rest}) => (
 );
 
 const MyCheckBox = ({label, value, onValueChange,style,...rest}) => (
-  <MyContainer conRow>
+  <MyContainer conRow flexstart>
     <Checkbox
           style={style}
           value={value}

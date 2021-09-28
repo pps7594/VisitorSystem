@@ -40,11 +40,11 @@ const DashboardScreen = ({navigation}) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                 <Spacer spacer/>
                 <MyText title={currentDate}  h4P style={styles.date}/>
-                <MyCard iconName="clipboard-list" title="Visitor Visited Today" number={admindashboardobj.todayVisitorCount} button="View Report"/>
+                <MyCard iconName="clipboard-list" title="Visitor Visited Today" number={admindashboardobj.todayVisitorCount} button="View Report" func={() => navigation.navigate('Report')}/>
                 <Spacer spacer/>
-                <MyCard iconName="user-check" title="Pending Request" number={admindashboardobj.pendingVisitorCount} button="View Request"/>
+                <MyCard iconName="user-check" title="Pending Request" number={admindashboardobj.pendingVisitorCount} button="View Request" func={() => navigation.navigate('Request Approval')}/>
                 <Spacer spacer/>
-                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor"  details={admindashboardobj.visitRequestList}/>
+                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor"  details={admindashboardobj.visitRequestList} func={() => navigation.navigate('Visit Request List')}/>
                 </ScrollView>
             </MyContainer>
 };

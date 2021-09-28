@@ -8,9 +8,8 @@ import adminFunction from '../../functions/adminFunction';
 //import component
 import Spacer from '../../components/Spacer';
 import MyFilter from '../../components/MyFilter';
-import VisitorTypeCard from '../../components/VisitorTypeCard';
 import RequestApprovalCard from '../../components/RequestApprovalCard';
-import { MyContainer } from '../../components/MyCard';
+import { MyContainer,VisitorTypeCard } from '../../components/MyCard';
 
 const VisitRequestScreen = ({navigation}) => {
     const {adminVisitRequest} = adminFunction();
@@ -53,7 +52,6 @@ const VisitRequestScreen = ({navigation}) => {
 
                     return <View key={item.visitRequestObj.visitRequestId}>
                     {/* Use for the tagging for the status, REMEMBER WE STILL LACK OF QR Image */}
-                        <Text>{item.visitRequestObj.status}</Text>
                         <RequestApprovalCard 
                             visitorType={item.visitRequestObj.visitorType}
                             id={"#VR-" + item.visitRequestObj.visitRequestId}
@@ -66,6 +64,8 @@ const VisitRequestScreen = ({navigation}) => {
                             departTime={leavingdatetime[1]}
                             visitorList={item.visitRequestCarList}
                             additionalNotes={item.visitRequestObj.additionalNotes}
+                            status={item.visitRequestObj.status}
+                            imageSource={require("../../assets/qrcode.png")}
                         />
                         <Spacer spacer/>
                     </View>

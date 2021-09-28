@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {StyleSheet, View, ScrollView, FlatList, Text} from 'react-native';
+import {View, ScrollView, FlatList, Text} from 'react-native';
 
 
 //import component
 import Spacer from '../../components/Spacer';
 import MyText from '../../components/MyText';
 import {MyTextInput,MyPicker, MyCheckBox} from '../../components/MyTextInput';
-import {AddButton, FilterButton, VisitorButton} from '../../components/MyButton';
+import {MyButton} from '../../components/MyButton';
 import MyIcon from '../../components/MyIcon';
 import MyDateTimePicker from '../../components/MyDateTimePicker';
 import { MyContainer } from '../../components/MyCard';
-
-import colors from '../../config/colors';
-import space from '../../config/space';
 
 const RegisterScreen = ({navigation}) => {
 
@@ -39,10 +36,10 @@ const RegisterScreen = ({navigation}) => {
             <ScrollView showsVerticalScrollIndicator={false}>
             <MyContainer cardcontainer borderRadius5>
                 <MyContainer conRow spacebetween>
-                    {Visitor ?<FilterButton title="Visitor" h4 active buttonstyle={styles.button} />
-                    :<FilterButton title="Visitor" h4 buttonstyle={styles.button}  />}
-                    {Residential ?<FilterButton title="Residential Usage" h4 active buttonstyle={styles.button} />
-                    :<FilterButton title="Residential Usage" h4 buttonstyle={styles.button} />}
+                    {Visitor ?<MyButton title="Visitor" height40 width45 border active h4/>
+                    :<MyButton title="Visitor" height40 width45 border white inactive h4 />}
+                    {Residential ?<MyButton title="Residential Usage" height40 width45 border active h4/>
+                    :<MyButton title="Residential Usage" height40 width45 border white inactive h4/>}
                 </MyContainer>
                 <Spacer spacer/>
                 <MyText title="Fields marked with an asterisk (*) are required."  pR3I/>
@@ -74,7 +71,7 @@ const RegisterScreen = ({navigation}) => {
                     <MyContainer conRow flex flexstart/>
                     <MyText title="Create New Visitor" h3P/>
                     <MyContainer conRow flex flexend>
-                    <MyIcon MC nocontainer iconName="delete-forever" deletet />
+                    <MyIcon MC iconName="delete-forever" black fontSize30 />
                     </MyContainer>
                 </MyContainer>
                 <Spacer space/>
@@ -119,19 +116,12 @@ const RegisterScreen = ({navigation}) => {
                 numberOfLines={3}
                 />
                 <Spacer m20/>
-                <AddButton title="Add Visitor" text icon func={onPress}/>
+                <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={onPress}/>
                 <Spacer spacer/>
-                <AddButton title="Submit" text func={onPress}/>
+                <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress}/>
             </MyContainer>
             </ScrollView>
             </MyContainer>
 };
-
- const styles = StyleSheet.create({
-    button:{
-        width:"45%",
-        height:40
-    }
- });
 
  export default RegisterScreen;

@@ -8,6 +8,9 @@ import DisplayPhotoScreen from '../screen/lab/DisplayPhotoScreen';
 import ScanScreen from '../screen/lab/ScanScreen';
 import RequestScreen from '../screen/lab/RequestScreen';
 import RegisterScreen from '../screen/lab/RegisterScreen';
+import ReportScreen from '../screen/lab/ReportScreen';
+import AdminProfileScreen from '../screen/lab/AdminProfileScreen';
+import ResidentProfileScreen from '../screen/lab/ResidentProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -143,4 +146,70 @@ function labRegister({ navigation }){
         </Stack.Navigator>
     ) 
 }
-export {labCount,labPhoto,labShow,labScan,labRequest,labRegister}
+function labReport({ navigation }){
+    return (
+        <Stack.Navigator
+        screenOptions={{
+            headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+            ),
+            headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+            },
+        }}>
+        <Stack.Screen
+            name="Report"
+            component={ReportScreen}
+        />
+        </Stack.Navigator>
+    ) 
+}
+function labAdminProfile({ navigation }){
+    return (
+        <Stack.Navigator
+        screenOptions={{
+            headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+            ),
+            headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+            },
+        }}>
+        <Stack.Screen
+            name="Admin Profile"
+            component={AdminProfileScreen}
+        />
+        </Stack.Navigator>
+    ) 
+}
+function labResidentProfile({ navigation }){
+    return (
+        <Stack.Navigator
+        screenOptions={{
+            headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+            ),
+            headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+            },
+        }}>
+        <Stack.Screen
+            name="Resident Profile"
+            component={ResidentProfileScreen}
+        />
+        </Stack.Navigator>
+    ) 
+}
+export {labCount,labPhoto,labShow,labScan,labRequest,labRegister,labReport,labAdminProfile,labResidentProfile}

@@ -41,11 +41,11 @@ const DashboardScreen = ({navigation}) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                 <Spacer spacer/>
                 <MyText title={currentDate}  h4P style={styles.date}/>
-                <MyCard iconName="clipboard-list" title="Visitor Visited Today" number="45" button="View Report"/>
+                <MyCard iconName="clipboard-list" title="Visitor Visited Today" number={residentDashboardObj.visitorVisitedToday} button="View Report" func={() => navigation.navigate('Report')}/>
                 <Spacer spacer/>
-                {/* <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor" time={`10.30 \n a.m.`} id="#VR-233" details="MR JM . House No 0001"/>
-                <Spacer/> */}
-                <MyCard iconName="user-plus" title="Add Request" button="Register Visitor"/>
+                <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor"  details={residentDashboardObj.visitRequestList} func={() => navigation.navigate('Visit Request List')}/>
+                <Spacer spacer/>
+                <MyCard iconName="user-plus" title="Add Request" button="Register Visitor" func={() => navigation.navigate('Request Visitor')}/>
 
                 </ScrollView>
             </MyContainer>

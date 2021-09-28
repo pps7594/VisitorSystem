@@ -7,115 +7,68 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../config/colors';
 import MyText from './MyText';
 
-const MyIcon = ({FA,MC,ION,nocontainer,square,visitor,iconName,title,dashboard,dashboard1,search,icontype,icontype1,deletet,type1,type2,type3,type4,type5,viewstyle,style}) => {
-    if(nocontainer)
-    return <View>
-        {FA ?<FontAwesome5 name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/> :null}
-        {MC ?<MaterialCommunityIcons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/> :null}
-        {ION ?<Ionicons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/> :null}
-    </View>
-    else if(square)
-    return <View style={[
-        styles.squareContainer,
-        type1 && styles.type1,
-        type2 && styles.type2,
-        type3 && styles.type3,
-        type4 && styles.type4,
-        type5 && styles.type5,
-        viewstyle
-    ]}>
-        {FA ?<FontAwesome5 name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>:null}
-        {MC ?<MaterialCommunityIcons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>:null}
-        {ION ?<Ionicons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>:null}
-    </View>
-    else
-    return <View style={[
-        styles.iconContainer,
-        type1 && styles.type1,
-        type2 && styles.type2,
-        type3 && styles.type3,
-        type4 && styles.type4,
-        type5 && styles.type5,
-        visitor && styles.visitorContainer,
-        viewstyle
-    ]}>
-        {FA ?<FontAwesome5 name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>:null}
-        {title ?<MyText title={title} h3P style={[
-            styles.visitorText,
-            style]}/>:null}
-        {MC ?<MaterialCommunityIcons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>:null}
-        {title ?<MyText title={title} h3P style={[
-            styles.visitorText,
-            style]}/>:null}
-        {ION ?<Ionicons name={iconName}  style={[
-        dashboard && styles.dashboard,
-        dashboard1 && styles.dashboard1,
-        search && styles.search,
-        icontype && styles.icontype,
-        icontype1 && styles.icontype1,
-        deletet && styles.deletet,
-        style]}/>:null}
-        {title ?<MyText title={title} h3P style={[
-            styles.visitorText,
-            style]}/>:null}
-    </View>
+const MyIcon = ({FA,MC,ION,icon,square,main,iconName,title,white,black,grey,padding5,padding10,padding15,fontSize15,fontSize20,fontSize25,fontSize30,fontSize45,type1,type2,type3,type4,type5,viewstyle,style}) => {
 
+    return <View style={[
+        icon && styles.iconContainer,
+        square && styles.squareContainer,
+        type1 && styles.type1,
+        type2 && styles.type2,
+        type3 && styles.type3,
+        type4 && styles.type4,
+        type5 && styles.type5,
+        main && styles.main,
+        viewstyle
+    ]}>
+        {FA ?<FontAwesome5 name={iconName}  style={[
+        white && styles.white,
+        black && styles.black,
+        grey && styles.grey,
+        padding5 && styles.padding5,
+        padding10 && styles.padding10,
+        padding15 && styles.padding15,
+        fontSize15 && styles.fontSize15,
+        fontSize20 && styles.fontSize20,
+        fontSize25 && styles.fontSize25,
+        fontSize30 && styles.fontSize30,
+        fontSize45 && styles.fontSize45,
+        style]}/> :null}
+        {title ?<MyText title={title} h3P style={[
+            styles.white,styles.padding5,styles.fontSize25,
+            style]}/>:null}
+        {MC ?<MaterialCommunityIcons name={iconName}  style={[
+        white && styles.white,
+        black && styles.black,
+        grey && styles.grey,
+        padding5 && styles.padding5,
+        padding10 && styles.padding10,
+        padding15 && styles.padding15,
+        fontSize15 && styles.fontSize15,
+        fontSize20 && styles.fontSize20,
+        fontSize25 && styles.fontSize25,
+        fontSize30 && styles.fontSize30,
+        fontSize45 && styles.fontSize45,
+        style]}/> :null}
+        {title ?<MyText title={title} h3P style={[
+            styles.white,styles.padding5,styles.fontSize25,
+            style]}/>:null}
+        {ION ?<Ionicons name={iconName}  style={[
+        white && styles.white,
+        black && styles.black,
+        grey && styles.grey,
+        padding5 && styles.padding5,
+        padding10 && styles.padding10,
+        padding15 && styles.padding15,
+        fontSize15 && styles.fontSize15,
+        fontSize20 && styles.fontSize20,
+        fontSize25 && styles.fontSize25,
+        fontSize30 && styles.fontSize30,
+        fontSize45 && styles.fontSize45,
+        style]}/> :null}
+        {title ?<MyText title={title} h3P style={[
+            styles.white,styles.padding5,styles.fontSize25,
+            style]}/>:null}
+    </View>
 };
 
 
@@ -132,48 +85,44 @@ const styles = StyleSheet.create({
         height:30,
         borderRadius: 10, 
     },
-    visitorContainer:{
+    main:{
         backgroundColor: colors.mainColor
     },
-    visitorText:{
-        color: colors.white,
+    white:{
+        color:colors.white,
         alignSelf: "center",
-        padding:6,
-        fontSize:25,
     },
-    dashboard:{        
-        color: colors.white,
+    black:{
+        color:colors.black,
         alignSelf: "center",
-        padding:10,
-        fontSize:25,
     },
-    dashboard1:{        
-        color: colors.white,
+    grey:{
+        color:colors.grey,
         alignSelf: "center",
-        fontSize:20,
     },
-    icontype:{
-        color: colors.black,
-        alignSelf: "center",
-        padding:10,
-        fontSize:25,
-    },
-    icontype1:{        
-        color: colors.black,
-        alignSelf: "center",
+    padding5:{
         padding:5,
+    },
+    padding10:{
+        padding:10,
+    },
+    padding15:{
+        padding:15,
+    },
+    fontSize15:{
         fontSize:15,
     },
-    deletet:{        
-        color: colors.black,
-        alignSelf: "center",
+    fontSize20:{
+        fontSize:20,
+    },
+    fontSize25:{
+        fontSize:25,
+    },
+    fontSize30:{
         fontSize:30,
     },
-    search:{
-        color: colors.grey,
-        alignSelf: "center",
-        padding:10,
-        fontSize:25,
+    fontSize45:{
+        fontSize:45,
     },
     type1:{
         backgroundColor: colors.type1,

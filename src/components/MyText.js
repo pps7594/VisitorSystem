@@ -21,7 +21,7 @@ import {
 import adjust from '../config/adjust';
 import colors from '../config/colors';
 
-const MyText = ({title,h1P,h2P,h3P,h4P,pP,pP2,pP3,inputlabelP,pR,pR2,pR3,pR3I,num,grey,main,underlined,style,...rest}) => {
+const MyText = ({title,h1P,h2P,h3P,h4P,pP,pP2,pP3,inputlabelP,pR,pR2,pR3,pR3I,num,grey,white,black,main,underlined,style,...rest}) => {
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_600SemiBold,
@@ -53,6 +53,8 @@ const MyText = ({title,h1P,h2P,h3P,h4P,pP,pP2,pP3,inputlabelP,pR,pR2,pR3,pR3I,nu
             pR3I && styles.paragraphR3I,
             num && styles.num,
             grey && styles.grey,
+            white && styles.white,
+            black && styles.black,
             main && styles.main,
             underlined && styles.underlined,
             style,
@@ -123,6 +125,12 @@ const styles = StyleSheet.create({
     },
     grey:{
         color:colors.grey
+    },
+    white:{
+        color:colors.white
+    },
+    black:{
+        color:colors.black
     },
     main:{
         color:colors.mainColor,

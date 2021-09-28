@@ -2,38 +2,39 @@ import React,{useState} from 'react';
 import {StyleSheet,TouchableOpacity,View,Image,ScrollView,FlatList,Text} from 'react-native';
 
 import colors from '../config/colors';
+import space from '../config/space';
 import MyText from './MyText';
 import Spacer from './Spacer';
 import MyIcon from './MyIcon';
-import {Details,Info,ApprovalButton} from './MyButton';
+import {Details,MyButton} from './MyButton';
 import { MyContainer } from './MyCard';
 
-const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reject,pending,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList}) => {
+const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList,approval}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isExpand, setIsExpand] = useState(false);
     
 
     return <MyContainer cardcontainer>
                 <MyContainer conRow alignstart>
-                    {visitorType==1 ?<MyIcon ION iconName="car-sharp" icontype type1/> :null}
-                    {visitorType==2 ?<MyIcon ION iconName="construct-sharp" icontype type1/> :null}
-                    {visitorType==3 ?<MyIcon MC iconName="truck-delivery" icontype type1/> :null}
-                    {visitorType==4 ?<MyIcon FA iconName="ambulance" icontype type1/> :null}
-                    {visitorType==5 ?<MyIcon FA iconName="bus-alt" icontype type1/> :null}
+                    {visitorType==1 ?<MyIcon ION icon iconName="car-sharp" black padding10 fontSize25 type1/> :null}
+                    {visitorType==2 ?<MyIcon ION icon iconName="construct-sharp" black padding10 fontSize25 type2/> :null}
+                    {visitorType==3 ?<MyIcon MC icon iconName="truck-delivery" black padding10 fontSize25 type3/> :null}
+                    {visitorType==4 ?<MyIcon FA icon iconName="ambulance" black padding10 fontSize25 type4/> :null}
+                    {visitorType==5 ?<MyIcon FA icon iconName="bus-alt" black padding10 fontSize25 type5/> :null}
                     <Spacer space/>
                     <MyContainer conCol alignstart>
-                    <MyText title={id} pP main/>
-                    <MyText title={details} pR2/>
-                    <MyText title={address} pR3 grey/>
+                    <MyText title={id} pP2 main/>
+                    <MyText title={details} pR/>
+                    <MyText title={address} pR2 grey/>
                     </MyContainer>
                     <MyContainer conLeft>
-                        {walkin?<View><Details walkin title="Walk-in Visitor" pR3 grey/>
+                        {walkin?<View><Details details walkin title="Walk-in Visitor" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {approve?<View><Details approve title="Approved" pR3 grey/>
+                        {status=="Approved"?<View><Details details approve title="Approved" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {reject?<View><Details reject title="Rejected" pR3 grey/>
+                        {status=="Rejected"?<View><Details details reject title="Rejected" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {pending?<View><Details pending title="Pending" pR3 grey/>
+                        {status=="Pending"||status=="NoResponse"?<View><Details details pending title="Pending" pR3 grey/>
                         <Spacer space/></View>:null}
                         {imageSource ?<TouchableOpacity onPress={() => setIsOpen(true)}>
                         <Image 
@@ -50,11 +51,11 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                         
                     </MyContainer>
                 </MyContainer>
-                <Spacer space/>
+                <Spacer spacer/>
 
                 <MyContainer conRow>
-                    <MyIcon MC nocontainer iconName="clock-time-eight-outline" icontype1 type1/>
-                    <MyText title="Scheduled" pP3/>
+                    <MyIcon MC iconName="clock-time-eight-outline" black padding5 fontSize20/>
+                    <MyText title="Scheduled" pP2/>
                     <MyContainer conLeft>
                         <MyText title={arriveDate} pP2/>
                         <MyText title={arriveTime} pP3 grey/>
@@ -67,11 +68,11 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                         <MyText title={departTime} pP3 grey/>
                     </MyContainer>
                 </MyContainer>
-                <Spacer space/>
+                <Spacer spacer/>
 
                 <TouchableOpacity onPress={() => setIsExpand(isExpand ?false:true)}>
-                {isExpand ?<Info title="Visitor Information  " iconName="chevron-up-circle-outline" text />
-                :<Info title="Visitor Information  " iconName="chevron-down-circle-outline" text />}
+                {isExpand ?<Details info text="Visitor Information  " iconName="chevron-up-circle-outline"  />
+                :<Details info text="Visitor Information  " iconName="chevron-down-circle-outline" />}
                 </TouchableOpacity>
                 <Spacer spacer/>
 
@@ -80,11 +81,11 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
 
                 return ( <MyContainer cardcontainer key={item.visitRequestCarID}>
                 <MyContainer conRow >
-                    <MyIcon title="V" visitor dashboard1/>
+                    <MyIcon main icon title="V" white padding5 fontSize25/>
                     <Spacer spacer/>
                     <MyContainer conCol alignstart>
-                        <MyText title={item.visitorName} pR2/>
-                        <MyText title={item.visitorTel} pRtext grey/>
+                        <MyText title={item.visitorName} pR/>
+                        <MyText title={item.visitorTel} pR2 grey/>
                     </MyContainer>
                     <MyContainer conLeft>
                     <MyContainer conCol>
@@ -97,12 +98,12 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                 <MyContainer conRow>
                     <MyContainer conCol>
                         <MyText title="Vehicle Type" pP3 grey/>
-                        <MyText title={item.visitorVehicleType} pP3/>
+                        <MyText title={item.visitorVehicleType} pP2/>
                     </MyContainer>
                     <Spacer spacer/>
                     <MyContainer conCol>
                         <MyText title="Plate Number" pP3 grey/>
-                        <MyText title={item.visitorPlateNum} pP3/>
+                        <MyText title={item.visitorPlateNum} pP2/>
                     </MyContainer>
                 </MyContainer>
                 {item.vehicleTypeNotes?
@@ -110,20 +111,26 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,approve,reje
                     <Spacer spacer/>
                     <MyText title="Remarks" pP3 grey/>
                     <Spacer spacer/>
-                    <MyText title={item.vehicleTypeNotes} pP3/>
+                    <MyText title={item.vehicleTypeNotes} pP2/>
                 </MyContainer>:null}
                 <Spacer spacer/>
                 <View style={{backgroundColor:colors.grey,width:"100%",height:1}} />
                 <Spacer spacer/>
                 </MyContainer>)
                 }):null}
-                <MyText title={additionalNotes} pR3/>
+                <MyText title="Additional Notes:" pR3 grey/>
+                <Spacer space/>
+                <View style={{borderColor:colors.grey,width:"100%",borderWidth:1,borderRadius:space.cardlistborderradius,padding:space.cardpadding}}>
                 
-                <MyContainer conRow>
-                    <ApprovalButton iconName="check-circle" approve />
+                <MyText title={additionalNotes} pR2/>
+                </View>
+
+                {approval ?<MyContainer conRow>
+                    <MyButton iconName="check-circle" approve />
                     <Spacer m50/>
-                    <ApprovalButton iconName="times-circle" reject />
-                </MyContainer>             
+                    <MyButton iconName="times-circle" reject />
+                </MyContainer>
+                :null}
             </MyContainer>
 };
 

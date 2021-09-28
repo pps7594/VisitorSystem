@@ -3,7 +3,7 @@ import { Button, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import MyText from './MyText';
-import { AddButton } from "./MyButton";
+import { MyButton } from "./MyButton";
 
 const MyDateTimePicker = ({label}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -35,7 +35,7 @@ var year = today.getFullYear()
 
   return <>
     <MyText title={label}  inputlabelP/>
-    <AddButton title="Select DateTime Picker" func={showDatePicker} buttonstyle={{borderRadius:2}} text/>
+    <MyButton title="Select DateTime Picker"  height40 row pP2 func={showDatePicker} buttonstyle={{borderRadius:2}}/>
       <DateTimePickerModal
         minimumDate={new Date(year,month,day)} 
         isVisible={isDatePickerVisible}
