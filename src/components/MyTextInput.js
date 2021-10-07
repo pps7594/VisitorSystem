@@ -10,14 +10,17 @@ import MyText from './MyText';
 import MyIcon from './MyIcon';
 import { MyContainer } from './MyCard';
 
-const SearchInput = ({ label,defaultv, value, onChange,style}) => (
+const SearchInput = ({ label,defaultv, value, onChange,style,searchFunc}) => (
   <MyContainer conRow search>
     <MyText title={label}  h4P/>
     <TextInput 
-    placeholder={defaultv} 
-    value={value} 
-    onChangeText={onChange} 
-    style={[styles.searchinput,style]}/>
+      placeholder={defaultv} 
+      value={value} 
+      onChangeText={onChange} 
+      style={[styles.searchinput,style]}
+      // Modification for search function
+      onEndEditing={searchFunc}
+    />
     <MyContainer conRow flexend> 
     <MyIcon ION iconName="search" grey padding10 fontSize25/>
     </MyContainer>

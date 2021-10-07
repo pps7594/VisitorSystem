@@ -6,13 +6,13 @@ import admindashboardReducer from "./admindashboardslice"
 import residentReducer from "./residentslice";
 import guardReducer from "./guardslice";
 
+
 export default configureStore({
   reducer: {
     counter: counterReducer,
     credential:credentialReducer,
     admindashboardSlice: admindashboardReducer,
     resident:residentReducer,
-    guard:guardReducer
-    
+    guard:guardReducer,
   }
 });

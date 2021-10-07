@@ -22,6 +22,8 @@ const ReportScreen = ({navigation}) => {
     const num4 = adminReportArray.filter(x=>x.visitorTypeID=='4').length;
     const num5 = adminReportArray.filter(x=>x.visitorTypeID=='5').length;
     const [input, setInput] = useState('');
+    // Temporary Array to store Filter result
+    const [tempArray, setTempArray] = useState({});
 
     // Helper Function
     const errCallback = ({msg}) => {
@@ -31,13 +33,39 @@ const ReportScreen = ({navigation}) => {
 
     useEffect(() => {
         // Trigger the API call every time we navigate to this screen, as a Event listener
-        navigation.addListener('focus', () => adminReport({errCallback}));
+        navigation.addListener('focus', () => {
+            adminReport({errCallback})
+            setTempArray(adminReportArray)
+        });
     }, []);
+
+    // Const searchFunc
+    const searchFunc = (input) => {
+        if(input != ""){
+            let searchTerm = input.toLowerCase();
+            let filterResult = adminReportArray.filter((x) => {
+                let searchFlag = false;
+                // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = if statement", "residentsAddress")
+                let candidate = [x.visitingLogID,x.visitorTypeID]
+                candidate.forEach(val => {
+                    if(val.toLowerCase().includes(searchTerm)) {
+                        searchFlag = true;
+                        return;
+                    }
+                });
+                if(searchFlag) return x;
+            });
+            if(filterResult.length > 0) {
+                // console.log(filterResult)
+                setTempArray(filterResult)
+            } 
+        }
+    }
 
     return (
         <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <MyFilter input={input} setInput={setInput}/>
+                <MyFilter sourceFunc= {({timeframe}) => adminReport({errCallback,timeframe})} input={input} setInput={setInput} searchFunc={() => searchFunc(input)}/>
                 <Spacer spacer/>
                 <VisitorTypeCard
                     title1="Visitor"
@@ -78,7 +106,7 @@ const ReportScreen = ({navigation}) => {
                             <Spacer space10/>
                         </View>
                 }):null
-            }        
+            }     
                 <Spacer spacer/>
             </ScrollView>   
         </MyContainer>
