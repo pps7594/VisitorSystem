@@ -15,15 +15,10 @@ import ReportSummaryCard from '../../components/ReportSummaryCard';
 const ReportScreen = ({navigation}) => {
     const {adminReport} = adminFunction();
     const adminReportArray = useSelector((state) => state.admindashboardSlice.adminreportarray); 
-    const numAll = adminReportArray.filter(x=>x.visitorTypeID!=null).length;
-    const num1 = adminReportArray.filter(x=>x.visitorTypeID=='1').length;
-    const num2 = adminReportArray.filter(x=>x.visitorTypeID=='2').length;
-    const num3 = adminReportArray.filter(x=>x.visitorTypeID=='3').length;
-    const num4 = adminReportArray.filter(x=>x.visitorTypeID=='4').length;
-    const num5 = adminReportArray.filter(x=>x.visitorTypeID=='5').length;
+    
     const [input, setInput] = useState('');
     // Temporary Array to store Filter result
-    const [tempArray, setTempArray] = useState({});
+    const [tempArray, setTempArray] = useState([]);
 
     // Helper Function
     const errCallback = ({msg}) => {
@@ -65,6 +60,13 @@ const ReportScreen = ({navigation}) => {
         }
     }
 
+    const numAll = tempArray.filter(x=>x.visitorTypeID!=null).length;
+    const num1 = tempArray.filter(x=>x.visitorTypeID=='1').length;
+    const num2 = tempArray.filter(x=>x.visitorTypeID=='2').length;
+    const num3 = tempArray.filter(x=>x.visitorTypeID=='3').length;
+    const num4 = tempArray.filter(x=>x.visitorTypeID=='4').length;
+    const num5 = tempArray.filter(x=>x.visitorTypeID=='5').length;
+
     return (
         <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -88,8 +90,8 @@ const ReportScreen = ({navigation}) => {
                 />
                 <Spacer spacer/>
             { 
-                adminReportArray ? 
-                adminReportArray.map((item) => {
+                tempArray ? 
+                tempArray.map((item) => {
                     const arrivedatetime = newdatetime(item.actualArrivedDateTime)
                     const leavingdatetime = newdatetime(item.actualLeavingDateTime)
 
