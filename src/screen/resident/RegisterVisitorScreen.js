@@ -8,7 +8,7 @@ import residentFunction from '../../functions/residentFunction';
 
 const RegisterVisitorScreen = ({navigation}) => {
     const {residentWalkInAllowed} = residentFunction();
-    const walkInAllowed = useSelector((state) => state.resident.walkInAllowed); 
+    const walkInAllowed = useSelector((state) => state.resident.walkinallowed); 
 
     // Helper Function
     const errCallback = ({msg}) => {

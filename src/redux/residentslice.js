@@ -6,7 +6,7 @@ export const residentSlice = createSlice({
     residentdashboardobj: [],
     residentvisitrequestarray: [],
     residentreportarray:[],
-    walkInAllowed:0
+    walkinallowed:0
   },
   reducers: {
     storeResidentDashboardObj: (state, action) => {    
@@ -28,10 +28,10 @@ export const residentSlice = createSlice({
       state.residentreportarray = {}
     },
     storeWalkInAllowed:(state,action) => {
-      state.walkInAllowed = action.payload
+      state.walkinallowed = action.payload
     },
     removeWalkInAllowed:(state) => {
-      state.walkInAllowed = 0
+      state.walkinallowed = 0
     }
   }
 });
