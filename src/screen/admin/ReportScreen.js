@@ -60,6 +60,9 @@ const ReportScreen = ({navigation}) => {
                 setTempArray(filterResult)
             } 
         }
+        else{
+            setTempArray(adminReportArray)
+        }
     }
 
     return (

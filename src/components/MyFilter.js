@@ -6,7 +6,7 @@ import {MyButton} from './MyButton';
 import {SearchInput} from './MyTextInput';
 import {MyContainer} from './MyCard';
 
-const MyFilter = ({sourceFunc, input,setInput,searchFunc}) => {
+const MyFilter = ({sourceFunc,input,setInput,searchFunc}) => {
     //sourceFunc is the function from the screen (source)
     return <View>
             <MyContainer conRow spacebetween>
