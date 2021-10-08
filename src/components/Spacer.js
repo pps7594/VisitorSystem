@@ -1,7 +1,7 @@
 import React from 'react';
 import {View,StyleSheet} from 'react-native';
 
-const Spacer = ({children,spacer,m20,m50,space,height,space10}) => {
+const Spacer = ({children,spacer,m20,m50,space,height,space10,space50}) => {
     return <View style={[
         spacer && styles.spacer, 
         m20 && styles.spacer20, 
@@ -9,6 +9,7 @@ const Spacer = ({children,spacer,m20,m50,space,height,space10}) => {
         space && styles.space,
         height && styles.height,
         space10 && styles.space10,
+        space50 && styles.space50
         ]}>
     {children}
     </View>
@@ -35,6 +36,10 @@ const styles = StyleSheet.create({
     space10: {
         width: 10,
         height: 10,
+    },
+    space50: {
+        width: 50,
+        height: 0,
     },
 })
 

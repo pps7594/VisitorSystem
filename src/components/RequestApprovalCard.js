@@ -70,11 +70,12 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                 </MyContainer>
                 <Spacer spacer/>
 
-                <TouchableOpacity onPress={() => setIsExpand(isExpand ?false:true)}>
+                {visitorList ?<><TouchableOpacity onPress={() => setIsExpand(isExpand ?false:true)}>
                 {isExpand ?<Details info text="Visitor Information  " iconName="chevron-up-circle-outline"  />
                 :<Details info text="Visitor Information  " iconName="chevron-down-circle-outline" />}
                 </TouchableOpacity>
                 <Spacer spacer/>
+                </>:null}
 
                 {visitorList && isExpand ? visitorList.map((item) => {
                     
@@ -118,16 +119,19 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                 <Spacer spacer/>
                 </MyContainer>)
                 }):null}
+                {additionalNotes ?<>
                 <MyText title="Additional Notes:" pR3 grey/>
                 <Spacer space/>
                 <View style={{borderColor:colors.grey,width:"100%",borderWidth:1,borderRadius:space.cardlistborderradius,padding:space.cardpadding}}>
-                
                 <MyText title={additionalNotes} pR2/>
                 </View>
-
+                <Spacer spacer/>
+                </>
+                :null}
+                
                 {approval ?<MyContainer conRow>
                     <MyButton iconName="check-circle" approve />
-                    <Spacer m50/>
+                    <Spacer space50/>
                     <MyButton iconName="times-circle" reject />
                 </MyContainer>
                 :null}

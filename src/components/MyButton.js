@@ -21,8 +21,8 @@ const MyButton = ({func,height20,height30,height40,borderradius30,width23,width4
             row && styles.row,
             white && styles.white,
             border && styles.border,
-            approve && styles.approve && styles.approval,
-            reject && styles.reject && styles.approval,
+            approve && styles.approvalA ,
+            reject && styles.approvalR,
             buttonstyle]} {...rest}>
         {active && h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
         {active && h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}
@@ -72,10 +72,17 @@ const styles = StyleSheet.create({
     width45:{
         width:"45%",
     },
-    approval:{
+    approvalA:{
         width:50,
         height:50,
         borderRadius: 50,
+        backgroundColor:colors.approve,
+    },
+    approvalR:{
+        width:50,
+        height:50,
+        borderRadius: 50,
+        backgroundColor:colors.rejected,
     },
     padding10:{
         padding:10,

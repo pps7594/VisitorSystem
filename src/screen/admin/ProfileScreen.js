@@ -38,13 +38,13 @@ const ProfileScreen = ({navigation}) => {
                 </MyContainer>
                 <MyContainer conCol alignstart paddingleft>
                     <MyText title="User ID: " pP3 grey/>
-                    <MyText title={userObj.userObj.userRole+userObj.userObj.userID} pP2/>
+                    <MyText title={userWithAddress.userObj.userRole+userWithAddress.userObj.userID} pP2/>
                     <Spacer space10/>
                     <MyText title="Username: " pP3 grey/>
-                    <MyText title={userObj.userObj.userName} pP2/>
+                    <MyText title={userWithAddress.userObj.userName} pP2/>
                     <Spacer space10/>
                     <MyText title="Email: " pP3 grey/>
-                    <MyText title={userObj.userObj.userEmail} pP2/>
+                    <MyText title={userWithAddress.userObj.userEmail} pP2/>
                 </MyContainer>
             <Spacer m20/>
                 <MyButton title="Edit Profile" active h4/>
