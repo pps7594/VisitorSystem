@@ -21,7 +21,8 @@ const newdatetime = (params) => {
     else if(lastnum==0 || lastnum>=4){
         suffix = 'th'
     }
-    const date = month + ' '+ day + suffix + ', ' + year
+    const day1= day+1
+    const date = month + ' '+ day1 + suffix + ', ' + year
 
     return [date,time]     
  }
