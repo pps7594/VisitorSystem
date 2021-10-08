@@ -10,11 +10,11 @@ import {MyContainer,MyCard,MyCardList} from '../../components/MyCard';
 
 //import function
 import residentFunction from '../../functions/residentFunction';
+import { currentdate } from '../../functions/newdatetime';
 
 const DashboardScreen = ({navigation}) => {
 
     const {residentDashboard} = residentFunction();
-    const [currentDate, setCurrentDate] = useState('');
     const residentDashboardObj = useSelector((state) => state.resident.residentdashboardobj);
      
     // Helper Function
@@ -24,15 +24,6 @@ const DashboardScreen = ({navigation}) => {
     }
 
     useEffect(() => {
-        var week = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-        var mon = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-        var day  = week[new Date().getDay()];
-        var date = new Date().getDate(); //Current Date
-        var month = mon[new Date().getMonth()]; //Current Month
-        var year = new Date().getFullYear(); //Current Year
-        setCurrentDate(
-            day+ ', ' + month + ' ' + date 
-        );
         // Trigger the API call every time we navigate to this screen, as a Event listener
         navigation.addListener('focus', () => residentDashboard({errCallback}));
     }, []);
@@ -40,7 +31,7 @@ const DashboardScreen = ({navigation}) => {
     return <MyContainer screencontainer>
                 <ScrollView showsVerticalScrollIndicator={false}>
                 <Spacer spacer/>
-                <MyText title={currentDate}  h4P style={styles.date}/>
+                <MyText title={currentdate()}  h4P style={styles.date}/>
                 <MyCard iconName="clipboard-list" title="Visitor Visited Today" number={residentDashboardObj.visitorVisitedToday} button="View Report" func={() => navigation.navigate('Report')}/>
                 <Spacer spacer/>
                 <MyCardList iconName="list-ul" title="Visit Request List" button="View Visitor"  details={residentDashboardObj.visitRequestList} func={() => navigation.navigate('Visit Request List')}/>

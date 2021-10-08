@@ -5,7 +5,7 @@ import { storeTempReportArray } from "../../redux/admindashboardslice";
 
 //import function
 import adminFunction from '../../functions/adminFunction';
-import newdatetime from '../../functions/newdatetime';
+import {newdatetime} from '../../functions/newdatetime';
 
 import Spacer from '../../components/Spacer';
 import {MyContainer,MyList,VisitorTypeCard} from '../../components/MyCard';

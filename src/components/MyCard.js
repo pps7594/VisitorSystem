@@ -9,6 +9,8 @@ import {MyButton,Details} from './MyButton';
 import MyIcon from './MyIcon';
 import MyText from './MyText';
 
+import { newtime } from '../functions/newdatetime';
+
 const MyContainer = ({children,screencontainer,cardcontainer,row,borderRadius5, conRow,spacebetween,spacearound,flex,flexstart,flexend,alignstart,alignstretch,search,visitor, conCol,paddingleft, conLeft, conRect,bordercardList, conRectRound,bgcardList,bgreportList,style,...rest}) => {
     return <>
                 {screencontainer ?<View style={[styles.screenContainer,style]} {...rest}>
@@ -93,9 +95,7 @@ const MyCardList = ({iconName,title,button,details,func}) => {
                 <Spacer spacer/>
                 { 
                     details ? details.map((item) => {
-                        const datetime = new Date (Date.parse(item.visitRequestObj.expectedArriveDateTime));
-                        var ampm = datetime.getHours() >= 12 ? '\n P.M.' : '\n A.M.';
-                        const time = datetime.toTimeString().substring(0,5) + ' ' + ampm;
+                        const time = newtime(item.visitRequestObj.expectedArriveDateTime)
                         const nameWithAddress = item.visitRequestObj.address.split(";")
                         return (
                         <View key={item.visitRequestObj.visitRequestId}>

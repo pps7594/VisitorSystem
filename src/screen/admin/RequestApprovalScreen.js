@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 //import function
 import adminFunction from '../../functions/adminFunction';
-import newdatetime from '../../functions/newdatetime';
+import {newdatetime} from '../../functions/newdatetime';
 
 //import component
 import Spacer from '../../components/Spacer';
