@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { storeAdminDashboardObj, storeRequestApprovalArray, storeVisitRequestArray, storeAdminReportArray, storeDefaultSetting, removeAdminDashboardObj } from "../redux/admindashboardslice";
+import { storeAdminDashboardObj, storeRequestApprovalArray, storeVisitRequestArray, storeAdminReportArray, storeDefaultSetting, storeTempReportArray ,removeAdminDashboardObj } from "../redux/admindashboardslice";
 import { storeUserObj } from "../redux/credential";
 
 import conn from '../api/connection';
@@ -57,10 +57,12 @@ export default () => {
             if(timeframe) {
                 const response = await getAdminReportTimeframe(timeframe)
                 dispatch(storeAdminReportArray(response.data))
+                dispatch(storeTempReportArray(response.data))
             }
             else {
                 const response = await getAdminReportFulltime()
                 dispatch(storeAdminReportArray(response.data))
+                dispatch(storeTempReportArray(response.data))
             }
         } catch (err) {
             // Had to change to some sort of alert
@@ -88,6 +90,19 @@ export default () => {
         } catch (err) {
             // Had to change to some sort of alert
             errCallback({msg: "Unable to fetch data, please try again"});
+        } 
+    }
+
+    const postApproval = async (userInputObj,decision,errCallback) => {
+        try{
+            userInputObj = {...userInputObj, status: decision}
+            const response = await postAdminApproval(userInputObj)
+            errCallback({msg: "Successful"})
+            // Refresh the List 
+            // PROGRESSING
+        } catch (err) {
+            // Had to change to some sort of alert
+            errCallback({msg:err});
         } 
     }
 
@@ -173,7 +188,11 @@ export default () => {
             }
         })
     }
+
+    const postAdminApproval = async (userInputObj) => {
+        return conn.post('/m/adminapproval', userInputObj)
+    }
   
     // Return object let me can select what object i can take freely. Array you need to stick on position, eg. The adminRequestApproval at second postiion, when you import you will only get the function when you import the first and the second
-    return {adminDashboard,adminRequestApproval,adminVisitRequest,adminReport,adminDefaultSetting,adminProfile};
+    return {adminDashboard,adminRequestApproval,adminVisitRequest,adminReport,adminDefaultSetting,adminProfile, postApproval};
 }

@@ -9,11 +9,10 @@ import MyIcon from './MyIcon';
 import {Details,MyButton} from './MyButton';
 import { MyContainer } from './MyCard';
 
-const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList,approval}) => {
+const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList,approval,approvalFunc,rejectFunc}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isExpand, setIsExpand] = useState(false);
     
-
     return <MyContainer cardcontainer>
                 <MyContainer conRow alignstart>
                     {visitorType==1 ?<MyIcon ION icon iconName="car-sharp" black padding10 fontSize25 type1/> :null}

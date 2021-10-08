@@ -9,6 +9,7 @@ export const admindashboardSlice = createSlice({
     visitrequestarray:[],
     adminreportarray:[],
     defaultsetting:[],
+    tempreportarray:[],
   },
   reducers: {
     storeAdminDashboardObj: (state, action) => {    
@@ -41,12 +42,18 @@ export const admindashboardSlice = createSlice({
     removeDefaultSetting: (state) => {
       state.defaultsetting = {}
     },
+    storeTempReportArray: (state, action) => {
+      state.tempreportarray = action.payload
+    },
+    removeTempReportArray: (state) => {
+      state.tempreportarray = {}
+    }
   }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { storeAdminDashboardObj,storeRequestApprovalArray,storeVisitRequestArray,storeAdminReportArray,storeDefaultSetting, removeAdminDashboardObj } = admindashboardSlice.actions;
+export const { storeAdminDashboardObj,storeRequestApprovalArray,storeVisitRequestArray,storeAdminReportArray,storeDefaultSetting,storeTempReportArray,removeAdminDashboardObj } = admindashboardSlice.actions;
 
 export default admindashboardSlice.reducer;
 

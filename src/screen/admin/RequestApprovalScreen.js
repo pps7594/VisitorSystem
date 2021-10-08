@@ -14,7 +14,7 @@ import { MyContainer,VisitorTypeCard } from '../../components/MyCard';
 
 const RequestApprovalScreen = ({navigation}) => {
 
-    const {adminRequestApproval} = adminFunction();
+    const {adminRequestApproval, postApproval} = adminFunction();
     const requestApprovalArray = useSelector((state) => state.admindashboardSlice.requestapprovalarray); 
 
     // Helper Function
@@ -48,6 +48,8 @@ const RequestApprovalScreen = ({navigation}) => {
                     const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
                     const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
                     const nameWithAddress = item.visitRequestObj.address.split(";")
+                    const userInputObj = item.visitRequestObj
+                     
 
                     return <View key={item.visitRequestObj.visitRequestId}>
                         <RequestApprovalCard 
@@ -63,6 +65,8 @@ const RequestApprovalScreen = ({navigation}) => {
                             visitorList={item.visitRequestCarList}
                             additionalNotes={item.visitRequestObj.additionalNotes}
                             approval
+                            approvalFunc={() => postApproval(userInputObj,"Approved",errCallback)}
+                            rejectFunc={() => postApproval(userInputObj,"Reject",errCallback)}
                         />
                         <Spacer spacer/>
                     </View>

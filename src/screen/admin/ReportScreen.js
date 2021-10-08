@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';;
 import {View, Text, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
+import { storeTempReportArray } from "../../redux/admindashboardslice";
 
 //import function
 import adminFunction from '../../functions/adminFunction';
@@ -13,12 +14,14 @@ import ReportSummaryCard from '../../components/ReportSummaryCard';
 
 
 const ReportScreen = ({navigation}) => {
+    const dispatch = useDispatch();
+
     const {adminReport} = adminFunction();
     const adminReportArray = useSelector((state) => state.admindashboardSlice.adminreportarray); 
-    
+
     const [input, setInput] = useState('');
     // Temporary Array to store Filter result
-    const [tempArray, setTempArray] = useState([]);
+    const tempArray = useSelector((state) => state.admindashboardSlice.tempreportarray); 
 
     // Helper Function
     const errCallback = ({msg}) => {
@@ -30,7 +33,7 @@ const ReportScreen = ({navigation}) => {
         // Trigger the API call every time we navigate to this screen, as a Event listener
         navigation.addListener('focus', () => {
             adminReport({errCallback})
-            setTempArray(adminReportArray)
+            
         });
     }, []);
 
@@ -40,8 +43,28 @@ const ReportScreen = ({navigation}) => {
             let searchTerm = input.toLowerCase();
             let filterResult = adminReportArray.filter((x) => {
                 let searchFlag = false;
-                // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = if statement", "residentsAddress")
-                let candidate = [x.visitingLogID,x.visitorTypeID]
+                // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement", "residentsAddress")
+                let visitorType = "";
+                switch (x.visitorTypeID) {
+                    case 1: 
+                        visitorType = "visitor"
+                        break;
+                    case 2:
+                        visitorType = "residental usage"
+                        break;
+                    case 3:
+                        visitorType = "delivery"
+                        break;
+                    case 4:
+                        visitorType = "emergency service"
+                        break;
+                    case 5:
+                        visitorType = "long-term service"
+                        break;
+                    default:
+                        break;
+                }
+                let candidate = [x.visitorPlateNum,x.residentsAddress,visitorType]
                 candidate.forEach(val => {
                     if(val.toLowerCase().includes(searchTerm)) {
                         searchFlag = true;
@@ -52,11 +75,11 @@ const ReportScreen = ({navigation}) => {
             });
             if(filterResult.length > 0) {
                 // console.log(filterResult)
-                setTempArray(filterResult)
+                dispatch(storeTempReportArray(filterResult))
             } 
         }
         else{
-            setTempArray(adminReportArray)
+            dispatch(storeTempReportArray(adminReportArray))
         }
     }
 
@@ -67,6 +90,7 @@ const ReportScreen = ({navigation}) => {
     const num4 = tempArray.filter(x=>x.visitorTypeID=='4').length;
     const num5 = tempArray.filter(x=>x.visitorTypeID=='5').length;
 
+    console.log("Rerender \n")
     return (
         <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>
