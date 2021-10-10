@@ -57,7 +57,7 @@ const SignInScreen = ({navigation}) => {
                     //password masking (ex.***)
                     secureTextEntry />
                 {errorMsg ? <Text style={styles.errorMessage}>{errorMsg}</Text> : null}
-                <MyButton title="SIGN IN" func={() => signin({userID,password,callback})} active h3/> 
+                <MyButton title="SIGN IN" func={() => signin({userID,password,callback})} selected h3/> 
                 </View>
 
             </View>

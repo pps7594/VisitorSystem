@@ -6,7 +6,7 @@ import space from '../config/space';
 import MyText from './MyText';
 import MyIcon from './MyIcon';
 
-const MyButton = ({func,height20,height30,height40,borderradius30,width23,width45,padding10,row,white,border,approve,reject,buttonstyle,title,textstyle,active,inactive,h3,h4,pP2,icon,iconName,...rest}) => {
+const MyButton = ({func,height20,height30,height40,borderradius30,width23,width45,padding10,row,white,border,approve,reject,buttonstyle,title,textstyle,selected,h3,h4,pP2,icon,iconName,...rest}) => {
     return <TouchableOpacity
         onPress={func}
         style={[
@@ -23,11 +23,12 @@ const MyButton = ({func,height20,height30,height40,borderradius30,width23,width4
             border && styles.border,
             approve && styles.approvalA ,
             reject && styles.approvalR,
+            selected ?null: styles.white,
             buttonstyle]} {...rest}>
-        {active && h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
-        {active && h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}
-        {inactive && h3 ?<MyText title={title} h3P main style={[textstyle]}/> : null}
-        {inactive && h4 ?<MyText title={title} h4P main style={[textstyle]}/> : null} 
+        {selected && h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
+        {selected && h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}
+        {!selected && h3 ?<MyText title={title} h3P main style={[textstyle]}/> : null}
+        {!selected && h4 ?<MyText title={title} h4P main style={[textstyle]}/> : null} 
         {pP2 ?<MyText title={title} pP2 white style={[textstyle]}/> : null} 
         {icon ?<MyIcon ION white fontSize20 iconName="add-circle-outline" /> :null} 
         {approve || reject && iconName ?<MyIcon FA white fontSize45 iconName={iconName} /> :null}

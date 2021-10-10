@@ -35,7 +35,7 @@ var year = today.getFullYear()
 
   return <>
     <MyText title={label}  inputlabelP/>
-    <MyButton title="Select DateTime Picker"  height40 row pP2 func={showDatePicker} buttonstyle={{borderRadius:2}}/>
+    <MyButton title="Select DateTime Picker"  height40 row pP2 func={showDatePicker} buttonstyle={{borderRadius:2}} selected/>
       <DateTimePickerModal
         minimumDate={new Date(year,month,day)} 
         isVisible={isDatePickerVisible}

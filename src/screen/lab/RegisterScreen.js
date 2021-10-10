@@ -13,8 +13,6 @@ import { MyContainer } from '../../components/MyCard';
 
 const RegisterScreen = ({navigation}) => {
 
-    const [Visitor, setVisitor] = useState(false);
-    const [Residential, setResidential] = useState(true);
     const [input, setInput] = useState('');
     const [select, setSelect] = useState({});
     const [vehicleNotes, setVehicleNotes] = useState('');
@@ -26,20 +24,31 @@ const RegisterScreen = ({navigation}) => {
         { label: 'Heavy Vehicle', value: 'heavyvehicle' },
       ];
     
-    var visitorB = () => { setVisitor(true); setResidential(false);}
+    const [filters, setFilters] = React.useState([
+        { label: 'Visitor'},
+        { label: 'Residential Usage'},
+    ]);
 
-    var residentialB = () => { setResidential(true); setVisitor(false);}
+    const [selected, setSelected] = React.useState(filters[1]);
 
-    var onPress = () => {null}
+    const callback = (data) => {
+        if (selected === data) return setSelected(filters[0]);
+        setSelected(data);
+      };
     
+    var onPress = () => {null}
+
     return <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>
             <MyContainer cardcontainer borderRadius5>
                 <MyContainer conRow spacebetween>
-                    {Visitor ?<MyButton title="Visitor" height40 width45 border active h4/>
-                    :<MyButton title="Visitor" height40 width45 border white inactive h4 />}
-                    {Residential ?<MyButton title="Residential Usage" height40 width45 border active h4/>
-                    :<MyButton title="Residential Usage" height40 width45 border white inactive h4/>}
+                    {filters.map((filter) => (
+                        <>
+                        <MyButton title={filter.label} selected={filter === selected} h4 func={() => {
+                              callback(filter);
+                        }} height40 width45 border/>
+                        </>
+                    ))}
                 </MyContainer>
                 <Spacer spacer/>
                 <MyText title="Fields marked with an asterisk (*) are required."  pR3I/>
@@ -116,9 +125,9 @@ const RegisterScreen = ({navigation}) => {
                 numberOfLines={3}
                 />
                 <Spacer m20/>
-                <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={onPress}/>
+                <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={onPress} selected/>
                 <Spacer spacer/>
-                <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress}/>
+                <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected/>
             </MyContainer>
             </ScrollView>
             </MyContainer>

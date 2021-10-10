@@ -47,7 +47,7 @@ const ProfileScreen = ({navigation}) => {
                     <MyText title={userWithAddress.userObj.userEmail} pP2/>
                 </MyContainer>
             <Spacer m20/>
-                <MyButton title="Edit Profile" active h4/>
+                <MyButton title="Edit Profile" selected h4/>
             <Spacer m20/>
             </MyContainer>
         </MyContainer>

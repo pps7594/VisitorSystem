@@ -129,9 +129,9 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                 :null}
                 
                 {approval ?<MyContainer conRow>
-                    <MyButton iconName="check-circle" approve />
+                    <MyButton iconName="check-circle" approve selected/>
                     <Spacer space50/>
-                    <MyButton iconName="times-circle" reject />
+                    <MyButton iconName="times-circle" reject selected/>
                 </MyContainer>
                 :null}
             </MyContainer>
