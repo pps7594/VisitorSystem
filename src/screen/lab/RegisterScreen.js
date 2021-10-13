@@ -52,21 +52,21 @@ const RegisterScreen = ({navigation}) => {
                 </MyContainer>
                 <Spacer spacer/>
                 <MyText title="Fields marked with an asterisk (*) are required."  pR3I/>
-                <Spacer space/>
+                <Spacer space10/>
                 <MyDateTimePicker 
                     label="Scheduled Arrive Date Time: *"
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyDateTimePicker 
                     label="Scheduled Departure Date Time: *"
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyCheckBox 
                 label="Walk-in Visitor"
                 value={isChecked}
                 onValueChange={setChecked}
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyTextInput  
                 placeholder="Additional Notes Here..."
                 value={vehicleNotes} 
@@ -83,39 +83,39 @@ const RegisterScreen = ({navigation}) => {
                     <MyIcon MC iconName="delete-forever" black fontSize30 />
                     </MyContainer>
                 </MyContainer>
-                <Spacer space/>
+                <Spacer space10/>
                 
                 <MyTextInput  
                 label="Name: *"
                 value={input} 
                 onChangeText={setInput}
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyTextInput  
                 label="Phone Number: *"
                 value={input} 
                 onChangeText={setInput}
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyTextInput  
                 label="No of Visitor: *"
                 value={input} 
                 onChangeText={setInput}
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyTextInput  
                 label="Car Plate Number: *"
                 value={input} 
                 onChangeText={setInput}
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyPicker  
                 label="Vehicle Type: "
                 items={countries}
                 value={select} 
                 onChangeText={setSelect}
                 />
-                <Spacer space/>
+                <Spacer space10/>
                 <MyTextInput  
                 label="Vehicle Type Notes: "
                 value={vehicleNotes} 

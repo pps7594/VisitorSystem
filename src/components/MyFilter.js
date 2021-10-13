@@ -25,11 +25,9 @@ const MyFilter = ({sourceFunc,input,setInput,searchFunc}) => {
     return <View>
             <MyContainer conRow spacebetween>
                 {filters.map((filter) => (
-                    <>
-                    <MyButton title={filter.label} selected={filter === selected} h4 func={() => {
+                    <MyButton key={filter.label}title={filter.label} selected={filter === selected} h4 func={() => {
                               callback(filter);sourceFunc({timeframe : filter.time});
                     }} height40 width23 border/>
-                    </>
                 ))}
             </MyContainer>
             <Spacer spacer/>

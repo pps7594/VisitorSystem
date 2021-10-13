@@ -47,7 +47,7 @@ const ProfileScreen = ({navigation}) => {
                     <MyText title={userWithAddress.userObj.userEmail} pP2/>
                 </MyContainer>
             <Spacer m20/>
-                <MyButton title="Edit Profile" selected h4/>
+                <MyButton title="Edit Profile" selected h4 func={() => navigation.navigate('AdminEditProfile')}/>
             <Spacer m20/>
             </MyContainer>
         </MyContainer>

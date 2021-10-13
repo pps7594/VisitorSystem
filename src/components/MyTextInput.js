@@ -9,6 +9,8 @@ import adjust from '../config/adjust';
 import MyText from './MyText';
 import MyIcon from './MyIcon';
 import { MyContainer } from './MyCard';
+import Spacer
+ from './Spacer';
 
 const SearchInput = ({ label,defaultv, value, onChange,style,searchFunc}) => (
   <MyContainer conRow search>
@@ -27,14 +29,18 @@ const SearchInput = ({ label,defaultv, value, onChange,style,searchFunc}) => (
   </MyContainer>  
 );
 
-const MyTextInput = ({label, placeholder, value, onChangeText,style,...rest}) => (
+const MyTextInput = ({label, placeholder, value, onChangeText,uneditable,style,secureTextEntry,...rest}) => (
   <>
     {label ?<MyText title={label} inputlabelP/> :null}
     <TextInput  
       placeholder={placeholder}
       value={value} 
       onChangeText={onChangeText} 
-      style={[styles.textinput,style]}
+      style={[
+        styles.textinput,
+        uneditable && styles.uneditable,
+        style]}
+      secureTextEntry={secureTextEntry}
       {...rest}
     >
     </TextInput>
@@ -80,7 +86,10 @@ const styles = StyleSheet.create({
       borderWidth:1,
       borderRadius:2,
       fontSize:adjust(16), 
-      textAlignVertical: "top"
+      paddingLeft:5
+    },
+    uneditable:{
+      backgroundColor:colors.grey,
     },
     searchinput:{
       flex:1,
