@@ -98,12 +98,36 @@ export default () => {
             userInputObj = {...userInputObj, status: decision}
             const response = await postAdminApproval(userInputObj)
             errCallback({msg: "Successful"})
-            // Refresh the List 
-            // PROGRESSING
+            adminRequestApproval({errCallback});
         } catch (err) {
             // Had to change to some sort of alert
-            errCallback({msg:err});
+            errCallback({msg:"Unable to post data, please try again"});
         } 
+    }
+
+    const postInfo = async (userInputObj, errCallback, callback) => {
+        try {
+            // console.log(userInputObj)
+            const response = await postAdminProfile(userInputObj);
+            errCallback({msg: "Successful"})
+            callback({path:"AdminProfile"});
+        } catch (error) {
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to post data, please try again"});
+        }
+    }
+
+    const postPass = async (userInputObj, errCallback, callback) => {
+        try {
+            const response = await postAdminPassword(userInputObj);
+            // This is the response from our Server
+            console.log(response.request._response);
+            errCallback({msg: "Password Update Successful, please relogin again"})
+            callback({path:'Logout'});
+        } catch (error) {
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to post data, please try again"});
+        }
     }
 
     // Helper Function
@@ -192,7 +216,15 @@ export default () => {
     const postAdminApproval = async (userInputObj) => {
         return conn.post('/m/adminapproval', userInputObj)
     }
+
+    const postAdminProfile = async (userInputObj) => {
+        return conn.post('/m/profile', userInputObj)
+    }
+
+    const postAdminPassword = async (userInputObj) => {
+        return conn.post('/m/changepassword', userInputObj)
+    }
   
     // Return object let me can select what object i can take freely. Array you need to stick on position, eg. The adminRequestApproval at second postiion, when you import you will only get the function when you import the first and the second
-    return {adminDashboard,adminRequestApproval,adminVisitRequest,adminReport,adminDefaultSetting,adminProfile, postApproval};
+    return {adminDashboard,adminRequestApproval,adminVisitRequest,adminReport,adminDefaultSetting,adminProfile, postApproval, postInfo, postPass};
 }

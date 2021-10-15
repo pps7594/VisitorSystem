@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import function
 import adminFunction from '../../functions/adminFunction';
 import {newdatetime} from '../../functions/newdatetime';
+import { storeTempRequestApprovalArray } from "../../redux/admindashboardslice";
 
 //import component
 import Spacer from '../../components/Spacer';
@@ -13,9 +14,15 @@ import RequestApprovalCard from '../../components/RequestApprovalCard';
 import { MyContainer,VisitorTypeCard } from '../../components/MyCard';
 
 const RequestApprovalScreen = ({navigation}) => {
+    const dispatch = useDispatch();
 
     const {adminRequestApproval, postApproval} = adminFunction();
     const requestApprovalArray = useSelector((state) => state.admindashboardSlice.requestapprovalarray); 
+
+    const [input, setInput] = useState('');
+    var image = require("../../assets/qrcode.png");
+    // Temporary Array to store Filter result
+    const tempArray = useSelector((state) => state.admindashboardSlice.temprequestapprovalarray); 
 
     // Helper Function
     const errCallback = ({msg}) => {
@@ -28,14 +35,57 @@ const RequestApprovalScreen = ({navigation}) => {
         navigation.addListener('focus', () => adminRequestApproval({errCallback}));
     }, []);
 
-    const [input, setInput] = useState('');
-    var image = require("../../assets/qrcode.png");
+    // Const searchFunc
+    const searchFunc = (input) => {
+        if(input != ""){
+            let searchTerm = input.toLowerCase();
+            let filterResult = requestApprovalArray.filter((x) => {
+                let searchFlag = false;
+                // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement", "residentsAddress")
+                let visitorType = visitorTypeSwitch(x.visitorTypeID);
+                
+                let candidate = [x.visitRequestObj.visitRequestId,x.visitRequestObj.address,visitorType]
+                candidate.forEach(val => {
+                    if(val != null) {
+                        if(val.toLowerCase().includes(searchTerm)) {
+                            searchFlag = true;
+                            return;
+                        }
+                    } 
+                });
+                if(searchFlag) return x;
+            });
+            dispatch(storeTempRequestApprovalArray(filterResult))
+            
+        }
+        else{
+            dispatch(storeTempRequestApprovalArray(requestApprovalArray))
+        }
+    }
 
+    const visitorTypeSwitch = (visitorTypeID) => {
+        switch (visitorTypeID) {
+            case "1": 
+                return "visitor"
+            case "2":
+                return "residental usage"
+            case "3":
+                return "delivery"
+            case "4":
+                return "emergency service"
+            case "5":
+                return "long-term service"
+            default:
+                return null
+        }
+    }
+
+    console.log(tempArray)
     return (
         <>
                 <MyContainer screencontainer  >
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <MyFilter sourceFunc= {({timeframe}) => adminRequestApproval({errCallback,timeframe})} input={input} setInput={setInput}/>
+                        <MyFilter sourceFunc= {({timeframe}) => adminRequestApproval({errCallback,timeframe})} input={input} setInput={setInput} searchFunc={() => searchFunc(input)}/>
                         <Spacer spacer/>
                         <VisitorTypeCard
                             title1="Visitor"
@@ -66,7 +116,7 @@ const RequestApprovalScreen = ({navigation}) => {
                             additionalNotes={item.visitRequestObj.additionalNotes}
                             approval
                             approvalFunc={() => postApproval(userInputObj,"Approved",errCallback)}
-                            rejectFunc={() => postApproval(userInputObj,"Reject",errCallback)}
+                            rejectFunc={() => postApproval(userInputObj,"Reject",errCallback )}
                         />
                         <Spacer spacer/>
                     </View>

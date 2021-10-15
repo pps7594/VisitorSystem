@@ -44,42 +44,41 @@ const ReportScreen = ({navigation}) => {
             let filterResult = adminReportArray.filter((x) => {
                 let searchFlag = false;
                 // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement", "residentsAddress")
-                let visitorType = "";
-                switch (x.visitorTypeID) {
-                    case 1: 
-                        visitorType = "visitor"
-                        break;
-                    case 2:
-                        visitorType = "residental usage"
-                        break;
-                    case 3:
-                        visitorType = "delivery"
-                        break;
-                    case 4:
-                        visitorType = "emergency service"
-                        break;
-                    case 5:
-                        visitorType = "long-term service"
-                        break;
-                    default:
-                        break;
-                }
+                let visitorType = visitorTypeSwitch(x.visitorTypeID);
+                
                 let candidate = [x.visitorPlateNum,x.residentsAddress,visitorType]
                 candidate.forEach(val => {
-                    if(val.toLowerCase().includes(searchTerm)) {
-                        searchFlag = true;
-                        return;
-                    }
+                    if(val != null) {
+                        if(val.toLowerCase().includes(searchTerm)) {
+                            searchFlag = true;
+                            return;
+                        }
+                    } 
                 });
                 if(searchFlag) return x;
             });
-            if(filterResult.length > 0) {
-                // console.log(filterResult)
-                dispatch(storeTempReportArray(filterResult))
-            } 
+            dispatch(storeTempReportArray(filterResult))
+            
         }
         else{
             dispatch(storeTempReportArray(adminReportArray))
+        }
+    }
+
+    const visitorTypeSwitch = (visitorTypeID) => {
+        switch (visitorTypeID) {
+            case "1": 
+                return "visitor"
+            case "2":
+                return "residental usage"
+            case "3":
+                return "delivery"
+            case "4":
+                return "emergency service"
+            case "5":
+                return "long-term service"
+            default:
+                return null
         }
     }
 
@@ -90,7 +89,6 @@ const ReportScreen = ({navigation}) => {
     const num4 = tempArray.filter(x=>x.visitorTypeID=='4').length;
     const num5 = tempArray.filter(x=>x.visitorTypeID=='5').length;
 
-    console.log("Rerender \n")
     return (
         <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>
