@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';;
+import React, { useState, useEffect} from 'react';
 import {View, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 
@@ -80,7 +80,6 @@ const RequestApprovalScreen = ({navigation}) => {
         }
     }
 
-    console.log(tempArray)
     return (
         <>
                 <MyContainer screencontainer  >
@@ -93,8 +92,8 @@ const RequestApprovalScreen = ({navigation}) => {
                         />
                         <Spacer spacer/>
             { 
-                requestApprovalArray ? 
-                requestApprovalArray.map((item) => {
+                tempArray ? 
+                tempArray.map((item) => {
                     const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
                     const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
                     const nameWithAddress = item.visitRequestObj.address.split(";")
@@ -114,6 +113,7 @@ const RequestApprovalScreen = ({navigation}) => {
                             departTime={leavingdatetime[1]}
                             visitorList={item.visitRequestCarList}
                             additionalNotes={item.visitRequestObj.additionalNotes}
+                            status={item.visitRequestObj.status}
                             approval
                             approvalFunc={() => postApproval(userInputObj,"Approved",errCallback)}
                             rejectFunc={() => postApproval(userInputObj,"Reject",errCallback )}

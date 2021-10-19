@@ -21,7 +21,7 @@ import SignInScreen from '../screen/SignInScreen';
 import EntryScreen from '../screen/EntryScreen';
 import ExitScreen from '../screen/ExitScreen';
 
-import { labCount, labPhoto, labScan, labShow, labRequest, labRegister, labReport, labAdminProfile, labResidentProfile} from './lab';
+import { labCount, labPhoto, labScan, labShow, labRequest, labRegister, labReport, labAdminProfile, labResidentProfile, labDefaultSetting} from './lab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
@@ -177,6 +177,7 @@ const MobileNavi = () => {
                 <Drawer.Screen name="Lab - Report" component={labReport} />
                 <Drawer.Screen name="Lab - AdminProfile" component={labAdminProfile} />
                 <Drawer.Screen name="Lab - ResidentProfile" component={labResidentProfile} />
+                <Drawer.Screen name="Lab - DefaultSetting" component={labDefaultSetting} />
             </Drawer.Navigator>
             }
         </NavigationContainer>

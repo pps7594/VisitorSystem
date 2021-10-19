@@ -9,7 +9,7 @@ import MyIcon from './MyIcon';
 import {Details,MyButton} from './MyButton';
 import { MyContainer } from './MyCard';
 
-const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,visitorList,approval,approvalFunc,rejectFunc}) => {
+const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,imageSource,arriveDate,arriveTime,departDate,departTime,additionalNotes,reason,visitorList,approval,approvalFunc,rejectFunc}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isExpand, setIsExpand] = useState(false);
     
@@ -31,7 +31,7 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                         <Spacer space/></View>:null}
                         {status=="Approved"?<View><Details details approve title="Approved" pR3 grey/>
                         <Spacer space/></View>:null}
-                        {status=="Rejected"?<View><Details details reject title="Rejected" pR3 grey/>
+                        {status=="Rejected"||status=="Reject"?<View><Details details reject title="Rejected" pR3 grey/>
                         <Spacer space/></View>:null}
                         {status=="Pending"||status=="NoResponse"?<View><Details details pending title="Pending" pR3 grey/>
                         <Spacer space/></View>:null}
@@ -127,7 +127,15 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                 <Spacer spacer/>
                 </>
                 :null}
-                
+                {status=="Rejected"||status=="Reject"&&reason ?<>
+                <MyText title="Reason:" pR3 grey/>
+                <Spacer space/>
+                <View style={{borderColor:colors.grey,width:"100%",borderWidth:1,borderRadius:space.cardlistborderradius,padding:space.cardpadding}}>
+                <MyText title={reason} pR2/>
+                </View>
+                <Spacer spacer/>
+                </>
+                :null}
                 {approval ?<MyContainer conRow>
                     <MyButton iconName="check-circle" approve selected func={approvalFunc}/>
                     <Spacer space50/>

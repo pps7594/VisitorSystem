@@ -80,8 +80,6 @@ const VisitRequestScreen = ({navigation}) => {
         }
     }
 
-    console.log(tempArray)
-
     return (
         <>
                 <MyContainer screencontainer  >
@@ -97,8 +95,8 @@ const VisitRequestScreen = ({navigation}) => {
                         />
                         <Spacer spacer/>
             { 
-                visitRequestArray ? 
-                visitRequestArray.map((item) => {
+                tempArray ? 
+                tempArray.map((item) => {
                     const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
                     const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
                     const nameWithAddress = item.visitRequestObj.address.split(";")
@@ -117,6 +115,7 @@ const VisitRequestScreen = ({navigation}) => {
                             departTime={leavingdatetime[1]}
                             visitorList={item.visitRequestCarList}
                             additionalNotes={item.visitRequestObj.additionalNotes}
+                            reason={item.visitRequestObj.reason}
                             status={item.visitRequestObj.status}
                             imageSource={require("../../assets/qrcode.png")}
                         />

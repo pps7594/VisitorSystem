@@ -35,7 +35,7 @@ const MyButton = ({func,height20,height30,height40,borderradius30,width23,width4
     </TouchableOpacity> 
 };
 
-const Details = ({details,info,walkin,approve,reject,pending,inactive,buttonstyle,title,text,textstyle,iconName,...rest}) => {
+const Details = ({details,info,walkin,approve,reject,pending,inactive,grey1,width60,buttonstyle,title,text,setting,textstyle,iconName,...rest}) => {
     return <View
         style={[
         details && styles.details,
@@ -45,9 +45,12 @@ const Details = ({details,info,walkin,approve,reject,pending,inactive,buttonstyl
         reject && styles.reject,
         pending && styles.pending,
         inactive && styles.inactive,
+        grey1 && styles.grey1,
+        width60 && styles.width60,
         buttonstyle]} {...rest}>
         {title ?<MyText title={title} pR3 white style={[textstyle]}/> : null}  
         {text ?<MyText title={text} pP2 white style={[textstyle]}/> : null} 
+        {setting ?<MyText title={setting} pP3 white style={[textstyle]}/> : null} 
         {iconName ?<MyIcon ION white fontSize20 iconName={iconName} /> : null}  
     </View>   
 };
@@ -72,6 +75,9 @@ const styles = StyleSheet.create({
     },
     width45:{
         width:"45%",
+    },
+    width60:{
+        width:"60%",
     },
     approvalA:{
         width:50,
@@ -136,7 +142,9 @@ const styles = StyleSheet.create({
     inactive:{
         backgroundColor:colors.inactive,
     },
-    
+    grey1:{
+        backgroundColor:colors.grey,
+    }
 })
 
 export {MyButton,Details};

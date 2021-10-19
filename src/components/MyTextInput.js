@@ -66,13 +66,13 @@ const MyPicker = ({label, value, onChange,items,style,...rest}) => (
   </>
 );
 
-const MyCheckBox = ({label, value, onValueChange,style,...rest}) => (
+const MyCheckBox = ({label, value, onValueChange,style,grey1,...rest}) => (
   <MyContainer conRow flexstart>
     <Checkbox
           style={style}
           value={value}
           onValueChange={onValueChange}
-          color={colors.mainColor}
+          color={grey1?colors.grey:colors.mainColor}
           {...rest}
     />
     <MyText title={label} inputlabelP/>

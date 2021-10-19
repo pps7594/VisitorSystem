@@ -11,6 +11,7 @@ import RegisterScreen from '../screen/lab/RegisterScreen';
 import ReportScreen from '../screen/lab/ReportScreen';
 import AdminProfileScreen from '../screen/lab/AdminProfileScreen';
 import ResidentProfileScreen from '../screen/lab/ResidentProfileScreen';
+import DefaultSettingScreen from '../screen/lab/DefaultSettingScreen';
 
 const Stack = createStackNavigator();
 
@@ -212,4 +213,26 @@ function labResidentProfile({ navigation }){
         </Stack.Navigator>
     ) 
 }
-export {labCount,labPhoto,labShow,labScan,labRequest,labRegister,labReport,labAdminProfile,labResidentProfile}
+function labDefaultSetting({ navigation }){
+    return (
+        <Stack.Navigator
+        screenOptions={{
+            headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+            ),
+            headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+            },
+        }}>
+        <Stack.Screen
+            name="Default Setting"
+            component={DefaultSettingScreen}
+        />
+        </Stack.Navigator>
+    ) 
+}
+export {labCount,labPhoto,labShow,labScan,labRequest,labRegister,labReport,labAdminProfile,labResidentProfile,labDefaultSetting}
