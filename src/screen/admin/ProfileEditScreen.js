@@ -32,14 +32,9 @@ const ProfileEditScreen = ({navigation}) => {
         navigation.addListener('focus', () => adminProfile({errCallback}));
     }, []);
 
-    const [input, setInput] = React.useState([
-        { uname: '' },
-        { email: ''},
-      ]);
-
-    const [name, setName] = useState('');
+    const [name, setName] = useState(userWithAddress.userObj.userName);
     const [nameerror, setNameerror] = useState('');
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(userWithAddress.userObj.userEmail);
     const [emailerror, setEmailerror] = useState('');
     const [newpwd, setNewpwd] = useState('');
     const [confirm, setConfirm] = useState('');
@@ -50,7 +45,7 @@ const ProfileEditScreen = ({navigation}) => {
       const nameRegex = /^[a-z ,.'-]+$/i;
       const emailRegex = /^\S+@\S+\.\S+$/;
       // input validation
-      if (name.length  != 0 && !nameRegex.test(name)) {
+      if (name.length  != 0 && name.length <=50 && !nameRegex.test(name)) {
         errorFlag = true;
         setNameerror( "Invalid Character for Name field")
       }
@@ -58,7 +53,7 @@ const ProfileEditScreen = ({navigation}) => {
         setNameerror("")
       }
 
-      if (email.length  != 0 && !emailRegex.test(email)) {
+      if (email.length  != 0 && email.length <= 100 && !emailRegex.test(email)) {
         errorFlag = true;
         setEmailerror("Invalid Email Format")
       }
@@ -131,7 +126,6 @@ const ProfileEditScreen = ({navigation}) => {
               <Spacer space10/>
               <MyTextInput  
               label="Username: *"
-              placeholder={userWithAddress.userObj.userName}
               value={name} 
               onChangeText={setName}
               />
@@ -139,7 +133,6 @@ const ProfileEditScreen = ({navigation}) => {
               <Spacer space10/>
               <MyTextInput  
               label="Email: *"
-              placeholder={userWithAddress.userObj.userEmail}
               value={email} 
               onChangeText={setEmail}
               />

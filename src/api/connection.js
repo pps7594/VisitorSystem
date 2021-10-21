@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const axiosLink = axios.create({
-    baseURL: 'http://192.168.1.14:8080' // If you run on physical device, we will run via ngrok URL (port forwarding)
+    baseURL: 'http://192.168.0.114:8080' // If you run on physical device, we will run via ngrok URL (port forwarding)
 });
 
 // We want this link to do some function, which is adding a token into every request it make every time before we use this axios to send API request 
