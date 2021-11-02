@@ -15,13 +15,16 @@ import {MyButton} from '../../components/MyButton';
 import colors from '../../config/colors';
 
 const ProfileEditScreen = ({navigation}) => {
-    const {residentProfile} = residentFunction();
+    const {residentProfile, postResidentInfo,postResidentPass} = residentFunction();
     const userWithAddress = useSelector((state) => state.credential.userWithAddress);
 
     // Helper Function
     const errCallback = ({msg}) => {
         // Some refinement should be done? Like header of this alert should not only be "alert"?
         alert(msg)
+    }
+    const callback = ({path}) => {
+      navigation.navigate(path)
     }
 
     useEffect(() => {
@@ -78,9 +81,13 @@ const ProfileEditScreen = ({navigation}) => {
               ...userWithAddress.userObj, 
               userName: name != '' ? name : userWithAddress.userObj.userName ,
               userEmail: email != '' ? email : userWithAddress.userObj.userEmail
+            },
+            residentObj : {
+              ...userWithAddress.residentObj,
+              residentsTel: phone != '' ? phone : userWithAddress.residentObj.residentsTel
             }
           }
-          postInfo(userInputObj,errCallback,callback)
+          postResidentInfo(userInputObj,errCallback,callback)
       }
   }
     
@@ -94,7 +101,7 @@ const ProfileEditScreen = ({navigation}) => {
         if (newpwd.length == 0) {
           errorFlag = true;
           setNewerror("Password is required feild") 
-        } else if (newpwd.length < 5 ||  newpwd.length > 20) {
+        } else if (newpwd.length < 8 ||  newpwd.length > 20) {
           errorFlag = true;
           setNewerror( "Password should be min 8 char and max 20 char")
         } else if (newpwd !==  confirm ) {
@@ -116,7 +123,7 @@ const ProfileEditScreen = ({navigation}) => {
                 userPassword: newpwd
               }
             }
-            postPass(userInputObj,errCallback,callback)
+            postResidentPass(userInputObj,errCallback,callback)
         }
     }
 

@@ -42,8 +42,7 @@ const VisitRequestScreen = ({navigation}) => {
             let filterResult = visitRequestArray.filter((x) => {
                 let searchFlag = false;
                 // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement", "residentsAddress")
-                let visitorType = visitorTypeSwitch(x.visitorTypeID);
-                
+                let visitorType = visitorTypeSwitch(x.visitRequestObj.visitorType);
                 let candidate = [x.visitRequestObj.visitRequestId,x.visitRequestObj.address,x.visitRequestObj.status,visitorType]
                 candidate.forEach(val => {
                     if(val != null) {

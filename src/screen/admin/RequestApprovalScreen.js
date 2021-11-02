@@ -42,8 +42,7 @@ const RequestApprovalScreen = ({navigation}) => {
             let filterResult = requestApprovalArray.filter((x) => {
                 let searchFlag = false;
                 // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement", "residentsAddress")
-                let visitorType = visitorTypeSwitch(x.visitorTypeID);
-                
+                let visitorType = visitorTypeSwitch(x.visitRequestObj.visitorType);
                 let candidate = [x.visitRequestObj.visitRequestId,x.visitRequestObj.address,visitorType]
                 candidate.forEach(val => {
                     if(val != null) {
@@ -79,7 +78,6 @@ const RequestApprovalScreen = ({navigation}) => {
                 return null
         }
     }
-
     return (
         <>
                 <MyContainer screencontainer  >

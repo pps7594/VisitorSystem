@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import function
 import residentFunction from '../../functions/residentFunction';
 import {newdatetime} from '../../functions/newdatetime';
-import {storeTempVisitRequestArray } from "../../redux/admindashboardslice";
+import {storeTempVisitRequestArray } from "../../redux/residentslice";
 
 //import component
 import Spacer from '../../components/Spacer';
@@ -15,8 +15,11 @@ import RequestApprovalCard from '../../components/RequestApprovalCard';
 import { MyContainer,VisitorTypeCard } from '../../components/MyCard';
 
 const VisitRequestScreen = ({navigation}) => {
+    const dispatch = useDispatch();
+
     const {residentVisitRequest} = residentFunction();
     const [currentDate, setCurrentDate] = useState('');
+
     const residentVisitRequestArray = useSelector((state) => state.resident.residentvisitrequestarray); 
     const userWithAddress = useSelector((state) => state.credential.userWithAddress); 
 
@@ -33,9 +36,47 @@ const VisitRequestScreen = ({navigation}) => {
 
     const [input, setInput] = useState('');
 
-    // Console log here to show what it returns
-    console.log(userWithAddress.userObj.userName)
-    console.log(residentVisitRequestArray)
+    // Temporary Array to store Filter result
+    const tempArray = useSelector((state) => state.resident.tempvisitrequestarray); 
+
+    // Const searchFunc
+    const searchFunc = (input) => {
+        if(input != ""){
+            let searchTerm = input.toLowerCase();
+            let filterResult = residentVisitRequestArray.filter((x) => {
+                let searchFlag = false;
+                // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement", "status")
+                let visitorType = visitorTypeSwitch(x.visitRequestObj.visitorType);
+                let candidate = [x.visitRequestObj.visitRequestId,x.visitRequestObj.status,visitorType]
+                candidate.forEach(val => {
+                    if(val != null) {
+                        if(val.toLowerCase().includes(searchTerm)) {
+                            searchFlag = true;
+                            return;
+                        }
+                    } 
+                });
+                if(searchFlag) return x;
+            });
+            dispatch(storeTempVisitRequestArray(filterResult))
+            
+        }
+        else{
+            dispatch(storeTempVisitRequestArray(residentVisitRequestArray))
+        }
+    }
+
+    const visitorTypeSwitch = (visitorTypeID) => {
+        switch (visitorTypeID) {
+            case "1": 
+                return "visitor"
+            case "2":
+                return "residental usage"
+            default:
+                return null
+        }
+    }
+
     return (
         <>
                 <MyContainer screencontainer  >

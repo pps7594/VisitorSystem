@@ -6,7 +6,10 @@ export const residentSlice = createSlice({
     residentdashboardobj: [],
     residentvisitrequestarray: [],
     residentreportarray:[],
-    walkinallowed:0
+    walkinallowed:0,
+    tempreportarray:[],
+    tempvisitrequestarray:[],
+    residentvisitrequestwithcar:[],
   },
   reducers: {
     storeResidentDashboardObj: (state, action) => {    
@@ -32,13 +35,39 @@ export const residentSlice = createSlice({
     },
     removeWalkInAllowed:(state) => {
       state.walkinallowed = 0
-    }
+    },
+    storeTempReportArray: (state, action) => {
+      state.tempreportarray = action.payload
+    },
+    removeTempReportArray: (state) => {
+      state.tempreportarray = {}
+    },
+    storeTempVisitRequestArray: (state,action) => {
+      state.tempvisitrequestarray = action.payload
+    },
+    removeTempVisitRequestArray: (state) => {
+      state.tempvisitrequestarray = {}
+    },
+    storeResidentVisitRequestWithCar: (state,action) => {
+      state.residentvisitrequestwithcar = action.payload
+    },
+    removeResidentVisitRequestWithCar: (state) => {
+      state.residentvisitrequestwithcar = {}
+    },
   }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { storeResidentDashboardObj,storeVisitRequestArray,storeResidentReportArray,storeWalkInAllowed } = residentSlice.actions;
+export const { 
+  storeResidentDashboardObj,
+  storeVisitRequestArray,
+  storeResidentReportArray,
+  storeWalkInAllowed,
+  storeTempVisitRequestArray,
+  storeTempReportArray,
+  storeResidentVisitRequestWithCar 
+} = residentSlice.actions;
 
 export default residentSlice.reducer;
 

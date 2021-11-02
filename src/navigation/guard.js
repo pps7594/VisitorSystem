@@ -122,6 +122,7 @@ function guardCheckIn({ navigation }){
         <Stack.Screen
             name="GuardCheckIn"
             component={CheckInScreen}
+            options={{ headerShown: false }}
         />
         </Stack.Navigator>
     ) 

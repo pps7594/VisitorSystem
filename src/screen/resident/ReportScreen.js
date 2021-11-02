@@ -2,7 +2,7 @@
 import React, { useState, useEffect} from 'react';;
 import {View, Text, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
-import { storeTempReportArray } from "../../redux/admindashboardslice";
+import { storeTempReportArray } from "../../redux/residentslice";
 
 //import function
 import residentFunction from '../../functions/residentFunction';
@@ -14,11 +14,16 @@ import MyFilter from '../../components/MyFilter';
 import ReportSummaryCard from '../../components/ReportSummaryCard';
 
 const ReportScreen = ({navigation}) => {
+    const dispatch = useDispatch();
+
     const {residentReport} = residentFunction();
     const [currentDate, setCurrentDate] = useState('');
     const residentReportArray = useSelector((state) => state.resident.residentreportarray); 
 
     const [input, setInput] = useState('');
+
+    // Temporary Array to store Filter result
+    const tempArray = useSelector((state) => state.resident.tempreportarray); 
 
     // Helper Function
     const errCallback = ({msg}) => {
@@ -31,14 +36,61 @@ const ReportScreen = ({navigation}) => {
         navigation.addListener('focus', () => residentReport({errCallback}));
     }, []);
 
-    console.log(residentReportArray.length)
+     // Const searchFunc
+     const searchFunc = (input) => {
+        if(input != ""){
+            let searchTerm = input.toLowerCase();
+            let filterResult = residentReportArray.filter((x) => {
+                let searchFlag = false;
+                // We only can limit some field for search, candidates ("visitorPlateNum", "visitorTypeID = switch statement")
+                let visitorType = visitorTypeSwitch(x.visitorTypeID);
+                
+                let candidate = [x.visitorPlateNum,visitorType]
+                candidate.forEach(val => {
+                    if(val != null) {
+                        if(val.toLowerCase().includes(searchTerm)) {
+                            searchFlag = true;
+                            return;
+                        }
+                    } 
+                });
+                if(searchFlag) return x;
+            });
+            dispatch(storeTempReportArray(filterResult))
+            
+        }
+        else{
+            dispatch(storeTempReportArray(residentReportArray))
+        }
+    }
 
+    const visitorTypeSwitch = (visitorTypeID) => {
+        switch (visitorTypeID) {
+            case "1": 
+                return "visitor"
+            case "2":
+                return "residental usage"
+            case "3":
+                return "delivery"
+            case "4":
+                return "emergency service"
+            case "5":
+                return "long-term service"
+            default:
+                return null
+        }
+    }
+
+    
     const numAll = residentReportArray.filter(x=>x.visitorTypeID!=null).length;
     const num1 = residentReportArray.filter(x=>x.visitorTypeID=='1').length;
     const num2 = residentReportArray.filter(x=>x.visitorTypeID=='2').length;
     const num3 = residentReportArray.filter(x=>x.visitorTypeID=='3').length;
     const num4 = residentReportArray.filter(x=>x.visitorTypeID=='4').length;
     const num5 = residentReportArray.filter(x=>x.visitorTypeID=='5').length;
+
+    // Temp Array
+    console.log(tempArray)
     return (
         <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { storeResidentDashboardObj,storeVisitRequestArray,storeResidentReportArray,storeWalkInAllowed } from '../redux/residentslice'
+import { storeResidentDashboardObj,storeVisitRequestArray,storeResidentReportArray,storeWalkInAllowed, storeTempVisitRequestArray, storeTempReportArray } from '../redux/residentslice'
 import { storeUserObj } from "../redux/credential";
 
 import conn from '../api/connection';
@@ -25,6 +25,7 @@ export default () => {
         try{
             const response = await getResidentVisitRequest({userID});
             dispatch(storeVisitRequestArray(response.data))
+            dispatch(storeTempVisitRequestArray(response.data))
         } catch (err) {
             // Had to change to some sort of alert
             errCallback({msg: "Unable to fetch data, please try again"});
@@ -37,10 +38,12 @@ export default () => {
             if(timeframe) {
                 const response = await getResidentReportTimeframe({userID,timeframe});
                 dispatch(storeResidentReportArray(response.data))
+                dispatch(storeTempReportArray(response.data))
             }
             else {
                 const response = await getResidentReportFullTime({userID});
                 dispatch(storeResidentReportArray(response.data))
+                dispatch(storeTempReportArray(response.data))
             } 
         } catch (err) {
             // Had to change to some sort of alert
@@ -69,6 +72,31 @@ export default () => {
             // Had to change to some sort of alert
             errCallback({msg: "Unable to fetch data, please try again"});
         } 
+    }
+
+    const postResidentInfo = async (userInputObj, errCallback, callback) => {
+        try {
+            // console.log(userInputObj)
+            const response = await postResidentProfile(userInputObj);
+            errCallback({msg: "Successful"})
+            callback({path:"ResidentProfile"});
+        } catch (error) {
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to post data, please try again"});
+        }
+    }
+
+    const postResidentPass = async (userInputObj, errCallback, callback) => {
+        try {
+            const response = await postResidentPassword(userInputObj);
+            // This is the response from our Server
+            // console.log(response.request._response);
+            errCallback({msg: "Password Update Successful, please relogin again"})
+            callback({path:'Logout'});
+        } catch (error) {
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to post data, please try again"});
+        }
     }
 
     // Helper Function
@@ -124,5 +152,14 @@ export default () => {
             }
         }) 
     }
-    return {residentDashboard,residentVisitRequest,residentReport,residentProfile,residentWalkInAllowed};
+
+    const postResidentProfile = async (userInputObj) => {
+        return conn.post('/m/profile', userInputObj)
+    }
+
+    const postResidentPassword = async (userInputObj) => {
+        return conn.post('/m/changepassword', userInputObj)
+    }
+
+    return {residentDashboard,residentVisitRequest,residentReport,residentProfile,residentWalkInAllowed,postResidentInfo,postResidentPass};
 }

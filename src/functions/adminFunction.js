@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { storeAdminDashboardObj, storeRequestApprovalArray, storeVisitRequestArray, storeAdminReportArray, storeDefaultSetting, storeTempReportArray ,removeAdminDashboardObj } from "../redux/admindashboardslice";
+import { storeAdminDashboardObj, storeRequestApprovalArray, storeVisitRequestArray, storeAdminReportArray, storeDefaultSetting, storeTempReportArray ,removeAdminDashboardObj, storeTempVisitRequestArray, storeTempRequestApprovalArray } from "../redux/admindashboardslice";
 import { storeUserObj } from "../redux/credential";
 
 import conn from '../api/connection';
@@ -23,10 +23,12 @@ export default () => {
             if(timeframe) {
                 const response = await getRequestApprovalTimeframe(timeframe);
                 dispatch(storeRequestApprovalArray(response.data))
+                dispatch(storeTempRequestApprovalArray(response.data))
             }
             else {
                 const response = await getRequestApprovalFulltime();
                 dispatch(storeRequestApprovalArray(response.data))
+                dispatch(storeTempRequestApprovalArray(response.data))
             }
             
         } catch (err) {
@@ -40,10 +42,12 @@ export default () => {
             if(timeframe) {
                 const response = await getAdminVisitRequestTimeframe(timeframe);
                 dispatch(storeVisitRequestArray(response.data))
+                dispatch(storeTempVisitRequestArray(response.data))
             }
             else {
                 const response = await getAdminVisitRequestFulltime();
                 dispatch(storeVisitRequestArray(response.data))
+                dispatch(storeTempVisitRequestArray(response.data))
             }
             
         } catch (err) {

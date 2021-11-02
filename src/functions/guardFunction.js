@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { storeWalkInAllowed, storeCurrentVisitorlist } from '../redux/guardslice'
+import { storeWalkInAllowed, storeCurrentVisitorlist, storeQRVisitRequest } from '../redux/guardslice'
 import { storeUserObj } from "../redux/credential";
 
 import conn from '../api/connection';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 
 export default () => {
     const dispatch = useDispatch();
@@ -27,6 +28,19 @@ export default () => {
         } 
     }
 
+    const guardScanQR = async ({data, errCallback,callback}) => {
+        try {
+            const response = await getvisitrequest(data);
+            dispatch(storeQRVisitRequest(response.data))
+            errCallback({msg: "Successful"})
+            callback({path:"GuardCheckIn"});
+        } catch (error) {
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to get data, please try again"});
+            // console.log(response)
+        }
+    }
+
 
     // Helper Function
     const getWalkInAllowed = async () => {
@@ -46,5 +60,15 @@ export default () => {
             }
         }) 
     }
-    return {guardWalkInAllowed,guardCurrentVisitorlist};
+
+    const getvisitrequest = async (data) => {
+        return conn.get(`${data}`,{
+            data: {},
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+    }
+
+    return {guardWalkInAllowed,guardCurrentVisitorlist,guardScanQR};
 }

@@ -5,6 +5,7 @@ export const guardSlice = createSlice({
   initialState: {
     walkinallowed:0,
     currentvisitorlistarray:[],
+    qrvisitrequest:{},
   },
   reducers: {
     storeWalkInAllowed:(state,action) => {
@@ -18,13 +19,19 @@ export const guardSlice = createSlice({
     },
     removeCurrentVisitorlist:(state) => {
       state.currentvisitorlistarray = {}
+    },
+    storeQRVisitRequest:(state,action) => {
+      state.qrvisitrequest = action.payload
+    },
+    removeQRVisitRequest:(state) => {
+      state.qrvisitrequest = {}
     }
   }
 });
 
 
 // Action creators are generated for each case reducer function
-export const {storeWalkInAllowed, storeCurrentVisitorlist } = guardSlice.actions;
+export const {storeWalkInAllowed, storeCurrentVisitorlist,storeQRVisitRequest } = guardSlice.actions;
 
 export default guardSlice.reducer;
 

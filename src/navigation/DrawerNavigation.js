@@ -44,7 +44,7 @@ function MobileStack(){
     return (
         <Stack.Navigator>
             <Stack.Screen name="Entry" options={{ headerShown: false }} component={EntryScreen} />
-            <Stack.Screen name="SignIn" component={SignInScreen}/>
+            <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="Admin" component={AdminDrawer} options={{ headerShown: false }}/>
             <Stack.Screen name="Resident" component={ResidentDrawer} options={{ headerShown: false }}/>
             <Stack.Screen name="Guard" component={GuardDrawer} options={{ headerShown: false }}/>

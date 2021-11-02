@@ -25,7 +25,7 @@ const ProfileEditScreen = ({navigation}) => {
     }
     const callback = ({path}) => {
       navigation.navigate(path)
-  }
+    }
 
     useEffect(() => {
         // Trigger the API call every time we navigate to this screen, as a Event listener
@@ -81,12 +81,12 @@ const ProfileEditScreen = ({navigation}) => {
         // input validation
         if (newpwd.length == 0) {
           errorFlag = true;
-          setNewerror("Password is required feild") 
+          setNewerror("Password is required field") 
         }
         if (newpwd.length == 0) {
           errorFlag = true;
-          setNewerror("Password is required feild") 
-        } else if (newpwd.length < 5 ||  newpwd.length > 20) {
+          setNewerror("Password is required field") 
+        } else if (newpwd.length < 8 ||  newpwd.length > 20) {
           errorFlag = true;
           setNewerror( "Password should be min 8 char and max 20 char")
         } else if (newpwd !==  confirm ) {
