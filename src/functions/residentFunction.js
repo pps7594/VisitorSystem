@@ -20,12 +20,20 @@ export default () => {
         }   
     }
 
-    const residentVisitRequest = async ({errCallback}) => {
+    const residentVisitRequest = async ({errCallback,timeframe}) => {
         const userID = userObj.userObj.userID;
         try{
-            const response = await getResidentVisitRequest({userID});
-            dispatch(storeVisitRequestArray(response.data))
-            dispatch(storeTempVisitRequestArray(response.data))
+            if(timeframe) {
+                const response = await getResidentVisitRequestTimeframe({userID,timeframe});
+                dispatch(storeVisitRequestArray(response.data))
+                dispatch(storeTempVisitRequestArray(response.data))
+            }
+            else {
+                const response = await getResidentVisitRequest({userID});
+                dispatch(storeVisitRequestArray(response.data))
+                dispatch(storeTempVisitRequestArray(response.data))
+            } 
+          
         } catch (err) {
             // Had to change to some sort of alert
             errCallback({msg: "Unable to fetch data, please try again"});
@@ -111,6 +119,14 @@ export default () => {
 
     const getResidentVisitRequest = async ({userID}) => {
         return conn.get(`/m/residentvisitrequest?userID=${userID}`,{
+            data: {},
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+    }
+    const getResidentVisitRequestTimeframe = async ({userID,timeframe}) => {
+        return conn.get(`/m/residentvisitrequest?userID=${userID}&timeframe=${timeframe}`,{
             data: {},
             headers: {
                 'Content-Type': 'application/json',
