@@ -9,6 +9,7 @@ import CurrentVisitorScreen from '../screen/guard/CurrentVisitorScreen'
 import CheckInQRScreen from '../screen/guard/CheckInQRScreen'
 import CheckInScreen from '../screen/guard/CheckInScreen'
 
+import colors from '../config/colors';
 
 const Stack = createStackNavigator();
 
@@ -20,9 +21,9 @@ function guardDashboard({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -42,9 +43,9 @@ function guardDeliveryService({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -64,9 +65,9 @@ function guardEmergencyService({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -86,9 +87,9 @@ function guardCheckOut({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -108,9 +109,9 @@ function guardCheckIn({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },

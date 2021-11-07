@@ -9,6 +9,8 @@ import VisitRequestScreen from '../screen/resident/VisitRequestScreen';
 import ProfileScreen from '../screen/resident/ProfileScreen';
 import ProfileEditScreen from '../screen/resident/ProfileEditScreen';
 
+import colors from '../config/colors';
+
 const Stack = createStackNavigator();
 
 function residentDashboard({navigation}){
@@ -19,15 +21,15 @@ function residentDashboard({navigation}){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+            backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
         }}>
         <Stack.Screen
-            name="ResidentDashboard"
+            name="Resident Dashboard"
             component={DashboardScreen}
         />
         </Stack.Navigator>
@@ -41,9 +43,9 @@ function residentRegisterVisitor({navigation}){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+            backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -63,9 +65,9 @@ function residentVisitRequest({navigation}){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+            backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -85,9 +87,9 @@ function residentReport({navigation}){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -107,9 +109,9 @@ function residentProfile({navigation}){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+            backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 
+import MyIcon from '../components/MyIcon';
+
 const NavigationDrawerStructure = (props) => {
     //Structure for the navigatin Drawer
     const toggleDrawer = () => {
@@ -9,16 +11,9 @@ const NavigationDrawerStructure = (props) => {
     };
   
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View>
         <TouchableOpacity onPress={toggleDrawer}>
-          {/*Donute Button Image */}
-          <Image
-            source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
-            }}
-            style={{ width: 25, height: 25, marginLeft: 5 }}
-          />
+          <MyIcon ION black iconName="menu" padding10 fontSize30/>
         </TouchableOpacity>
       </View>
     );

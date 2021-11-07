@@ -259,6 +259,7 @@ const styles = StyleSheet.create({
     screenContainer:{
         flex:1,
         padding:space.cardpadding,
+        backgroundColor:colors.background
     },
     cardContainer:{
         backgroundColor: colors.white,

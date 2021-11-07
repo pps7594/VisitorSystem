@@ -1,6 +1,6 @@
 export default {
     mainColor: "#2662F0",
-    background: "EEF4FB",
+    background: "#EEF4FB",
     black: "#000000",
     white: "#FFFFFF",
     grey: "#9E9E9E",

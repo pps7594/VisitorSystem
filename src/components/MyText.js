@@ -21,7 +21,7 @@ import {
 import adjust from '../config/adjust';
 import colors from '../config/colors';
 
-const MyText = ({title,h1P,h2P,h3P,h4P,pP,pP2,pP3,inputlabelP,pR,pR2,pR3,pR3I,num,grey,white,black,main,underlined,style,...rest}) => {
+const MyText = ({title,h1P,h2P,h3P,h4P,h5P,pP,pP2,pP3,pP4,inputlabelP,pR,pR2,pR3,pR3I,num,grey,white,black,main,underlined,style,...rest}) => {
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_600SemiBold,
@@ -43,9 +43,11 @@ const MyText = ({title,h1P,h2P,h3P,h4P,pP,pP2,pP3,inputlabelP,pR,pR2,pR3,pR3I,nu
             h2P && styles.heading2P,
             h3P && styles.heading3P,
             h4P && styles.heading4P,
+            h5P && styles.heading5P,
             pP && styles.paragraphP,
             pP2 && styles.paragraphP2,
             pP3 && styles.paragraphP3,
+            pP4 && styles.paragraphP4,
             inputlabelP && styles.inputlabelP,
             pR && styles.paragraphR,
             pR2 && styles.paragraphR2,
@@ -87,6 +89,10 @@ const styles = StyleSheet.create({
         fontFamily:"Poppins_600SemiBold",
         fontSize:adjust(15),
     },
+    heading5P:{
+        fontFamily:"Poppins_600SemiBold",
+        fontSize:adjust(12),
+    },
     paragraphP:{
         fontFamily:"Poppins_400Regular",
         fontSize:adjust(16),
@@ -98,6 +104,10 @@ const styles = StyleSheet.create({
     paragraphP3:{
         fontFamily:"Poppins_400Regular",
         fontSize:adjust(12),
+    },
+    paragraphP4:{
+        fontFamily:"Poppins_400Regular",
+        fontSize:adjust(10),
     },
     inputlabelP:{
         fontFamily:"Poppins_600SemiBold",

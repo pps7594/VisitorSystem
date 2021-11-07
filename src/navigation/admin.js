@@ -10,6 +10,8 @@ import ReportScreen from '../screen/admin/ReportScreen'
 import RequestApprovalScreen from '../screen/admin/RequestApprovalScreen'
 import VisitRequestScreen from '../screen/admin/VisitRequestScreen'
 
+import colors from '../config/colors';
+
 const Stack = createStackNavigator();
 
 function adminDashboard({ navigation }){
@@ -20,9 +22,9 @@ function adminDashboard({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -42,9 +44,9 @@ function adminRequestApproval({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -64,9 +66,9 @@ function adminVisitRequest({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -86,9 +88,9 @@ function adminReport({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -108,9 +110,9 @@ function adminProfile({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
@@ -134,9 +136,9 @@ function adminSystemSetting({ navigation }){
             <NavigationDrawerStructure navigationProps={navigation} />
             ),
             headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
+                backgroundColor: colors.background, //Set Header color
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: colors.black, //Set Header text color
             headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
             },
