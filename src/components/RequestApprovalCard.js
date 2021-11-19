@@ -27,13 +27,13 @@ const RequestApprovalCard = ({visitorType,id,details,address,walkin,status,image
                     <MyText title={address} pR2 grey/>
                     </MyContainer>
                     <MyContainer conLeft>
-                        {walkin?<View><Details details walkin title="Walk-in Visitor" pR3 grey/>
+                        {walkin?<View><Details details walkin title="Walk-in Visitor" pR3 />
                         <Spacer space/></View>:null}
-                        {status=="Approved"?<View><Details details approve title="Approved" pR3 grey/>
+                        {status=="Approved"?<View><Details details approve title="Approved" pR3 />
                         <Spacer space/></View>:null}
-                        {status=="Rejected"||status=="Reject"?<View><Details details reject title="Rejected" pR3 grey/>
+                        {status=="Rejected"||status=="Reject"?<View><Details details reject title="Rejected" pR3 />
                         <Spacer space/></View>:null}
-                        {status=="Pending"||status=="NoResponse"?<View><Details details pending title="Pending" pR3 grey/>
+                        {status=="Pending"||status=="NoResponse"?<View><Details details pending title="Pending" pR3 />
                         <Spacer space/></View>:null}
                         {imageSource ?<TouchableOpacity onPress={() => setIsOpen(true)}>
                         <Image 

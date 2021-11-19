@@ -45,7 +45,7 @@ const ProfileEditScreen = ({navigation}) => {
       const nameRegex = /^[a-z ,.'-]+$/i;
       const emailRegex = /^\S+@\S+\.\S+$/;
       // input validation
-      if (name.length  != 0 && name.length <=50 && !nameRegex.test(name)) {
+      if (name.length  <= 0 || name.length >50 || !nameRegex.test(name)) {
         errorFlag = true;
         setNameerror( "Invalid Character for Name field")
       }
@@ -53,7 +53,7 @@ const ProfileEditScreen = ({navigation}) => {
         setNameerror("")
       }
 
-      if (email.length  != 0 && email.length <= 100 && !emailRegex.test(email)) {
+      if (email.length  <= 0 || email.length > 100 || !emailRegex.test(email)) {
         errorFlag = true;
         setEmailerror("Invalid Email Format")
       }

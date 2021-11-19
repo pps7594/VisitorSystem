@@ -82,12 +82,12 @@ const ReportScreen = ({navigation}) => {
     }
 
     
-    const numAll = residentReportArray.filter(x=>x.visitorTypeID!=null).length;
-    const num1 = residentReportArray.filter(x=>x.visitorTypeID=='1').length;
-    const num2 = residentReportArray.filter(x=>x.visitorTypeID=='2').length;
-    const num3 = residentReportArray.filter(x=>x.visitorTypeID=='3').length;
-    const num4 = residentReportArray.filter(x=>x.visitorTypeID=='4').length;
-    const num5 = residentReportArray.filter(x=>x.visitorTypeID=='5').length;
+    const numAll = tempArray.filter(x=>x.visitorTypeID!=null).length;
+    const num1 = tempArray.filter(x=>x.visitorTypeID=='1').length;
+    const num2 = tempArray.filter(x=>x.visitorTypeID=='2').length;
+    const num3 = tempArray.filter(x=>x.visitorTypeID=='3').length;
+    const num4 = tempArray.filter(x=>x.visitorTypeID=='4').length;
+    const num5 = tempArray.filter(x=>x.visitorTypeID=='5').length;
 
     // Temp Array
     console.log(tempArray)
@@ -114,8 +114,8 @@ const ReportScreen = ({navigation}) => {
                 />
                 <Spacer spacer/>
             { 
-                residentReportArray ? 
-                residentReportArray.map((item) => {
+                tempArray ? 
+                tempArray.map((item) => {
                     const arrivedatetime = newdatetime(item.actualArrivedDateTime)
                     const leavingdatetime = newdatetime(item.actualLeavingDateTime)
 

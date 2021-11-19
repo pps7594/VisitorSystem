@@ -6,7 +6,7 @@ import space from '../config/space';
 import MyText from './MyText';
 import MyIcon from './MyIcon';
 
-const MyButton = ({func,height20,height30,height40,borderradius30,width23,width45,padding10,row,white,border,approve,reject,buttonstyle,title,textstyle,selected,h3,h4,pP2,icon,iconName,...rest}) => {
+const MyButton = ({func,height20,height30,height40,borderradius30,width23,width45,padding10,row,white,border,approve,reject,buttonstyle,title,textstyle,selected,inactive,h3,h4,pP2,icon,iconName,...rest}) => {
     return <TouchableOpacity
         onPress={func}
         style={[
@@ -24,6 +24,7 @@ const MyButton = ({func,height20,height30,height40,borderradius30,width23,width4
             approve && styles.approvalA ,
             reject && styles.approvalR,
             selected ?null: styles.white,
+            inactive && styles.inactive,
             buttonstyle]} {...rest}>
         {selected && h3 ?<MyText title={title} h3P white style={[textstyle]}/> : null}
         {selected && h4 ?<MyText title={title} h4P white style={[textstyle]}/> : null}
@@ -35,7 +36,7 @@ const MyButton = ({func,height20,height30,height40,borderradius30,width23,width4
     </TouchableOpacity> 
 };
 
-const Details = ({details,info,walkin,approve,reject,pending,inactive,grey1,width60,buttonstyle,title,text,setting,textstyle,iconName,...rest}) => {
+const Details = ({details,info,walkin,approve,reject,pending,inactive,width60,buttonstyle,title,text,setting,textstyle,iconName,...rest}) => {
     return <View
         style={[
         details && styles.details,
@@ -45,7 +46,6 @@ const Details = ({details,info,walkin,approve,reject,pending,inactive,grey1,widt
         reject && styles.reject,
         pending && styles.pending,
         inactive && styles.inactive,
-        grey1 && styles.grey1,
         width60 && styles.width60,
         buttonstyle]} {...rest}>
         {title ?<MyText title={title} pR3 white style={[textstyle]}/> : null}  
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         width:"23%",
     },
     width45:{
-        width:"45%",
+        width:"46%",
     },
     width60:{
         width:"60%",
@@ -142,9 +142,6 @@ const styles = StyleSheet.create({
     inactive:{
         backgroundColor:colors.inactive,
     },
-    grey1:{
-        backgroundColor:colors.grey,
-    }
 })
 
 export {MyButton,Details};

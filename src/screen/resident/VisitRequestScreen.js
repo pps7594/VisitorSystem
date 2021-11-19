@@ -89,8 +89,8 @@ const VisitRequestScreen = ({navigation}) => {
                         />
                         <Spacer spacer/>
             { 
-                residentVisitRequestArray ? 
-                residentVisitRequestArray.map((item) => {
+                tempArray ? 
+                tempArray.map((item) => {
                     const arrivedatetime = newdatetime(item.visitRequestObj.expectedArriveDateTime)
                     const leavingdatetime = newdatetime(item.visitRequestObj.expectedLeavingDateTime)
 

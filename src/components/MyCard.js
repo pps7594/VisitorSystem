@@ -133,9 +133,9 @@ const MyList = ({id,visitor,address,visitorType,carplate,status,arriveDate,arriv
                 <Spacer space10/>
                 <MyText title={carplate} pP3/>
                 <MyContainer conLeft>
-                    {status!="inactive"?<View><Details details walkin title="Active" pR grey/>
+                    {status!="inactive"?<View><Details details walkin title="Active" pR />
                     </View>:null}
-                    {status=="inactive"?<View><Details details inactive title="Inactive" pR grey/>
+                    {status=="inactive"?<View><Details details inactive title="Inactive" pR />
                     </View>:null}
                 </MyContainer>
             </MyContainer>

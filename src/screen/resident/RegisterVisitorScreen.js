@@ -1,7 +1,8 @@
 //import library
 import React, { useState, useEffect, useContext } from 'react';
-import {View, ScrollView, FlatList, Text} from 'react-native';
+import {View, ScrollView, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment-timezone";
 
 //import component
 import Spacer from '../../components/Spacer';
@@ -12,8 +13,12 @@ import MyIcon from '../../components/MyIcon';
 import MyDateTimePicker from '../../components/MyDateTimePicker';
 import { MyContainer } from '../../components/MyCard';
 
+//import config
+import colors from '../../config/colors';
+
 //import function
 import residentFunction from '../../functions/residentFunction';
+import { newdatetime } from '../../functions/newdatetime';
 
 const RegisterVisitorScreen = ({navigation}) => {
     const {residentWalkInAllowed} = residentFunction();
@@ -34,11 +39,26 @@ const RegisterVisitorScreen = ({navigation}) => {
         setInput([ { 
             "peopleCount": "",
             "vehicleTypeNotes": "",
-            "visitorName": "Blablablacksheep",
+            "visitorName": "",
             "visitorPlateNum": "",
             "visitorTel": "",
-            "visitorVehicleType": "",
+            "visitorVehicleType": "car",
+            //error
+            "peopleCountError": "",
+            "vehicleTypeNotesError": "",
+            "visitorNameError": "",
+            "visitorPlateNumError": "",
+            "visitorTelError": "",
+            "visitorVehicleTypeError": "",
         }]) 
+        setAdditionalNotes("");
+        setAdditionalNotesError("");
+        setChecked(false);
+        setScheduledArrive(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
+        setScheduledArriveSelected("Select DateTime Picker");
+        setScheduledDeparture(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
+        setScheduledDepartureSelected("Select DateTime Picker");
+        setDatetimeError("")
     }, []);
 
     const [input, setInput] = useState([{
@@ -47,10 +67,17 @@ const RegisterVisitorScreen = ({navigation}) => {
         // These two will be inserted when posting the data onto server.
         "peopleCount": "",
         "vehicleTypeNotes": "",
-        "visitorName": "Blablablacksheep",
+        "visitorName": "",
         "visitorPlateNum": "",
         "visitorTel": "",
-        "visitorVehicleType": "",
+        "visitorVehicleType": "car",
+        //error
+        "peopleCountError": "",
+        "vehicleTypeNotesError": "",
+        "visitorNameError": "",
+        "visitorPlateNumError": "",
+        "visitorTelError": "",
+        "visitorVehicleTypeError": "",
     }]);
 
     const updateVisitorEntry = (fieldName, data, targetIndex) => {
@@ -66,36 +93,210 @@ const RegisterVisitorScreen = ({navigation}) => {
             "visitorName": "",
             "visitorPlateNum": "",
             "visitorTel": "",
-            "visitorVehicleType": "",
+            "visitorVehicleType": "car",
+            //error
+            "peopleCountError": "",
+            "vehicleTypeNotesError": "",
+            "visitorNameError": "",
+            "visitorPlateNumError": "",
+            "visitorTelError": "",
+            "visitorVehicleTypeError": "",
         }])
     }
     const deleteVisitorEntry = (targetIndex) => {
         input.splice(targetIndex,1)
         setInput([ ...input])
+        
     }
 
-    const [vehicleNotes, setVehicleNotes] = useState("")
+    //Switch between visitor form and residential usage form
+    const [filters, setFilters] = React.useState([
+        { label: 'Visitor'},
+        { label: 'Residential Usage'},
+    ]);
+    const [selected, setSelected] = React.useState(filters[1]);
+
+    const callback = (data) => {
+        if (selected === data) return setSelected(filters[0]);
+        setSelected(data);
+        setInput([ { 
+            "peopleCount": "",
+            "vehicleTypeNotes": "", //not required
+            "visitorName": "",
+            "visitorPlateNum": "",
+            "visitorTel": "",
+            "visitorVehicleType": "car",//check again
+            //error
+            "peopleCountError": "",
+            "vehicleTypeNotesError": "",
+            "visitorNameError": "",
+            "visitorPlateNumError": "",
+            "visitorTelError": "",
+            "visitorVehicleTypeError": "",
+        }]) 
+        setAdditionalNotes("");
+        setAdditionalNotesError("");
+        setChecked(false);
+        setScheduledArrive(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
+        setScheduledArriveSelected("Select DateTime Picker");
+        setScheduledDeparture(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
+        setScheduledDepartureSelected("Select DateTime Picker");
+        setDatetimeError("")
+    };
+
+    //states and static variable
+    const [scheduledArrive, setScheduledArrive] = useState(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"))
+    const [scheduledDeparture, setScheduledDeparture] = useState(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
+    const [scheduledArriveSelected, setScheduledArriveSelected] = useState("Select DateTime Picker");
+    const [scheduledDepartureSelected, setScheduledDepartureSelected] = useState("Select DateTime Picker");
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [datetimeError, setDatetimeError] = useState("")
+
+    const [additionalNotes, setAdditionalNotes] = useState("")
+    const [additionalNotesError, setAdditionalNotesError] = useState("")
+
     const [isChecked, setChecked] = useState(false);
+
     const vehicle = [
         { label: 'Car', value: 'car' },
         { label: 'Motorcycle', value: 'motorcycle' },
         { label: 'Van', value: 'van' },
         { label: 'Heavy Vehicle', value: 'heavyvehicle' },
     ];
-    
-    const [filters, setFilters] = React.useState([
-        { label: 'Visitor'},
-        { label: 'Residential Usage'},
-    ]);
+    const visitorvehicle = [
+        { label: 'Car', value: 'car' },
+        { label: 'Motorcycle', value: 'motorcycle' },
+        { label: 'Van', value: 'van' },
+    ];
 
-    const [selected, setSelected] = React.useState(filters[1]);
-
-    const callback = (data) => {
-        if (selected === data) return setSelected(filters[0]);
-        setSelected(data);
+    //datetime functions
+    const setarrive = () => {
+        setScheduledArriveSelected("true");
+        setDatePickerVisibility(true);
     };
 
-    const onPress = () => {null}
+    const setarrivecancel = () => {
+        setScheduledArriveSelected("Select DateTime Picker")
+        setDatePickerVisibility(false);
+    };
+
+    const setdeparture = () => {
+        setScheduledDepartureSelected("true");
+        setDatePickerVisibility(true);
+    };
+
+    const setdeparturecancel = () => {
+        setScheduledDepartureSelected("Select DateTime Picker")
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (datetime) => {
+        if(scheduledArriveSelected=="true"){
+            setScheduledArrive(datetime)
+            const dt=newdatetime(datetime.toString());
+            setScheduledArriveSelected(dt[0]+" "+dt[1])
+            setDatePickerVisibility(false)
+            setDatetimeError("")
+        }
+        else if(scheduledDepartureSelected=="true"){
+            setDatetimeError("")
+            setScheduledDeparture(datetime)
+            setScheduledDepartureSelected(datetime.toString())
+            setDatePickerVisibility(false)
+            setDatetimeError("")
+        }
+    };
+
+    //validations
+    const additionalnotesValidation = (data) => {
+        const notesRegex = /^$|^[a-zA-Z][a-zA-Z ]+$/;
+        if(data.length > 100000 || !notesRegex.test(data)){
+            setAdditionalNotes(data)
+            setAdditionalNotesError( "Invalid Character for Additional Notes field")
+        }
+        else{
+            setAdditionalNotes(data)
+            setAdditionalNotesError("")
+        }
+    }
+
+    const nameValidation = (fieldName, data, targetIndex) => {
+        const nameRegex = /^[a-zA-Z][A-Za-z ,.'-]+$/;
+        if(data.length <= 0 || data.length >50 || !nameRegex.test(data)){
+            input[targetIndex] = {...input[targetIndex], [fieldName]:data,"visitorNameError": "Invalid Character for Name field"}
+            setInput([ ...input])
+        }
+        else{
+            input[targetIndex] = {...input[targetIndex], [fieldName]: data, "visitorNameError": ""}
+            setInput([ ...input])
+        }
+    }
+
+    const phoneValidation = (fieldName, data, targetIndex) => {
+        const phoneRegex = /^(?:\d{3}-\d{7}|\d{4}-\d{7}|\d{10}|\d{11})$/;
+        if(data.length <= 0 || !phoneRegex.test(data)){
+            input[targetIndex] = {...input[targetIndex], [fieldName]:data,"visitorTelError": "Invalid Phone Format"}
+            setInput([ ...input])
+        }
+        else{
+            input[targetIndex] = {...input[targetIndex], [fieldName]: data, "visitorTelError": ""}
+            setInput([ ...input])
+        }
+    }
+
+    const peopleCountValidation = (fieldName, data, targetIndex) => {
+        const peopleRegex = /^[1-9][0-9]*/;
+        if(data.length <= 0 || data.length >=10 || !peopleRegex.test(data) ){
+            input[targetIndex] = {...input[targetIndex], [fieldName]:"","peopleCountError": "Invalid People Count"}
+            setInput([ ...input])
+        }
+        else{
+            input[targetIndex] = {...input[targetIndex], [fieldName]: data, "peopleCountError": ""}
+            setInput([ ...input])
+        }
+    }
+
+    const carplateValidation = (fieldName, data, targetIndex) => {
+        const carplateRegex = /^(?:[A-Za-z]+\d+)$/;
+        if(data.length < 4 || data.length > 20 || !carplateRegex.test(data)){
+            input[targetIndex] = {...input[targetIndex], [fieldName]:data,"visitorPlateNumError": "Invalid Car Plate Number"}
+            setInput([ ...input])
+        }
+        else{
+            input[targetIndex] = {...input[targetIndex], [fieldName]: data, "visitorPlateNumError": ""}
+            setInput([ ...input])
+        }
+    }
+
+    const notesValidation = (fieldName, data, targetIndex) => {
+        const notesRegex = /^$|^[a-zA-Z][a-zA-Z ]+$/;
+        if(data.length <= 0 || data.length > 100000 || !notesRegex.test(data)){
+            input[targetIndex] = {...input[targetIndex], [fieldName]:data,"vehicleTypeNotesError": "Only Alphabets and spaces are allowed"}
+            setInput([ ...input])
+        }
+        else{
+            input[targetIndex] = {...input[targetIndex], [fieldName]: data, "vehicleTypeNotesError": ""}
+            setInput([ ...input])
+        }
+    }
+    
+    //error handling
+    const errorfound= input.filter(i=>i.peopleCount==""||i.visitorName==""||i.visitorPlateNum==""||i.visitorTel==""||i.     visitorVehicleType==""||i.peopleCountError!=""||i.vehicleTypeNotesError!=""||i.visitorNameError!=""||i.visitorPlateNumError!=""||i.visitorTelError!=""||i.visitorVehicleTypeError!=""||i.vehicleTypeNotesError!="")
+
+    const additionalerror= additionalNotesError.length>0 || scheduledArriveSelected=="Select DateTime Picker" || scheduledDepartureSelected=="Select DateTime Picker" ?true:false;
+
+    //submit function
+    const onPress = () => {
+        console.log(input)
+        console.log(scheduledArrive,scheduledDeparture,isChecked,additionalNotes)
+        if(scheduledArrive>scheduledDeparture){
+            setDatetimeError("Please ensure your scheduled departure datetime is after scheduled arrive datetime")
+        }
+        else{
+            /* API function here*/
+        }
+    }
+   
     return (
         <MyContainer screencontainer>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -108,15 +309,30 @@ const RegisterVisitorScreen = ({navigation}) => {
                     ))}
                 </MyContainer>
                 <Spacer spacer/>
+
+                {selected.label==="Residential Usage" ?
+                //residential usage form
+                <View>
                 <MyText title="Fields marked with an asterisk (*) are required."  pR3I/>
                 <Spacer space10/>
                 <MyDateTimePicker 
                     label="Scheduled Arrive Date Time: *"
+                    onConfirm={handleConfirm}
+                    onCancel={setarrivecancel}
+                    title={scheduledArriveSelected}
+                    func={setarrive}
+                    isVisible={isDatePickerVisible}
                 />
                 <Spacer space10/>
                 <MyDateTimePicker 
                     label="Scheduled Departure Date Time: *"
+                    onConfirm={handleConfirm}
+                    onCancel={setdeparturecancel}
+                    title={scheduledDepartureSelected}
+                    func={setdeparture}
+                    isVisible={isDatePickerVisible}
                 />
+                {datetimeError && datetimeError.length > 0 ? <Text style={styles.errorMessage}>{datetimeError}</Text>:null}
                 <Spacer space10/>
                 {walkInAllowed===1?<><MyCheckBox 
                 label="Walk-in Visitor"
@@ -126,11 +342,12 @@ const RegisterVisitorScreen = ({navigation}) => {
                 <Spacer space10/></>:null}
                 <MyTextInput  
                 placeholder="Additional Notes Here..."
-                value={vehicleNotes} 
-                onChangeText={setVehicleNotes}
+                value={additionalNotes} 
+                onChangeText={additionalnotesValidation}
                 multiline={true}
                 numberOfLines={3}
                 />
+                {additionalNotesError && additionalNotesError.length > 0 ? <Text style={styles.errorMessage}>{additionalNotesError}</Text>:null}
                 <Spacer m20/>
 
                
@@ -143,60 +360,182 @@ const RegisterVisitorScreen = ({navigation}) => {
                             <MyContainer conRow flex flexstart/>
                             <MyText title="Create New Visitor" h3P/>
                             <MyContainer conRow flex flexend>
-                            <MyIcon MC iconName="delete-forever" black fontSize30 />
+                            <TouchableOpacity onPress={()=>deleteVisitorEntry(index)}>
+                                <MyIcon MC iconName="delete-forever" black fontSize30 />
+                            </TouchableOpacity>
                             </MyContainer>
                         </MyContainer>
                         <Spacer space10/>
                             <MyTextInput  
                                 label="Name: *"
                                 value={item.visitorName}
-                                onChangeText={ (value) => updateVisitorEntry("visitorName",value,index)}
+                                onChangeText={(value) => nameValidation("visitorName",value,index)}
                             />
+                            {item.visitorNameError && item.visitorNameError.length > 0 ? <Text style={styles.errorMessage}>{item.visitorNameError}</Text>:null}
                             <Spacer space10/>
                             <MyTextInput  
                                 label="Phone Number: *"
                                 value={item.visitorTel} 
-                                onChangeText={ (value) => updateVisitorEntry("visitorTel",value,index)}
+                                onChangeText={ (value) => phoneValidation("visitorTel",value,index)}
                             />
+                            {item.visitorTelError && item.visitorTelError.length > 0 ? <Text style={styles.errorMessage}>{item.visitorTelError}</Text>:null}
                             <Spacer space10/>
                             <MyTextInput  
                                 label="No of Visitor: *"
                                 value={item.peopleCount} 
-                                onChangeText={ (value) => updateVisitorEntry("peopleCount",value,index)}
+                                onChangeText={ (value) => peopleCountValidation("peopleCount",value,index)}
                             />
+                            {item.peopleCountError && item.peopleCountError.length > 0 ? <Text style={styles.errorMessage}>{item.peopleCountError}</Text>:null}
                             <Spacer space10/>
                             <MyTextInput  
                                 label="Car Plate Number: *"
                                 value={item.visitorPlateNum} 
-                                onChangeText={ (value) => updateVisitorEntry("visitorPlateNum",value,index)}
+                                onChangeText={ (value) => carplateValidation("visitorPlateNum",value,index)}
                             />
+                            {item.visitorPlateNumError && item.visitorPlateNumError.length > 0 ? <Text style={styles.errorMessage}>{item.visitorPlateNumError}</Text>:null}
                             <Spacer space10/>
                             <MyPicker  
                                 label="Vehicle Type: "
                                 items={vehicle}
-                                value={item.visitorVehicleType} 
-                                onChangeText={ (value) => updateVisitorEntry("visitorVehicleType",value,index)}
+                                value={item.visitorVehicleType}
+                                onChange={ (value) => updateVisitorEntry("visitorVehicleType",value,index)}
                             />
                             <Spacer space10/>
                             <MyTextInput  
                                 label="Vehicle Type Notes: "
                                 placeholder="Vehicle Type Notes Here..."
                                 value={item.vehicleTypeNotes} 
-                                onChangeText={ (value) => updateVisitorEntry("vehicleTypeNotes",value,index)}
+                                onChangeText={ (value) => notesValidation("vehicleTypeNotes",value,index)}
                                 style={{justifyContent: "flex-start"}}
                                 multiline={true}
                                 numberOfLines={3}
                             />
+                            {item.vehicleTypeNotesError && item.vehicleTypeNotesError.length > 0 ? <Text style={styles.errorMessage}>{item.vehicleTypeNotesError}</Text>:null}
                             <Spacer m20/>
-                            <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={newVisitorEntry} selected/>
-                            <Spacer spacer/>
+                            
                         </View>
                     })
                 }
-                <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected/>
+                <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={newVisitorEntry} selected/>
+                <Spacer spacer/>
+                {/*errorfound.length>0 || additionalerror==true?
+                <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} disabled inactive/>
+                :*/<MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected />
+                }
+                </View>
+
+
+
+                //Visitor Form
+                :<View>
+                <MyText title="Fields marked with an asterisk (*) are required."  pR3I/>
+                <Spacer space10/>
+                <MyDateTimePicker 
+                    label="Scheduled Arrive Date Time: *"
+                    onConfirm={handleConfirm}
+                    onCancel={setarrivecancel}
+                    title={scheduledArriveSelected}
+                    func={setarrive}
+                    isVisible={isDatePickerVisible}
+                />
+                <Spacer space10/>
+                <MyDateTimePicker 
+                    label="Scheduled Departure Date Time: *"
+                    onConfirm={handleConfirm}
+                    onCancel={setdeparturecancel}
+                    title={scheduledDepartureSelected}
+                    func={setdeparture}
+                    isVisible={isDatePickerVisible}
+                />
+                <Spacer space10/>
+                {walkInAllowed===1?<><MyCheckBox 
+                label="Walk-in Visitor"
+                value={isChecked}
+                onValueChange={setChecked}
+                />
+                <Spacer space10/></>:null}
+                <MyTextInput  
+                placeholder="Additional Notes Here..."
+                value={additionalNotes} 
+                onChangeText={additionalnotesValidation}
+                multiline={true}
+                numberOfLines={3}
+                />
+                {additionalNotesError && additionalNotesError.length > 0 ? <Text style={styles.errorMessage}>{additionalNotesError}</Text>:null}
+                <Spacer m20/>
+
+               
+                {/* For Loop is necessary, and initially the first entry is empty, then we can gain data via the loop, end of submit, we pass this array as visitRequestCarList */}
+                {
+                   
+                    input.map((item,index) => {
+                        return <View key={index}>
+                        <MyContainer conRow>
+                            <MyContainer conRow flex flexstart/>
+                            <MyText title="Create New Visitor" h3P/>
+                            <MyContainer conRow flex flexend>
+                            <TouchableOpacity onPress={()=>deleteVisitorEntry(index)}>
+                                <MyIcon MC iconName="delete-forever" black fontSize30 />
+                            </TouchableOpacity>
+                            </MyContainer>
+                        </MyContainer>
+                        <Spacer space10/>
+                            <MyTextInput  
+                                label="Name: *"
+                                value={item.visitorName}
+                                onChangeText={(value) => nameValidation("visitorName",value,index)}
+                            />
+                            {item.visitorNameError && item.visitorNameError.length > 0 ? <Text style={styles.errorMessage}>{item.visitorNameError}</Text>:null}
+                            <Spacer space10/>
+                            <MyTextInput  
+                                label="Phone Number: *"
+                                value={item.visitorTel} 
+                                onChangeText={ (value) => phoneValidation("visitorTel",value,index)}
+                            />
+                            {item.visitorTelError && item.visitorTelError.length > 0 ? <Text style={styles.errorMessage}>{item.visitorTelError}</Text>:null}
+                            <Spacer space10/>
+                            <MyTextInput  
+                                label="No of Visitor: *"
+                                value={item.peopleCount} 
+                                onChangeText={ (value) => peopleCountValidation("peopleCount",value,index)}
+                            />
+                            {item.peopleCountError && item.peopleCountError.length > 0 ? <Text style={styles.errorMessage}>{item.peopleCountError}</Text>:null}
+                            <Spacer space10/>
+                            <MyTextInput  
+                                label="Car Plate Number: *"
+                                value={item.visitorPlateNum} 
+                                onChangeText={ (value) => carplateValidation("visitorPlateNum",value,index)}
+                            />
+                            {item.visitorPlateNumError && item.visitorPlateNumError.length > 0 ? <Text style={styles.errorMessage}>{item.visitorPlateNumError}</Text>:null}
+                            <Spacer space10/>
+                            <MyPicker  
+                                label="Vehicle Type: "
+                                items={visitorvehicle}
+                                value={item.visitorVehicleType}
+                                onChange={ (value) => updateVisitorEntry("visitorVehicleType",value,index)}
+                            />
+                            <Spacer m20/>
+                            
+                        </View>
+                    })
+                }
+                <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={newVisitorEntry} selected/>
+                <Spacer spacer/>
+                {/*errorfound.length>0 || additionalerror==true?
+                <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} disabled inactive/>
+                :*/<MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected />
+                }
+                </View>}
             </MyContainer>
             </ScrollView>
             </MyContainer>
     )};
+
+    const styles = StyleSheet.create({
+        errorMessage:{
+            fontSize:14,
+            color:colors.rejected,
+        },
+      });
 
 export default RegisterVisitorScreen;

@@ -48,7 +48,7 @@ const ProfileEditScreen = ({navigation}) => {
       const emailRegex = /^\S+@\S+\.\S+$/;
       const phoneRegex = /^(?:\d{3}-\d{7}|\d{4}-\d{7}|\d{10}|\d{11})$/;
       // input validation
-      if (name.length  != 0 && name.length <=50 && !nameRegex.test(name)) {
+      if (name.length  <= 0 || name.length >50 || !nameRegex.test(name)) {
         errorFlag = true;
         setNameerror( "Invalid Character for Name field")
       }
@@ -56,7 +56,7 @@ const ProfileEditScreen = ({navigation}) => {
         setNameerror("")
       }
 
-      if (email.length  != 0 && email.length <= 100 && !emailRegex.test(email)) {
+      if (email.length  <= 0 || email.length > 100 || !emailRegex.test(email)) {
         errorFlag = true;
         setEmailerror("Invalid Email Format")
       }
@@ -64,7 +64,7 @@ const ProfileEditScreen = ({navigation}) => {
         setEmailerror("")
       }
 
-      if (phone.length  != 0 && !phoneRegex.test(phone)) {
+      if (phone.length  <= 0 || !phoneRegex.test(phone)) {
         errorFlag = true;
         setPhoneerror("Invalid Phone Format")
       }

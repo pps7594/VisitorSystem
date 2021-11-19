@@ -1,27 +1,17 @@
 import React, { useState } from "react";
 import { Button, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment-timezone";
 
 import MyText from './MyText';
 import { MyButton } from "./MyButton";
 
-const MyDateTimePicker = ({label}) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
+const MyDateTimePicker = ({label,title,onConfirm,onCancel,func,isVisible}) => {0
   const handleConfirm = (datetime) => {
     var d = datetime;
-    console.log(d.getUTCHours()); // Hours
-    console.log(d.getUTCMinutes());
-    console.log(d.getUTCSeconds());
-    console.warn("A date has been picked: ", datetime,);
+    console.log(d.getUTCHours(),d.getUTCMinutes(),d.getUTCSeconds()); // Hours
+    console.log("A date has been picked: ", datetime,);
+    console.log("PST:", moment(datetime).tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
     hideDatePicker();
   };
 
@@ -35,13 +25,14 @@ var year = today.getFullYear()
 
   return <>
     <MyText title={label}  inputlabelP/>
-    <MyButton title="Select DateTime Picker"  height40 row pP2 func={showDatePicker} buttonstyle={{borderRadius:2}} selected/>
+    <MyButton title={title}  height40 row pP2 func={func} buttonstyle={{borderRadius:2}} selected/>
+
       <DateTimePickerModal
         minimumDate={new Date(year,month,day)} 
-        isVisible={isDatePickerVisible}
+        isVisible={isVisible}
         mode="datetime"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
         style={{backgroundColor:"purple"}}
       />
     </>
