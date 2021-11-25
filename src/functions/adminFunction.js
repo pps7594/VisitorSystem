@@ -75,8 +75,11 @@ export default () => {
     }
 
     const adminDefaultSetting = async ({errCallback}) => {
+        console.log('adminDefaultSetting')
         try{
+           
             const response = await getDefaultSetting();
+            // console.log(response.data)
             dispatch(storeDefaultSetting(response.data))
         } catch (err) {
             // Had to change to some sort of alert

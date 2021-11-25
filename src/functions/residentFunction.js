@@ -107,6 +107,39 @@ export default () => {
         }
     }
 
+    const postVisitor = async (visitRequestTableWithCarObj, errCallback, callback) => {
+        try {
+            
+            visitRequestTableWithCarObj.visitRequestObj.userID = userObj.userObj.userID;
+            visitRequestTableWithCarObj.visitRequestObj.userRole = userObj.userObj.userRole;
+            visitRequestTableWithCarObj.visitRequestObj.address = userObj.residentObj.houseNumber + ',' + userObj.residentObj.houseStreet; // Is the combination = address?
+
+            const response = await registerVisitor(visitRequestTableWithCarObj);
+            errCallback({msg: "Visitor Register Successful"})
+            callback({"index":"0"});      
+        } catch (error) {
+            // console.log(error)
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to register visitor, please try again"});
+        }
+    }
+
+    const postResidentialUsage = async (visitRequestTableWithCarObj, errCallback, callback) => {
+        try {
+            
+            visitRequestTableWithCarObj.visitRequestObj.userID = userObj.userObj.userID;
+            visitRequestTableWithCarObj.visitRequestObj.userRole = userObj.userObj.userRole;
+            visitRequestTableWithCarObj.visitRequestObj.address = userObj.residentObj.houseNumber + ',' + userObj.residentObj.houseStreet; // Is the combination = address?
+
+            const response = await registerResidentialUsage(visitRequestTableWithCarObj);
+            errCallback({msg: "Residential Usage Visit Register Successful"})
+            callback({"index":"1"});      
+        } catch (error) {
+            console.log(error)
+            // Had to change to some sort of alert
+            errCallback({msg:"Unable to register visit, please try again"});
+        }
+    }
     // Helper Function
     const getDashboardContent = async ({userID}) => {
         return conn.get(`/m/resident?userID=${userID}`,{
@@ -177,5 +210,13 @@ export default () => {
         return conn.post('/m/changepassword', userInputObj)
     }
 
-    return {residentDashboard,residentVisitRequest,residentReport,residentProfile,residentWalkInAllowed,postResidentInfo,postResidentPass};
+    const registerVisitor = async (visitRequestTableWithCarObj) => {
+        return conn.post('/m/registervisitor', visitRequestTableWithCarObj)
+    }
+
+    const registerResidentialUsage = async (visitRequestTableWithCarObj) => {
+        return conn.post('/m/registerresidentialusage', visitRequestTableWithCarObj)
+    }
+
+    return {residentDashboard,residentVisitRequest,residentReport,residentProfile,residentWalkInAllowed,postResidentInfo,postResidentPass,postVisitor,postResidentialUsage};
 }

@@ -20,7 +20,7 @@ import adminFunction from '../../functions/adminFunction';
       "generalSetupID": 1
     },
     "permission": {
-      "carAllowed": "Lorry",
+      "carAllowed": "All, Car and Motorcycle, Car, Motorcycle and Van",
       "dat2": 1,
       "dat1": 1,
       "incomerSetupID": 1
@@ -28,13 +28,14 @@ import adminFunction from '../../functions/adminFunction';
   }
 */ 
 
+
+
 const DefaultSettingScreen = ({navigation}) => {
     const {adminDefaultSetting} = adminFunction();
     const defaultSetting = useSelector((state) => state.admindashboardSlice.defaultsetting); 
-
     const setup = defaultSetting.setup;
     const permission = defaultSetting.permission;
-    
+ 
     // Helper Function
     const errCallback = ({msg}) => {
         // Some refinement should be done? Like header of this alert should not only be "alert"?
@@ -45,21 +46,20 @@ const DefaultSettingScreen = ({navigation}) => {
         // Trigger the API call every time we navigate to this screen, as a Event listener
         navigation.addListener('focus', () => adminDefaultSetting({errCallback}));
     }, []);
-
-    return (
+    return(
       <MyContainer screencontainer>
       <ScrollView showsVerticalScrollIndicator={false}>
       <MyContainer cardcontainer borderRadius5>
           <MyText title="Default Approval for Visitor:" h4P/>
           <MyContainer conCol>
               <MyContainer conCol alignstart>
-              {permission.dat1?<MyCheckBox 
+              {permission&&permission.dat1?<MyCheckBox 
               label="Normal Visitor"
               value={true}
               disabled={true}
               grey1
               />:null}
-              {permission.dat2?<MyCheckBox 
+              {permission&&permission.dat2?<MyCheckBox 
               label="Residential Usage"
               value={true}
               disabled={true}
@@ -68,10 +68,10 @@ const DefaultSettingScreen = ({navigation}) => {
               </MyContainer>
           </MyContainer>
           <Spacer spacer/>
-          <MyText title="Vehichle Type Allowed:" inputlabelP/>
+          <MyText title="Vehichle Type Allowed for Residential Usage:" inputlabelP/>
           <Spacer space/>
           <MyContainer conCol>
-                  <Details width60 info grey1 setting={permission.carAllowed}/>
+                  <Details width60 info grey1 setting={permission&&permission.carAllowed}/>
           </MyContainer>
       </MyContainer>
       <Spacer spacer/>    
@@ -79,7 +79,7 @@ const DefaultSettingScreen = ({navigation}) => {
           <MyText title="Walk-In Availability:" h4P/>
           <MyContainer conCol>
               <MyContainer conCol alignstart>
-              {setup.walkInAllowed?<MyCheckBox 
+              {setup&&setup.walkInAllowed?<MyCheckBox 
               label="Walk-in Visitor"
               value={true}
               disabled={true}
@@ -98,7 +98,7 @@ const DefaultSettingScreen = ({navigation}) => {
           <MyText title="Data Retention:" h4P/>
           <Spacer space/>
           <MyContainer conCol>
-              <Details width60 info grey1 setting={setup.dataRetention}/>
+              <Details width60 info grey1 setting={setup&&setup.dataRetention}/>
           </MyContainer>
           <Spacer space/>
           <MyText title="*Data Retention Time determines the duration to keep your data"  pR3I/>

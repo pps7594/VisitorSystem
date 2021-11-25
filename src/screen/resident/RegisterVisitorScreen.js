@@ -20,8 +20,9 @@ import colors from '../../config/colors';
 import residentFunction from '../../functions/residentFunction';
 import { newdatetime } from '../../functions/newdatetime';
 
+
 const RegisterVisitorScreen = ({navigation}) => {
-    const {residentWalkInAllowed} = residentFunction();
+    const {residentWalkInAllowed,postVisitor,postResidentialUsage} = residentFunction();
     const walkInAllowed = useSelector((state) => state.resident.walkinallowed); 
 
     // Helper Function
@@ -114,11 +115,20 @@ const RegisterVisitorScreen = ({navigation}) => {
         { label: 'Visitor'},
         { label: 'Residential Usage'},
     ]);
-    const [selected, setSelected] = React.useState(filters[1]);
+    const [selected, setSelected] = React.useState(filters[0]);
 
     const callback = (data) => {
-        if (selected === data) return setSelected(filters[0]);
-        setSelected(data);
+        if(data.index){
+            setSelected(filters[data.index])
+        }
+        else if(data){
+            if (selected === data) return setSelected(filters[0]);
+            setSelected(data);   
+        }
+        else {
+            setSelected(filters[0]);
+        }
+        
         setInput([ { 
             "peopleCount": "",
             "vehicleTypeNotes": "", //not required
@@ -149,7 +159,8 @@ const RegisterVisitorScreen = ({navigation}) => {
     const [scheduledDeparture, setScheduledDeparture] = useState(moment().tz("Asia/Kuala_Lumpur").format("YYYY-MM-DD HH:mm:ss"));
     const [scheduledArriveSelected, setScheduledArriveSelected] = useState("Select DateTime Picker");
     const [scheduledDepartureSelected, setScheduledDepartureSelected] = useState("Select DateTime Picker");
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isArriveDatePickerVisible, setArriveDatePickerVisibility] = useState(false);
+    const [isDepartureDatePickerVisible, setDepartureDatePickerVisibility] = useState(false);
     const [datetimeError, setDatetimeError] = useState("")
 
     const [additionalNotes, setAdditionalNotes] = useState("")
@@ -172,22 +183,22 @@ const RegisterVisitorScreen = ({navigation}) => {
     //datetime functions
     const setarrive = () => {
         setScheduledArriveSelected("true");
-        setDatePickerVisibility(true);
+        setArriveDatePickerVisibility(true);
     };
 
     const setarrivecancel = () => {
         setScheduledArriveSelected("Select DateTime Picker")
-        setDatePickerVisibility(false);
+        setArriveDatePickerVisibility(false);
     };
 
     const setdeparture = () => {
         setScheduledDepartureSelected("true");
-        setDatePickerVisibility(true);
+        setDepartureDatePickerVisibility(true);
     };
 
     const setdeparturecancel = () => {
         setScheduledDepartureSelected("Select DateTime Picker")
-        setDatePickerVisibility(false);
+        setDepartureDatePickerVisibility(false);
     };
 
     const handleConfirm = (datetime) => {
@@ -195,14 +206,14 @@ const RegisterVisitorScreen = ({navigation}) => {
             setScheduledArrive(datetime)
             const dt=newdatetime(datetime.toString());
             setScheduledArriveSelected(dt[0]+" "+dt[1])
-            setDatePickerVisibility(false)
+            setArriveDatePickerVisibility(false)
             setDatetimeError("")
         }
         else if(scheduledDepartureSelected=="true"){
             setDatetimeError("")
             setScheduledDeparture(datetime)
             setScheduledDepartureSelected(datetime.toString())
-            setDatePickerVisibility(false)
+            setDepartureDatePickerVisibility(false)
             setDatetimeError("")
         }
     };
@@ -259,11 +270,11 @@ const RegisterVisitorScreen = ({navigation}) => {
     const carplateValidation = (fieldName, data, targetIndex) => {
         const carplateRegex = /^(?:[A-Za-z]+\d+)$/;
         if(data.length < 4 || data.length > 20 || !carplateRegex.test(data)){
-            input[targetIndex] = {...input[targetIndex], [fieldName]:data,"visitorPlateNumError": "Invalid Car Plate Number"}
+            input[targetIndex] = {...input[targetIndex], [fieldName]:data.toUpperCase(),"visitorPlateNumError": "Invalid Car Plate Number"}
             setInput([ ...input])
         }
         else{
-            input[targetIndex] = {...input[targetIndex], [fieldName]: data, "visitorPlateNumError": ""}
+            input[targetIndex] = {...input[targetIndex], [fieldName]: data.toUpperCase(), "visitorPlateNumError": ""}
             setInput([ ...input])
         }
     }
@@ -287,12 +298,31 @@ const RegisterVisitorScreen = ({navigation}) => {
 
     //submit function
     const onPress = () => {
-        console.log(input)
-        console.log(scheduledArrive,scheduledDeparture,isChecked,additionalNotes)
+        // console.log(input)
+        // console.log(scheduledArrive,scheduledDeparture,isChecked,additionalNotes)
+        
         if(scheduledArrive>scheduledDeparture){
             setDatetimeError("Please ensure your scheduled departure datetime is after scheduled arrive datetime")
         }
         else{
+            let visitorType = (selected.label == "Visitor") ? "1" : "2";
+            let visitRequestTableWithCarObj = {
+                visitRequestObj: {
+                    expectedArriveDateTime: scheduledArrive,
+                    expectedLeavingDateTime: scheduledDeparture,
+                    walkInVisitor: isChecked ? 1 : 0,
+                    additionalNotes: additionalNotes,
+                    visitorType: visitorType
+                },
+                visitRequestCarList: input,
+               
+            }
+            if(visitorType == "1") {
+                postVisitor(visitRequestTableWithCarObj,errCallback,callback)
+            }
+            else {
+                postResidentialUsage(visitRequestTableWithCarObj,errCallback,callback)
+            }
             /* API function here*/
         }
     }
@@ -321,7 +351,7 @@ const RegisterVisitorScreen = ({navigation}) => {
                     onCancel={setarrivecancel}
                     title={scheduledArriveSelected}
                     func={setarrive}
-                    isVisible={isDatePickerVisible}
+                    isVisible={isArriveDatePickerVisible}
                 />
                 <Spacer space10/>
                 <MyDateTimePicker 
@@ -330,9 +360,9 @@ const RegisterVisitorScreen = ({navigation}) => {
                     onCancel={setdeparturecancel}
                     title={scheduledDepartureSelected}
                     func={setdeparture}
-                    isVisible={isDatePickerVisible}
+                    isVisible={isDepartureDatePickerVisible}
                 />
-                {datetimeError && datetimeError.length > 0 ? <Text style={styles.errorMessage}>{datetimeError}</Text>:null}
+                {datetimeError && datetimeError.length > 0 ? <Text style={styles.errorMessage}> {datetimeError}</Text>:null}
                 <Spacer space10/>
                 {walkInAllowed===1?<><MyCheckBox 
                 label="Walk-in Visitor"
@@ -418,9 +448,9 @@ const RegisterVisitorScreen = ({navigation}) => {
                 }
                 <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={newVisitorEntry} selected/>
                 <Spacer spacer/>
-                {/*errorfound.length>0 || additionalerror==true?
+                {errorfound.length>0 || additionalerror==true?
                 <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} disabled inactive/>
-                :*/<MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected />
+                :<MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected />
                 }
                 </View>
 
@@ -436,7 +466,7 @@ const RegisterVisitorScreen = ({navigation}) => {
                     onCancel={setarrivecancel}
                     title={scheduledArriveSelected}
                     func={setarrive}
-                    isVisible={isDatePickerVisible}
+                    isVisible={isArriveDatePickerVisible}
                 />
                 <Spacer space10/>
                 <MyDateTimePicker 
@@ -445,8 +475,9 @@ const RegisterVisitorScreen = ({navigation}) => {
                     onCancel={setdeparturecancel}
                     title={scheduledDepartureSelected}
                     func={setdeparture}
-                    isVisible={isDatePickerVisible}
+                    isVisible={isDepartureDatePickerVisible}
                 />
+                 {datetimeError && datetimeError.length > 0 ? <Text style={styles.errorMessage}> {datetimeError}</Text>:null}
                 <Spacer space10/>
                 {walkInAllowed===1?<><MyCheckBox 
                 label="Walk-in Visitor"
@@ -521,9 +552,9 @@ const RegisterVisitorScreen = ({navigation}) => {
                 }
                 <MyButton title="Add Visitor" height40 borderradius30 row pP2 icon func={newVisitorEntry} selected/>
                 <Spacer spacer/>
-                {/*errorfound.length>0 || additionalerror==true?
+                {errorfound.length>0 || additionalerror==true?
                 <MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} disabled inactive/>
-                :*/<MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected />
+                :<MyButton title="Submit" height40 borderradius30 row pP2 func={onPress} selected />
                 }
                 </View>}
             </MyContainer>
