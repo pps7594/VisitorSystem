@@ -76,7 +76,7 @@ function CustomDrawerContent(props) {
         </MyContainer>:
         <MyContainer conRow >
         <MyText grey title="JMJ HILLS © 2020 All Rights Reserved" pP4/>
-    </MyContainer>}
+        </MyContainer>}
         </DrawerContentScrollView>
     );
     }
@@ -265,7 +265,7 @@ function GuardDrawer({navigation}){
             />
             <Drawer.Screen 
                 name="Register Delivery Service" 
-                component={residentProfile} 
+                component={guardDeliveryService} 
                 options={{
                     drawerIcon: ({ focused, color, size }) => <MyIcon MC iconName="truck-delivery" fontSize25 style={{color:color}}/>,
                     drawerLabel:({ focused, color }) => <MyText title="Register Delivery Service" style={{color:color,fontFamily:focused?"Poppins_600SemiBold":"Poppins_400Regular"}} h4P/>
@@ -329,7 +329,7 @@ const MobileNavi = () => {
                     activeTintColor: '#e91e63',
                     itemStyle: { marginVertical: 5 },
                 }}
-                drawerContent={props => <CustomDrawerContent {...props} />}>
+                >
                 <Drawer.Screen 
                     name="Redux Lab - Count" 
                     component={labCount} 

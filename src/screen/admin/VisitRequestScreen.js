@@ -116,7 +116,9 @@ const VisitRequestScreen = ({navigation}) => {
                             additionalNotes={item.visitRequestObj.additionalNotes}
                             reason={item.visitRequestObj.reason}
                             status={item.visitRequestObj.status}
-                            imageSource={require("../../assets/qrcode.png")}
+                            imageSource={{
+                                uri: `http://192.168.0.194:8080/QR/${item.visitRequestObj.visitRequestId}.png`,
+                            }}
                         />
                         <Spacer spacer/>
                     </View>

@@ -7,28 +7,9 @@ import {MyTextInput,MyPicker, MyCheckBox} from '../../components/MyTextInput';
 import MyText from '../../components/MyText';
 import Spacer from '../../components/Spacer';
 import {MyButton,Details} from '../../components/MyButton';
+
 //import function
 import adminFunction from '../../functions/adminFunction';
-
-/* 
-    Format of the return
-    {
-    "setup": {
-      "walkInAllowed": 1,
-      "themeID": 1000,
-      "dataRetention": 12,
-      "generalSetupID": 1
-    },
-    "permission": {
-      "carAllowed": "All, Car and Motorcycle, Car, Motorcycle and Van",
-      "dat2": 1,
-      "dat1": 1,
-      "incomerSetupID": 1
-    }
-  }
-*/ 
-
-
 
 const DefaultSettingScreen = ({navigation}) => {
     const {adminDefaultSetting} = adminFunction();
@@ -71,7 +52,7 @@ const DefaultSettingScreen = ({navigation}) => {
           <MyText title="Vehichle Type Allowed for Residential Usage:" inputlabelP/>
           <Spacer space/>
           <MyContainer conCol>
-                  <Details width60 info grey1 setting={permission&&permission.carAllowed}/>
+                  {permission?<Details width60 info inactive setting={permission.carAllowed}/>:null}
           </MyContainer>
       </MyContainer>
       <Spacer spacer/>    
@@ -83,7 +64,7 @@ const DefaultSettingScreen = ({navigation}) => {
               label="Walk-in Visitor"
               value={true}
               disabled={true}
-              grey
+              grey1
               />:
               <MyCheckBox 
               label="Walk-in Visitor"
@@ -98,7 +79,7 @@ const DefaultSettingScreen = ({navigation}) => {
           <MyText title="Data Retention:" h4P/>
           <Spacer space/>
           <MyContainer conCol>
-              <Details width60 info grey1 setting={setup&&setup.dataRetention}/>
+              {setup?<Details width60 info grey setting={setup.dataRetention}/>:null}
           </MyContainer>
           <Spacer space/>
           <MyText title="*Data Retention Time determines the duration to keep your data"  pR3I/>

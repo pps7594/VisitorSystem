@@ -29,13 +29,14 @@ const SearchInput = ({ label,defaultv, value, onChange,style,searchFunc}) => (
   </MyContainer>  
 );
 
-const MyTextInput = ({label, placeholder, value, onChangeText,uneditable,style,secureTextEntry,...rest}) => (
+const MyTextInput = ({label, placeholder, value, onChangeText, keyboardType, uneditable,style,secureTextEntry,...rest}) => (
   <>
     {label ?<MyText title={label} inputlabelP/> :null}
     <TextInput  
       placeholder={placeholder}
       value={value} 
-      onChangeText={onChangeText} 
+      onChangeText={onChangeText}
+      keyboardType={keyboardType} 
       style={[
         styles.textinput,
         uneditable && styles.uneditable,

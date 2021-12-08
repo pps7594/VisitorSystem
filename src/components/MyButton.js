@@ -36,7 +36,7 @@ const MyButton = ({func,height20,height30,height40,borderradius30,width23,width4
     </TouchableOpacity> 
 };
 
-const Details = ({details,info,walkin,approve,reject,pending,inactive,width60,buttonstyle,title,text,setting,textstyle,iconName,...rest}) => {
+const Details = ({details,info,walkin,approve,reject,pending,inactive,width60,grey,buttonstyle,title,text,setting,textstyle,iconName,...rest}) => {
     return <View
         style={[
         details && styles.details,
@@ -47,6 +47,7 @@ const Details = ({details,info,walkin,approve,reject,pending,inactive,width60,bu
         pending && styles.pending,
         inactive && styles.inactive,
         width60 && styles.width60,
+        grey && styles.grey,
         buttonstyle]} {...rest}>
         {title ?<MyText title={title} pR3 white style={[textstyle]}/> : null}  
         {text ?<MyText title={text} pP2 white style={[textstyle]}/> : null} 
@@ -78,6 +79,9 @@ const styles = StyleSheet.create({
     },
     width60:{
         width:"60%",
+    },
+    grey:{
+        backgroundColor:colors.grey
     },
     approvalA:{
         width:50,
